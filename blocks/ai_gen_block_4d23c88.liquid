@@ -1,0 +1,354 @@
+{% doc %}
+  @prompt
+    Create a section for testimonials. The background should be customizable and the Title of the section should be “Why People Love CLIME”.  Put each testimony in card with font and colors that match the other sections.
+    
+    Testimonials
+    Headline: “Finally, energy that adapts to me.”
+    Body: “I used to crash hard after energy drinks. With CLIME, I dial in exactly how much caffeine and focus I need. It kicks in fast, feels smooth, and lasts through my entire shift.”
+    — Jason M., Commercial Pilot
+    
+    Headline: “It’s like personalized fuel for my day.”
+    Body: “I start every morning with a medium-focus pouch before training. I feel alert within 30 minutes — not wired, just steady and clear. It’s replaced my pre-workout and coffee.”
+    — Lena R., Fitness Coach
+    
+    Headline: “Small pouch, huge difference.”
+    Body: “I was skeptical about the gel, but it’s a game changer. No sugar, no jitters — just clean energy I can control. I use low caffeine on rest days and boost endurance on long ones.”
+    — Alex P., Adventure Photographer
+    , Create a title for this section: "Why People Love CLIME", You deleted the testimonies. Add them back , Can you keep the testimony and add a title "Why People Love CLIME"?, I want the background to be a customizable image.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-testimonials-section-{{ ai_gen_id }} {
+    padding: 60px 20px;
+    background-color: {{ block.settings.background_color }};
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-testimonials-background-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .ai-testimonials-background-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: {{ block.settings.background_image_opacity | divided_by: 100.0 }};
+  }
+
+  .ai-testimonials-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ai-testimonials-title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 50px;
+    font-weight: 600;
+  }
+
+  .ai-testimonials-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .ai-testimonial-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    padding: 30px;
+    border-radius: {{ block.settings.card_border_radius }}px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ai-testimonial-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .ai-testimonial-body-{{ ai_gen_id }} {
+    font-size: {{ block.settings.body_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .ai-testimonial-author-{{ ai_gen_id }} {
+    font-size: {{ block.settings.author_size }}px;
+    color: {{ block.settings.author_color }};
+    font-style: italic;
+    margin: 0;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-testimonials-section-{{ ai_gen_id }} {
+      padding: 40px 16px;
+    }
+
+    .ai-testimonials-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.8);
+      margin-bottom: 30px;
+    }
+
+    .ai-testimonials-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .ai-testimonial-card-{{ ai_gen_id }} {
+      padding: 24px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-testimonials-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.background_image %}
+    <div class="ai-testimonials-background-{{ ai_gen_id }}">
+      <img
+        src="{{ block.settings.background_image | image_url: width: 2000 }}"
+        alt="{{ block.settings.background_image.alt | escape }}"
+        loading="lazy"
+        width="{{ block.settings.background_image.width }}"
+        height="{{ block.settings.background_image.height }}"
+      >
+    </div>
+  {% endif %}
+
+  <div class="ai-testimonials-container-{{ ai_gen_id }}">
+    <h2 class="ai-testimonials-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+    
+    <div class="ai-testimonials-grid-{{ ai_gen_id }}">
+      <div class="ai-testimonial-card-{{ ai_gen_id }}">
+        <h3 class="ai-testimonial-headline-{{ ai_gen_id }}">{{ block.settings.testimonial_1_headline }}</h3>
+        <p class="ai-testimonial-body-{{ ai_gen_id }}">{{ block.settings.testimonial_1_body }}</p>
+        <p class="ai-testimonial-author-{{ ai_gen_id }}">{{ block.settings.testimonial_1_author }}</p>
+      </div>
+
+      <div class="ai-testimonial-card-{{ ai_gen_id }}">
+        <h3 class="ai-testimonial-headline-{{ ai_gen_id }}">{{ block.settings.testimonial_2_headline }}</h3>
+        <p class="ai-testimonial-body-{{ ai_gen_id }}">{{ block.settings.testimonial_2_body }}</p>
+        <p class="ai-testimonial-author-{{ ai_gen_id }}">{{ block.settings.testimonial_2_author }}</p>
+      </div>
+
+      <div class="ai-testimonial-card-{{ ai_gen_id }}">
+        <h3 class="ai-testimonial-headline-{{ ai_gen_id }}">{{ block.settings.testimonial_3_headline }}</h3>
+        <p class="ai-testimonial-body-{{ ai_gen_id }}">{{ block.settings.testimonial_3_body }}</p>
+        <p class="ai-testimonial-author-{{ ai_gen_id }}">{{ block.settings.testimonial_3_author }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Why People Love CLIME"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "background_image_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image opacity",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "author_color",
+      "label": "Author color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Body size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "author_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Author size",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Testimonial 1"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_1_headline",
+      "label": "Headline",
+      "default": "Finally, energy that adapts to me."
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_1_body",
+      "label": "Body",
+      "default": "I used to crash hard after energy drinks. With CLIME, I dial in exactly how much caffeine and focus I need. It kicks in fast, feels smooth, and lasts through my entire shift."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_1_author",
+      "label": "Author",
+      "default": "— Jason M., Commercial Pilot"
+    },
+    {
+      "type": "header",
+      "content": "Testimonial 2"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_2_headline",
+      "label": "Headline",
+      "default": "It's like personalized fuel for my day."
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_2_body",
+      "label": "Body",
+      "default": "I start every morning with a medium-focus pouch before training. I feel alert within 30 minutes — not wired, just steady and clear. It's replaced my pre-workout and coffee."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_2_author",
+      "label": "Author",
+      "default": "— Lena R., Fitness Coach"
+    },
+    {
+      "type": "header",
+      "content": "Testimonial 3"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_3_headline",
+      "label": "Headline",
+      "default": "Small pouch, huge difference."
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_3_body",
+      "label": "Body",
+      "default": "I was skeptical about the gel, but it's a game changer. No sugar, no jitters — just clean energy I can control. I use low caffeine on rest days and boost endurance on long ones."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_3_author",
+      "label": "Author",
+      "default": "— Alex P., Adventure Photographer"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials"
+    }
+  ]
+}
+{% endschema %}

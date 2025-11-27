@@ -1,0 +1,282 @@
+{% comment %}
+  CLIME Hero Section (Dawn-native, 2-column layout, full white text)
+{% endcomment %}
+
+<section class="clime-hero-wrapper">
+  <!-- Background image -->
+  <div class="clime-hero-bg">
+    {% if section.settings.bg_image %}
+      {{ section.settings.bg_image | image_url: width: 2000 | image_tag: class: 'clime-hero-img' }}
+    {% endif %}
+  </div>
+
+  <!-- Dark overlay -->
+  <div class="clime-hero-overlay"></div>
+
+  <!-- Content -->
+  <div class="clime-hero-content page-width">
+    
+    <!-- LEFT COLUMN (TEXT) -->
+    <div class="clime-hero-text">
+      {% if section.settings.lead_text %}
+        <p class="clime-hero-lead">{{ section.settings.lead_text }}</p>
+      {% endif %}
+
+      {% if section.settings.title_text %}
+        <h1 class="clime-hero-title">{{ section.settings.title_text }}</h1>
+      {% endif %}
+
+      {% if section.settings.sub_text %}
+        <p class="clime-hero-sub">{{ section.settings.sub_text }}</p>
+      {% endif %}
+
+      {% if section.settings.btn_label and section.settings.btn_link %}
+        <a href="{{ section.settings.btn_link }}" class="clime-hero-btn">
+          {{ section.settings.btn_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- RIGHT COLUMN (POUCH IMAGE) -->
+    {% if section.settings.pouch_image %}
+      <div class="clime-hero-pouch">
+        {{ section.settings.pouch_image | image_url: width: 700 | image_tag: class: 'pouch-img' }}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+/* WRAPPER */
+.clime-hero-wrapper {
+  position: relative;
+  height: {{ section.settings.height_desktop }}vh;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+/* MOBILE FIX: push hero text down so it's not hidden by header */
+@media screen and (max-width: 749px) {
+  .clime-hero-content {
+    padding-top: 90px;  /* adjust up/down if needed */
+  }
+}
+
+/* BACKGROUND */
+.clime-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.clime-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* OVERLAY */
+.clime-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, {{ section.settings.overlay_opacity }});
+  z-index: 2;
+}
+
+/* CONTENT LAYOUT */
+.clime-hero-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+}
+
+/* FORCE ALL TEXT WHITE */
+.clime-hero-text,
+.clime-hero-text h1,
+.clime-hero-text h2,
+.clime-hero-text h3,
+.clime-hero-text p {
+  color: #ffffff !important;
+}
+
+/* TEXT BLOCK */
+.clime-hero-text {
+  max-width: 520px;
+}
+
+.clime-hero-lead {
+  font-size: 12px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.clime-hero-title {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.clime-hero-sub {
+  font-size: 16px;
+  line-height: 1.45;
+  opacity: 0.9;
+  margin-bottom: 22px;
+}
+
+/* BUTTON */
+.clime-hero-btn {
+  display: inline-block;
+  padding: 14px 28px;
+  background: #000000 !important;
+  color: #ffffff !important;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* RIGHT COLUMN IMAGE */
+.clime-hero-pouch .pouch-img {
+  width: 380px;
+  height: auto;
+  display: block;
+}
+
+/* MOBILE LAYOUT */
+@media (max-width: 768px) {
+  .clime-hero-wrapper {
+    height: auto;               
+    min-height: 520px;          
+    padding: 72px 5vw 32px;     
+    align-items: flex-start;    
+    overflow: visible;          
+  }
+
+  .clime-hero-content {
+    flex-direction: column;
+    text-align: center;      /* center text on mobile */
+    align-items: center;     /* center the column itself */
+    gap: 24px;
+  }
+
+  /* Center the text block itself */
+  .clime-hero-text {
+    max-width: 520px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  /* Make sure each text element is centered */
+  .clime-hero-lead,
+  .clime-hero-title,
+  .clime-hero-sub {
+    text-align: center;
+  }
+
+  /* Center the button */
+  .clime-hero-btn {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .clime-hero-title {
+    font-size: 28px;
+  }
+
+  .clime-hero-pouch .pouch-img {
+    width: 220px;
+  }
+}
+
+
+</style>
+
+{% schema %}
+{
+  "name": "CLIME Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "pouch_image",
+      "label": "Pouch image (right side)"
+    },
+    {
+      "type": "text",
+      "id": "lead_text",
+      "label": "Lead text",
+      "default": "START CONTROLLING YOUR ENERGY"
+    },
+    {
+      "type": "text",
+      "id": "title_text",
+      "label": "Title text",
+      "default": "CUSTOMIZED GEL POUCHES BUILT BY YOU"
+    },
+    {
+      "type": "text",
+      "id": "sub_text",
+      "label": "Supporting text",
+      "default": "Fast-acting, personalized gel pouches that dial in your caffeine, focus, and balance — without the crash."
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button label",
+      "default": "TAKE THE ENERGY QUIZ"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 0.6,
+      "step": 0.1,
+      "label": "Overlay darkness",
+      "default": 0.1
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "min": 40,
+      "max": 100,
+      "step": 2,
+      "label": "Height (desktop, vh)",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "min": 40,
+      "max": 100,
+      "step": 2,
+      "label": "Height (mobile, vh)",
+      "default": 58
+    }
+  ],
+  "presets": [
+    {
+      "name": "CLIME Hero"
+    }
+  ]
+}
+{% endschema %}

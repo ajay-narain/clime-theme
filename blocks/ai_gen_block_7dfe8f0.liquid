@@ -1,0 +1,545 @@
+{% doc %}
+  @prompt
+    Benefits/Science Page
+    [This page lists benefits but is explained as science. Each element should be accompanied by an icon]
+    Page Title: 
+    The Science of Customized Energy
+    Segments
+    Segment Headline: Engineered for Fast Absorption
+    Headline: Feel It in as little as 5 minutes
+    Subhead: CLIME’s gel format bypasses the slow digestive process. Active ingredients absorb through the mouth and upper GI for fast, smooth onset without the sugar rush or crash. 
+    Icon: Stop watch showing 5 minutes
+    
+    Segment Headline: Nature-Derived, Clinically Supported
+    Headline: Mushrooms, Botanicals, and Modern Science
+    Subhead: CLIME combines adaptogens, nootropics, and clean caffeine in ratios that enhance focus and endurance — while balancing stress response. The result: calm energy that lasts.
+    Icon: Mushroom
+    
+    Segment Headline: Proven Ingredients, Transparent Science
+    Headline: Real Studies. Real Results. 
+    Subhead: Every active ingredient in CLIME traces back to published human data. Explore the research behind each ingredient and how they work together to optimize your performance.
+    Icon:  Click for studies CTA
+    
+    Segment Headline: Synergy, Not Stimulation
+    Headline: Energy That Flows, Not Spikes
+    Subhead: CLIME combines adaptogens, nootropics, and clean caffeine in ratios that enhance focus and endurance — while balancing stress response. The result: calm energy that lasts.
+    Icon: Balance
+    
+    Segment Headline: Personalized to Your Physiology
+    Headline: Built for How You’re Wired
+    Subhead: Everyone metabolizes caffeine and adaptogens differently — influenced by genes, age, sleep, and stress. CLIME’s adaptive system accounts for these variables, letting you choose what your body actually needs.
+    Icon: DNA Helix, Make the icons smaller and the space between the segments half the size they are now
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-science-page-{{ ai_gen_id }} {
+    padding: 60px 20px;
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-science-page__title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.title_size }}px;
+    margin: 0 0 60px;
+    color: {{ block.settings.title_color }};
+  }
+
+  .ai-science-page__segments-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.segment_spacing }}px;
+  }
+
+  .ai-science-segment-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: {{ block.settings.icon_size }}px 1fr;
+    gap: {{ block.settings.content_gap }}px;
+    align-items: start;
+    padding: {{ block.settings.segment_padding }}px;
+    background-color: {{ block.settings.segment_bg_color }};
+    border-radius: {{ block.settings.segment_radius }}px;
+  }
+
+  .ai-science-segment__icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.icon_bg_color }};
+    border-radius: {{ block.settings.icon_radius }}px;
+    padding: {{ block.settings.icon_padding }}px;
+  }
+
+  .ai-science-segment__icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    stroke: {{ block.settings.icon_color }};
+    fill: none;
+  }
+
+  .ai-science-segment__content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ai-science-segment__label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.label_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: {{ block.settings.label_color }};
+    margin: 0;
+  }
+
+  .ai-science-segment__headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.headline_color }};
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .ai-science-segment__subhead-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subhead_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.subhead_color }};
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-science-page-{{ ai_gen_id }} {
+      padding: 40px 16px;
+    }
+
+    .ai-science-page__title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.7);
+      margin-bottom: 40px;
+    }
+
+    .ai-science-segment-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .ai-science-segment__icon-{{ ai_gen_id }} {
+      width: {{ block.settings.icon_size | times: 0.8 }}px;
+      height: {{ block.settings.icon_size | times: 0.8 }}px;
+      margin: 0 auto;
+    }
+
+    .ai-science-segment__content-{{ ai_gen_id }} {
+      text-align: center;
+    }
+
+    .ai-science-segment__headline-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.headline_size }}px * 0.85);
+    }
+
+    .ai-science-segment__subhead-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subhead_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<div class="ai-science-page-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.page_title != blank %}
+    <h1 class="ai-science-page__title-{{ ai_gen_id }}">{{ block.settings.page_title }}</h1>
+  {% endif %}
+
+  <div class="ai-science-page__segments-{{ ai_gen_id }}">
+    <div class="ai-science-segment-{{ ai_gen_id }}">
+      <div class="ai-science-segment__icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <div class="ai-science-segment__content-{{ ai_gen_id }}">
+        <p class="ai-science-segment__label-{{ ai_gen_id }}">{{ block.settings.segment_1_label }}</p>
+        <h2 class="ai-science-segment__headline-{{ ai_gen_id }}">{{ block.settings.segment_1_headline }}</h2>
+        <p class="ai-science-segment__subhead-{{ ai_gen_id }}">{{ block.settings.segment_1_subhead }}</p>
+      </div>
+    </div>
+
+    <div class="ai-science-segment-{{ ai_gen_id }}">
+      <div class="ai-science-segment__icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"></path>
+          <ellipse cx="12" cy="17" rx="3" ry="5"></ellipse>
+          <path d="M12 12v5"></path>
+        </svg>
+      </div>
+      <div class="ai-science-segment__content-{{ ai_gen_id }}">
+        <p class="ai-science-segment__label-{{ ai_gen_id }}">{{ block.settings.segment_2_label }}</p>
+        <h2 class="ai-science-segment__headline-{{ ai_gen_id }}">{{ block.settings.segment_2_headline }}</h2>
+        <p class="ai-science-segment__subhead-{{ ai_gen_id }}">{{ block.settings.segment_2_subhead }}</p>
+      </div>
+    </div>
+
+    <div class="ai-science-segment-{{ ai_gen_id }}">
+      <div class="ai-science-segment__icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      </div>
+      <div class="ai-science-segment__content-{{ ai_gen_id }}">
+        <p class="ai-science-segment__label-{{ ai_gen_id }}">{{ block.settings.segment_3_label }}</p>
+        <h2 class="ai-science-segment__headline-{{ ai_gen_id }}">{{ block.settings.segment_3_headline }}</h2>
+        <p class="ai-science-segment__subhead-{{ ai_gen_id }}">{{ block.settings.segment_3_subhead }}</p>
+      </div>
+    </div>
+
+    <div class="ai-science-segment-{{ ai_gen_id }}">
+      <div class="ai-science-segment__icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="2" x2="12" y2="6"></line>
+          <line x1="12" y1="18" x2="12" y2="22"></line>
+          <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+          <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+          <line x1="2" y1="12" x2="6" y2="12"></line>
+          <line x1="18" y1="12" x2="22" y2="12"></line>
+          <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+          <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+        </svg>
+      </div>
+      <div class="ai-science-segment__content-{{ ai_gen_id }}">
+        <p class="ai-science-segment__label-{{ ai_gen_id }}">{{ block.settings.segment_4_label }}</p>
+        <h2 class="ai-science-segment__headline-{{ ai_gen_id }}">{{ block.settings.segment_4_headline }}</h2>
+        <p class="ai-science-segment__subhead-{{ ai_gen_id }}">{{ block.settings.segment_4_subhead }}</p>
+      </div>
+    </div>
+
+    <div class="ai-science-segment-{{ ai_gen_id }}">
+      <div class="ai-science-segment__icon-{{ ai_gen_id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
+          <path d="M12 6v6l4 2"></path>
+          <path d="M9 2h6"></path>
+          <path d="M9 22h6"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+      </div>
+      <div class="ai-science-segment__content-{{ ai_gen_id }}">
+        <p class="ai-science-segment__label-{{ ai_gen_id }}">{{ block.settings.segment_5_label }}</p>
+        <h2 class="ai-science-segment__headline-{{ ai_gen_id }}">{{ block.settings.segment_5_headline }}</h2>
+        <p class="ai-science-segment__subhead-{{ ai_gen_id }}">{{ block.settings.segment_5_subhead }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Science benefits page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page title"
+    },
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Title",
+      "default": "The Science of Customized Energy"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Segment 1 - Fast absorption"
+    },
+    {
+      "type": "text",
+      "id": "segment_1_label",
+      "label": "Label",
+      "default": "Engineered for Fast Absorption"
+    },
+    {
+      "type": "text",
+      "id": "segment_1_headline",
+      "label": "Headline",
+      "default": "Feel It in as little as 5 minutes"
+    },
+    {
+      "type": "textarea",
+      "id": "segment_1_subhead",
+      "label": "Subhead",
+      "default": "CLIME's gel format bypasses the slow digestive process. Active ingredients absorb through the mouth and upper GI for fast, smooth onset without the sugar rush or crash."
+    },
+    {
+      "type": "header",
+      "content": "Segment 2 - Nature derived"
+    },
+    {
+      "type": "text",
+      "id": "segment_2_label",
+      "label": "Label",
+      "default": "Nature-Derived, Clinically Supported"
+    },
+    {
+      "type": "text",
+      "id": "segment_2_headline",
+      "label": "Headline",
+      "default": "Mushrooms, Botanicals, and Modern Science"
+    },
+    {
+      "type": "textarea",
+      "id": "segment_2_subhead",
+      "label": "Subhead",
+      "default": "CLIME combines adaptogens, nootropics, and clean caffeine in ratios that enhance focus and endurance — while balancing stress response. The result: calm energy that lasts."
+    },
+    {
+      "type": "header",
+      "content": "Segment 3 - Proven ingredients"
+    },
+    {
+      "type": "text",
+      "id": "segment_3_label",
+      "label": "Label",
+      "default": "Proven Ingredients, Transparent Science"
+    },
+    {
+      "type": "text",
+      "id": "segment_3_headline",
+      "label": "Headline",
+      "default": "Real Studies. Real Results."
+    },
+    {
+      "type": "textarea",
+      "id": "segment_3_subhead",
+      "label": "Subhead",
+      "default": "Every active ingredient in CLIME traces back to published human data. Explore the research behind each ingredient and how they work together to optimize your performance."
+    },
+    {
+      "type": "header",
+      "content": "Segment 4 - Synergy"
+    },
+    {
+      "type": "text",
+      "id": "segment_4_label",
+      "label": "Label",
+      "default": "Synergy, Not Stimulation"
+    },
+    {
+      "type": "text",
+      "id": "segment_4_headline",
+      "label": "Headline",
+      "default": "Energy That Flows, Not Spikes"
+    },
+    {
+      "type": "textarea",
+      "id": "segment_4_subhead",
+      "label": "Subhead",
+      "default": "CLIME combines adaptogens, nootropics, and clean caffeine in ratios that enhance focus and endurance — while balancing stress response. The result: calm energy that lasts."
+    },
+    {
+      "type": "header",
+      "content": "Segment 5 - Personalized"
+    },
+    {
+      "type": "text",
+      "id": "segment_5_label",
+      "label": "Label",
+      "default": "Personalized to Your Physiology"
+    },
+    {
+      "type": "text",
+      "id": "segment_5_headline",
+      "label": "Headline",
+      "default": "Built for How You're Wired"
+    },
+    {
+      "type": "textarea",
+      "id": "segment_5_subhead",
+      "label": "Subhead",
+      "default": "Everyone metabolizes caffeine and adaptogens differently — influenced by genes, age, sleep, and stress. CLIME's adaptive system accounts for these variables, letting you choose what your body actually needs."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "segment_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Space between segments",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon to content gap",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "segment_padding",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Segment padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "segment_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Segment border radius",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "segment_bg_color",
+      "label": "Segment background",
+      "default": "#f3f3f3"
+    },
+    {
+      "type": "header",
+      "content": "Icon style"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 60,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon container size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "icon_padding",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "icon_radius",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon border radius",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color",
+      "label": "Icon background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Label size",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline size",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "subhead_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subhead size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "subhead_color",
+      "label": "Subhead color",
+      "default": "#333333"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Science benefits page"
+    }
+  ]
+}
+{% endschema %}

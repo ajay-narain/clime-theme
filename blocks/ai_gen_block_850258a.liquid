@@ -1,0 +1,563 @@
+{% doc %}
+  @prompt
+    Create a Frequently Asked Questions page for my CLIME brand.
+    Layout & style
+    * Overall layout should look like a clean, modern FAQ section, similar to a standard Shopify FAQ page.
+    * Page background: light gray but should be customizable
+    * FAQ container: white card with plenty of left/right padding so the copy doesn’t touch the edges.
+    * Section title: “Frequently Asked Questions”, centered at the top, same font size and style as my other section titles.
+    Functionality
+    * Each question should be shown as a row in an accordion.
+    * On the right side of each question, include a small “+” icon (or chevron “>”) that the user can click to expand/collapse the answer.
+    * By default, all answers should be collapsed and only expand when clicked.
+    * Only one answer needs to be open at a time (if a new one is opened, the prior one can close).
+    Copy to use
+    Use the exact questions and answers below, in this order:
+    1. What is CLIME? CLIME is a personalized energy system that lets you customize your caffeine level and functional boosts — like focus, endurance, and calm — in a fast-absorbing 20 g gel pouch. Each pouch is freshly blended to your specs for energy that fits you.
+    2. Tell me about the flavor and calories in a CLIME pouch. Each pouch has 50 calories and is a delicious lemon cake flavor. All flavors, sweeteners and active ingredients are nature-derived.
+    3. How is CLIME different from an energy drink or shot? Energy drinks are one-size-fits-all, loaded with sugar and stimulants that spike and crash. CLIME delivers customized, clean energy through a microgel that absorbs faster and feels smoother — no sugar, no crash, no guesswork.
+    4. How long does it take to feel the effects? Most people feel CLIME working between 5 and 15 minutes. Because it absorbs through both the mouth and stomach, it kicks in faster than capsules or powders.
+    5. What makes CLIME “personalized”? You choose your caffeine dose and performance boosts — Focus, Endurance, Balance, or Duration. Each option adds clinica, I need to be able to customize all the font sizes. Separately for the section headline then for the questions and answers, Your missing the last two questions:
+    
+    Can I customize my pouch even after the quiz recommendations? Absolutely. The quiz gives you a personalized starting point, but you can adjust anything — caffeine level, flavor, or boosts — before checkout. Every pouch is made to order, so your final blend always reflects exactly what you want. Are the ingredients backed by science? Yes. Every active ingredient in CLIME is supported by human studies showing measurable effects on focus, endurance, mood, or recovery. Is it safe to use every day? Absolutely. CLIME uses clean, natural actives — no
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-faq-section-{{ ai_gen_id }} {
+    background-color: {{ block.settings.page_background_color }};
+    padding: 60px 20px;
+  }
+
+  .ai-faq-container-{{ ai_gen_id }} {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: {{ block.settings.container_background_color }};
+    padding: 40px;
+    border-radius: 8px;
+  }
+
+  .ai-faq-title-{{ ai_gen_id }} {
+    text-align: center;
+    margin: 0 0 40px;
+    font-size: {{ block.settings.title_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }} {
+    border-bottom: 1px solid {{ block.settings.divider_color }};
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}:last-child {
+    border-bottom: none;
+  }
+
+  .ai-faq-question-{{ ai_gen_id }} {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: {{ block.settings.question_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.question_color }};
+    transition: color 0.3s ease;
+  }
+
+  .ai-faq-question-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.question_hover_color }};
+  }
+
+  .ai-faq-question-text-{{ ai_gen_id }} {
+    flex: 1;
+    padding-right: 20px;
+  }
+
+  .ai-faq-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-faq-icon-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-icon-{{ ai_gen_id }} {
+    transform: rotate(45deg);
+  }
+
+  .ai-faq-answer-{{ ai_gen_id }} {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-answer-{{ ai_gen_id }} {
+    max-height: 500px;
+    padding-bottom: 20px;
+  }
+
+  .ai-faq-answer-content-{{ ai_gen_id }} {
+    font-size: {{ block.settings.answer_font_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.answer_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-faq-container-{{ ai_gen_id }} {
+      padding: 30px 20px;
+    }
+
+    .ai-faq-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_font_size }}px * 0.8);
+      margin-bottom: 30px;
+    }
+
+    .ai-faq-question-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.question_font_size }}px * 0.9);
+      padding: 16px 0;
+    }
+
+    .ai-faq-answer-content-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.answer_font_size }}px * 0.95);
+    }
+  }
+{% endstyle %}
+
+<faq-accordion-{{ ai_gen_id }} class="ai-faq-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-faq-container-{{ ai_gen_id }}">
+    <h2 class="ai-faq-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+
+    <div class="ai-faq-list-{{ ai_gen_id }}">
+      {% if block.settings.question_1 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+          <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+            <span class="ai-faq-question-text-{{ ai_gen_id }}">{{ block.settings.question_1 }}</span>
+            <span class="ai-faq-icon-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">
+            <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.answer_1 }}</div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_2 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+          <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+            <span class="ai-faq-question-text-{{ ai_gen_id }}">{{ block.settings.question_2 }}</span>
+            <span class="ai-faq-icon-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">
+            <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.answer_2 }}</div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_3 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+          <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+            <span class="ai-faq-question-text-{{ ai_gen_id }}">{{ block.settings.question_3 }}</span>
+            <span class="ai-faq-icon-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">
+            <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.answer_3 }}</div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_4 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+          <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+            <span class="ai-faq-question-text-{{ ai_gen_id }}">{{ block.settings.question_4 }}</span>
+            <span class="ai-faq-icon-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">
+            <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.answer_4 }}</div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_5 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+          <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+            <span class="ai-faq-question-text-{{ ai_gen_id }}">{{ block.settings.question_5 }}</span>
+            <span class="ai-faq-icon-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">
+            <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.answer_5 }}</div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_6 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+          <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+            <span class="ai-faq-question-text-{{ ai_gen_id }}">{{ block.settings.question_6 }}</span>
+            <span class="ai-faq-icon-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">
+            <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.answer_6 }}</div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_7 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+          <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+            <span class="ai-faq-question-text-{{ ai_gen_id }}">{{ block.settings.question_7 }}</span>
+            <span class="ai-faq-icon-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">
+            <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.answer_7 }}</div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_8 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}" data-faq-item>
+          <button class="ai-faq-question-{{ ai_gen_id }}" aria-expanded="false">
+            <span class="ai-faq-question-text-{{ ai_gen_id }}">{{ block.settings.question_8 }}</span>
+            <span class="ai-faq-icon-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">
+            <div class="ai-faq-answer-content-{{ ai_gen_id }}">{{ block.settings.answer_8 }}</div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</faq-accordion-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class FaqAccordion{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.items = this.querySelectorAll('[data-faq-item]');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.items.forEach((item) => {
+          const button = item.querySelector('.ai-faq-question-{{ ai_gen_id }}');
+          
+          button.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            this.items.forEach((otherItem) => {
+              if (otherItem !== item) {
+                otherItem.classList.remove('active');
+                const otherButton = otherItem.querySelector('.ai-faq-question-{{ ai_gen_id }}');
+                otherButton.setAttribute('aria-expanded', 'false');
+              }
+            });
+            
+            if (isActive) {
+              item.classList.remove('active');
+              button.setAttribute('aria-expanded', 'false');
+            } else {
+              item.classList.add('active');
+              button.setAttribute('aria-expanded', 'true');
+            }
+          });
+        });
+      }
+    }
+
+    customElements.define('faq-accordion-{{ ai_gen_id }}', FaqAccordion{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "FAQ accordion",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section title"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Question 1"
+    },
+    {
+      "type": "text",
+      "id": "question_1",
+      "label": "Question",
+      "default": "What is CLIME?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_1",
+      "label": "Answer",
+      "default": "CLIME is a personalized energy system that lets you customize your caffeine level and functional boosts — like focus, endurance, and calm — in a fast-absorbing 20 g gel pouch. Each pouch is freshly blended to your specs for energy that fits you."
+    },
+    {
+      "type": "header",
+      "content": "Question 2"
+    },
+    {
+      "type": "text",
+      "id": "question_2",
+      "label": "Question",
+      "default": "Tell me about the flavor and calories in a CLIME pouch."
+    },
+    {
+      "type": "textarea",
+      "id": "answer_2",
+      "label": "Answer",
+      "default": "Each pouch has 50 calories and is a delicious lemon cake flavor. All flavors, sweeteners and active ingredients are nature-derived."
+    },
+    {
+      "type": "header",
+      "content": "Question 3"
+    },
+    {
+      "type": "text",
+      "id": "question_3",
+      "label": "Question",
+      "default": "How is CLIME different from an energy drink or shot?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_3",
+      "label": "Answer",
+      "default": "Energy drinks are one-size-fits-all, loaded with sugar and stimulants that spike and crash. CLIME delivers customized, clean energy through a microgel that absorbs faster and feels smoother — no sugar, no crash, no guesswork."
+    },
+    {
+      "type": "header",
+      "content": "Question 4"
+    },
+    {
+      "type": "text",
+      "id": "question_4",
+      "label": "Question",
+      "default": "How long does it take to feel the effects?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_4",
+      "label": "Answer",
+      "default": "Most people feel CLIME working between 5 and 15 minutes. Because it absorbs through both the mouth and stomach, it kicks in faster than capsules or powders."
+    },
+    {
+      "type": "header",
+      "content": "Question 5"
+    },
+    {
+      "type": "text",
+      "id": "question_5",
+      "label": "Question",
+      "default": "What makes CLIME \"personalized\"?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_5",
+      "label": "Answer",
+      "default": "You choose your caffeine dose and performance boosts — Focus, Endurance, Balance, or Duration. Each option adds clinically-backed ingredients tailored to your goals."
+    },
+    {
+      "type": "header",
+      "content": "Question 6"
+    },
+    {
+      "type": "text",
+      "id": "question_6",
+      "label": "Question",
+      "default": "Can I customize my pouch even after the quiz recommendations?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_6",
+      "label": "Answer",
+      "default": "Absolutely. The quiz gives you a personalized starting point, but you can adjust anything — caffeine level, flavor, or boosts — before checkout. Every pouch is made to order, so your final blend always reflects exactly what you want."
+    },
+    {
+      "type": "header",
+      "content": "Question 7"
+    },
+    {
+      "type": "text",
+      "id": "question_7",
+      "label": "Question",
+      "default": "Are the ingredients backed by science?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_7",
+      "label": "Answer",
+      "default": "Yes. Every active ingredient in CLIME is supported by human studies showing measurable effects on focus, endurance, mood, or recovery."
+    },
+    {
+      "type": "header",
+      "content": "Question 8"
+    },
+    {
+      "type": "text",
+      "id": "question_8",
+      "label": "Question",
+      "default": "Is it safe to use every day?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_8",
+      "label": "Answer",
+      "default": "Absolutely. CLIME uses clean, natural actives — no artificial stimulants, no proprietary blends, and nothing you can't pronounce. It's designed for daily use as part of a healthy routine."
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "question_font_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Question font size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "answer_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Answer font size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "page_background_color",
+      "label": "Page background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "container_background_color",
+      "label": "Container background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "question_hover_color",
+      "label": "Question hover",
+      "default": "#334fb4"
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#e8e8e8"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ accordion"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,487 @@
+{% doc %}
+  @prompt
+    I need an FAQ page. The section title should be centered and match the titles on the other sections. 
+    
+    The copy should fit nicely and have plenty of horizontal (left/right) padding. The background should be a light gray. The copy is below:
+    
+    What is CLIME?
+    
+    CLIME is a personalized energy system that lets you customize your caffeine level and functional boosts — like focus, endurance, and calm — in a fast-absorbing 20 g gel pouch. Each pouch is freshly blended to your specs for energy that fits you. 
+    
+    Tell me about the flavor and calories in a CLIME pouch.
+    
+    Each pouch has 50 calories and is a delicious lemon cake flavor. All flavors, sweeteners and active ingredients are nature-derived. 
+    
+    How is CLIME different from an energy drink or shot?
+    
+    Energy drinks are one-size-fits-all, loaded with sugar and stimulants that spike and crash. CLIME delivers customized, clean energy through a microgel that absorbs faster and feels smoother — no sugar, no crash, no guesswork.
+    
+    How long does it take to feel the effects?
+    
+    Most people feel CLIME working between 5 and 15 minutes. Because it absorbs through both the mouth and stomach, it kicks in faster than capsules or powders.
+    
+    What makes CLIME “personalized”?
+    
+    You choose your caffeine dose and performance boosts — Focus, Endurance, Balance, or Duration. Each option adds clinically supported ingredients like Zynamite®, CellFlo6®, EnXtra®, and Lion’s Mane in precise, adjustable amounts.
+    
+    Can I customize my pouch even after the quiz recommendations?
+    
+    Absolutely. The quiz gives you a personalized starting point, but you can adjust anything — caffeine level, flavor, or boosts — before checkout. Every pouch is made to order, so your final blend always reflects exactly what you want.
+    
+    Are the ingredients backed by science?
+    
+    Yes. Every active ingredient in CLIME is supported by human studies showing measurable effects on focus, endurance, mood, or recovery. 
+    
+    Is it safe to use every day?
+    
+    Absolutely. CLIME uses clean, natural actives — no  
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-faq-section-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+  }
+
+  .ai-faq-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.content_max_width }}px;
+    margin: 0 auto;
+    padding: 0 {{ block.settings.horizontal_padding }}px;
+  }
+
+  .ai-faq-title-{{ ai_gen_id }} {
+    text-align: center;
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+  }
+
+  .ai-faq-list-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.item_spacing }}px;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }} {
+    background-color: {{ block.settings.item_background_color }};
+    border-radius: {{ block.settings.item_border_radius }}px;
+    padding: {{ block.settings.item_padding }}px;
+  }
+
+  .ai-faq-question-{{ ai_gen_id }} {
+    font-size: {{ block.settings.question_size }}px;
+    font-weight: 600;
+    margin: 0 0 {{ block.settings.question_spacing }}px;
+    color: {{ block.settings.question_color }};
+  }
+
+  .ai-faq-answer-{{ ai_gen_id }} {
+    font-size: {{ block.settings.answer_size }}px;
+    line-height: 1.6;
+    margin: 0;
+    color: {{ block.settings.answer_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-faq-container-{{ ai_gen_id }} {
+      padding: 0 {{ block.settings.horizontal_padding | times: 0.6 }}px;
+    }
+
+    .ai-faq-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-faq-question-{{ ai_gen_id }} {
+      font-size: {{ block.settings.question_size | times: 0.9 }}px;
+    }
+
+    .ai-faq-answer-{{ ai_gen_id }} {
+      font-size: {{ block.settings.answer_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-faq-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-faq-container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank %}
+      <h2 class="ai-faq-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+    {% endif %}
+
+    <div class="ai-faq-list-{{ ai_gen_id }}">
+      {% if block.settings.question_1 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}">
+          <h3 class="ai-faq-question-{{ ai_gen_id }}">{{ block.settings.question_1 }}</h3>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">{{ block.settings.answer_1 }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_2 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}">
+          <h3 class="ai-faq-question-{{ ai_gen_id }}">{{ block.settings.question_2 }}</h3>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">{{ block.settings.answer_2 }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_3 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}">
+          <h3 class="ai-faq-question-{{ ai_gen_id }}">{{ block.settings.question_3 }}</h3>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">{{ block.settings.answer_3 }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_4 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}">
+          <h3 class="ai-faq-question-{{ ai_gen_id }}">{{ block.settings.question_4 }}</h3>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">{{ block.settings.answer_4 }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_5 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}">
+          <h3 class="ai-faq-question-{{ ai_gen_id }}">{{ block.settings.question_5 }}</h3>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">{{ block.settings.answer_5 }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_6 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}">
+          <h3 class="ai-faq-question-{{ ai_gen_id }}">{{ block.settings.question_6 }}</h3>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">{{ block.settings.answer_6 }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_7 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}">
+          <h3 class="ai-faq-question-{{ ai_gen_id }}">{{ block.settings.question_7 }}</h3>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">{{ block.settings.answer_7 }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.question_8 != blank %}
+        <div class="ai-faq-item-{{ ai_gen_id }}">
+          <h3 class="ai-faq-question-{{ ai_gen_id }}">{{ block.settings.question_8 }}</h3>
+          <div class="ai-faq-answer-{{ ai_gen_id }}">{{ block.settings.answer_8 }}</div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ section",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section title"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing below title",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Content max width",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 20,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "FAQ items"
+    },
+    {
+      "type": "color",
+      "id": "item_background_color",
+      "label": "Item background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "item_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Item border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "item_padding",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Item padding",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Space between items",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Questions"
+    },
+    {
+      "type": "range",
+      "id": "question_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Question size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "question_spacing",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Spacing below question",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Answers"
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Answer size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "FAQ 1"
+    },
+    {
+      "type": "text",
+      "id": "question_1",
+      "label": "Question",
+      "default": "What is CLIME?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_1",
+      "label": "Answer",
+      "default": "CLIME is a personalized energy system that lets you customize your caffeine level and functional boosts — like focus, endurance, and calm — in a fast-absorbing 20 g gel pouch. Each pouch is freshly blended to your specs for energy that fits you."
+    },
+    {
+      "type": "header",
+      "content": "FAQ 2"
+    },
+    {
+      "type": "text",
+      "id": "question_2",
+      "label": "Question",
+      "default": "Tell me about the flavor and calories in a CLIME pouch."
+    },
+    {
+      "type": "textarea",
+      "id": "answer_2",
+      "label": "Answer",
+      "default": "Each pouch has 50 calories and is a delicious lemon cake flavor. All flavors, sweeteners and active ingredients are nature-derived."
+    },
+    {
+      "type": "header",
+      "content": "FAQ 3"
+    },
+    {
+      "type": "text",
+      "id": "question_3",
+      "label": "Question",
+      "default": "How is CLIME different from an energy drink or shot?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_3",
+      "label": "Answer",
+      "default": "Energy drinks are one-size-fits-all, loaded with sugar and stimulants that spike and crash. CLIME delivers customized, clean energy through a microgel that absorbs faster and feels smoother — no sugar, no crash, no guesswork."
+    },
+    {
+      "type": "header",
+      "content": "FAQ 4"
+    },
+    {
+      "type": "text",
+      "id": "question_4",
+      "label": "Question",
+      "default": "How long does it take to feel the effects?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_4",
+      "label": "Answer",
+      "default": "Most people feel CLIME working between 5 and 15 minutes. Because it absorbs through both the mouth and stomach, it kicks in faster than capsules or powders."
+    },
+    {
+      "type": "header",
+      "content": "FAQ 5"
+    },
+    {
+      "type": "text",
+      "id": "question_5",
+      "label": "Question",
+      "default": "What makes CLIME \"personalized\"?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_5",
+      "label": "Answer",
+      "default": "You choose your caffeine dose and performance boosts — Focus, Endurance, Balance, or Duration. Each option adds clinically supported ingredients like Zynamite®, CellFlo6®, EnXtra®, and Lion's Mane in precise, adjustable amounts."
+    },
+    {
+      "type": "header",
+      "content": "FAQ 6"
+    },
+    {
+      "type": "text",
+      "id": "question_6",
+      "label": "Question",
+      "default": "Can I customize my pouch even after the quiz recommendations?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_6",
+      "label": "Answer",
+      "default": "Absolutely. The quiz gives you a personalized starting point, but you can adjust anything — caffeine level, flavor, or boosts — before checkout. Every pouch is made to order, so your final blend always reflects exactly what you want."
+    },
+    {
+      "type": "header",
+      "content": "FAQ 7"
+    },
+    {
+      "type": "text",
+      "id": "question_7",
+      "label": "Question",
+      "default": "Are the ingredients backed by science?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_7",
+      "label": "Answer",
+      "default": "Yes. Every active ingredient in CLIME is supported by human studies showing measurable effects on focus, endurance, mood, or recovery."
+    },
+    {
+      "type": "header",
+      "content": "FAQ 8"
+    },
+    {
+      "type": "text",
+      "id": "question_8",
+      "label": "Question",
+      "default": "Is it safe to use every day?"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_8",
+      "label": "Answer",
+      "default": "Absolutely. CLIME uses clean, natural actives — no artificial ingredients or harmful additives. It's designed for daily use as part of a healthy lifestyle."
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ section"
+    }
+  ]
+}
+{% endschema %}

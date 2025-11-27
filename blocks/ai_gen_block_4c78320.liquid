@@ -1,0 +1,502 @@
+{% doc %}
+  @prompt
+    Create a custom section titled “The Science of Customized Energy” with a custom background image that i can change later. The typography should match the hero section: bold, modern headings, clean body text, and clear spacing.
+    This section has five benefit cards, each with an icon, an eyebrow label, a headline, and a subhead. Cards should have a soft white or very light indigo tint as the background so they pop against the deep indigo section. Add a subtle shadow and rounded corners. Icons should be circular or rounded-square, clean and modern — use simple emoji-style placeholders that are white.
+    Spacing should be generous: about 70–80px top/bottom padding for the whole section and 24–32px padding inside each card. Layout should be two columns on desktop, one column on mobile.
+    At the bottom of the entire section, centered, include a CTA button styled exactly like my hero button:
+    * Black background (#000)
+    * White text
+    * Medium weight font
+    * Rounded corners (6px)
+    * Label: “Take the Energy Quiz”
+    * Link to: /pages/energy-quiz
+    Here is the copy for each segment. Please use these headings exactly:
+    
+    Page Title: The Science of Customized Energy
+    
+    Segment 1
+    Segment Headline: Engineered for Fast Absorption Headline: Feel It in as little as 5 minutes Subhead: CLIME’s gel format bypasses the slow digestive process. Active ingredients absorb through the mouth and upper GI for fast, smooth onset without the sugar rush or crash. Icon: Stopwatch showing 5 minutes
+    
+    Segment 2
+    Segment Headline: Nature-Derived, Clinically Supported Headline: Mushrooms, Botanicals, and Modern Science Subhead: CLIME combines adaptogens, nootropics, and clean caffeine in ratios that enhance focus and endurance — while balancing stress response. The result: calm energy that lasts. Icon: Mushroom
+    
+    Segment 3
+    Segment Headline: Proven Ingredients, Transparent Science Headline: Real Studies. Real Results. Subhead: Every active ingredient in CLIME traces back to published human data. Explore 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-science-section-{{ ai_gen_id }} {
+    position: relative;
+    padding: 80px 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .ai-science-section-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+  }
+
+  .ai-science-container-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-science-title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 60px;
+    line-height: 1.2;
+  }
+
+  .ai-science-cards-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+
+  .ai-science-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, {{ block.settings.card_shadow_opacity | divided_by: 100.0 }});
+    transition: transform 0.3s ease;
+  }
+
+  .ai-science-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+  }
+
+  .ai-science-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    background-color: {{ block.settings.icon_background }};
+    border-radius: {{ block.settings.icon_border_radius }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: {{ block.settings.icon_size | times: 0.6 }}px;
+    margin-bottom: 24px;
+  }
+
+  .ai-science-eyebrow-{{ ai_gen_id }} {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: {{ block.settings.eyebrow_color }};
+    margin: 0 0 12px;
+  }
+
+  .ai-science-headline-{{ ai_gen_id }} {
+    font-size: 24px;
+    font-weight: 700;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 12px;
+    line-height: 1.3;
+  }
+
+  .ai-science-subhead-{{ ai_gen_id }} {
+    font-size: 16px;
+    line-height: 1.6;
+    color: {{ block.settings.subhead_color }};
+    margin: 0;
+  }
+
+  .ai-science-cta-wrapper-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-science-cta-{{ ai_gen_id }} {
+    display: inline-block;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px 40px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-science-cta-{{ ai_gen_id }}:hover {
+    opacity: 0.85;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-science-section-{{ ai_gen_id }} {
+      padding: 60px 16px;
+    }
+
+    .ai-science-title-{{ ai_gen_id }} {
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    .ai-science-cards-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .ai-science-card-{{ ai_gen_id }} {
+      padding: 24px;
+    }
+
+    .ai-science-headline-{{ ai_gen_id }} {
+      font-size: 20px;
+    }
+
+    .ai-science-subhead-{{ ai_gen_id }} {
+      font-size: 14px;
+    }
+  }
+{% endstyle %}
+
+<div
+  class="ai-science-section-{{ ai_gen_id }}"
+  style="{% if block.settings.background_image %}background-image: url('{{ block.settings.background_image | image_url: width: 2000 }}');{% endif %}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-science-container-{{ ai_gen_id }}">
+    <h2 class="ai-science-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+
+    <div class="ai-science-cards-{{ ai_gen_id }}">
+      <div class="ai-science-card-{{ ai_gen_id }}">
+        <div class="ai-science-icon-{{ ai_gen_id }}">{{ block.settings.card_1_icon }}</div>
+        <p class="ai-science-eyebrow-{{ ai_gen_id }}">{{ block.settings.card_1_eyebrow }}</p>
+        <h3 class="ai-science-headline-{{ ai_gen_id }}">{{ block.settings.card_1_headline }}</h3>
+        <p class="ai-science-subhead-{{ ai_gen_id }}">{{ block.settings.card_1_subhead }}</p>
+      </div>
+
+      <div class="ai-science-card-{{ ai_gen_id }}">
+        <div class="ai-science-icon-{{ ai_gen_id }}">{{ block.settings.card_2_icon }}</div>
+        <p class="ai-science-eyebrow-{{ ai_gen_id }}">{{ block.settings.card_2_eyebrow }}</p>
+        <h3 class="ai-science-headline-{{ ai_gen_id }}">{{ block.settings.card_2_headline }}</h3>
+        <p class="ai-science-subhead-{{ ai_gen_id }}">{{ block.settings.card_2_subhead }}</p>
+      </div>
+
+      <div class="ai-science-card-{{ ai_gen_id }}">
+        <div class="ai-science-icon-{{ ai_gen_id }}">{{ block.settings.card_3_icon }}</div>
+        <p class="ai-science-eyebrow-{{ ai_gen_id }}">{{ block.settings.card_3_eyebrow }}</p>
+        <h3 class="ai-science-headline-{{ ai_gen_id }}">{{ block.settings.card_3_headline }}</h3>
+        <p class="ai-science-subhead-{{ ai_gen_id }}">{{ block.settings.card_3_subhead }}</p>
+      </div>
+
+      <div class="ai-science-card-{{ ai_gen_id }}">
+        <div class="ai-science-icon-{{ ai_gen_id }}">{{ block.settings.card_4_icon }}</div>
+        <p class="ai-science-eyebrow-{{ ai_gen_id }}">{{ block.settings.card_4_eyebrow }}</p>
+        <h3 class="ai-science-headline-{{ ai_gen_id }}">{{ block.settings.card_4_headline }}</h3>
+        <p class="ai-science-subhead-{{ ai_gen_id }}">{{ block.settings.card_4_subhead }}</p>
+      </div>
+
+      <div class="ai-science-card-{{ ai_gen_id }}">
+        <div class="ai-science-icon-{{ ai_gen_id }}">{{ block.settings.card_5_icon }}</div>
+        <p class="ai-science-eyebrow-{{ ai_gen_id }}">{{ block.settings.card_5_eyebrow }}</p>
+        <h3 class="ai-science-headline-{{ ai_gen_id }}">{{ block.settings.card_5_headline }}</h3>
+        <p class="ai-science-subhead-{{ ai_gen_id }}">{{ block.settings.card_5_subhead }}</p>
+      </div>
+    </div>
+
+    <div class="ai-science-cta-wrapper-{{ ai_gen_id }}">
+      <a href="{{ block.settings.cta_link }}" class="ai-science-cta-{{ ai_gen_id }}">
+        {{ block.settings.cta_text }}
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Customized energy",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "The Science of Customized Energy"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#1a1f4d"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 85
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#f8f9fc"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Card shadow opacity",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Icon style"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 40,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "icon_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon border radius",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Text colors"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#334fb4"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "subhead_color",
+      "label": "Subhead color",
+      "default": "#4a4a4a"
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "text",
+      "id": "card_1_icon",
+      "label": "Icon",
+      "default": "⏱️"
+    },
+    {
+      "type": "text",
+      "id": "card_1_eyebrow",
+      "label": "Eyebrow",
+      "default": "Engineered for Fast Absorption"
+    },
+    {
+      "type": "text",
+      "id": "card_1_headline",
+      "label": "Headline",
+      "default": "Feel It in as little as 5 minutes"
+    },
+    {
+      "type": "textarea",
+      "id": "card_1_subhead",
+      "label": "Subhead",
+      "default": "CLIME's gel format bypasses the slow digestive process. Active ingredients absorb through the mouth and upper GI for fast, smooth onset without the sugar rush or crash."
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "text",
+      "id": "card_2_icon",
+      "label": "Icon",
+      "default": "🍄"
+    },
+    {
+      "type": "text",
+      "id": "card_2_eyebrow",
+      "label": "Eyebrow",
+      "default": "Nature-Derived, Clinically Supported"
+    },
+    {
+      "type": "text",
+      "id": "card_2_headline",
+      "label": "Headline",
+      "default": "Mushrooms, Botanicals, and Modern Science"
+    },
+    {
+      "type": "textarea",
+      "id": "card_2_subhead",
+      "label": "Subhead",
+      "default": "CLIME combines adaptogens, nootropics, and clean caffeine in ratios that enhance focus and endurance — while balancing stress response. The result: calm energy that lasts."
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "text",
+      "id": "card_3_icon",
+      "label": "Icon",
+      "default": "🔬"
+    },
+    {
+      "type": "text",
+      "id": "card_3_eyebrow",
+      "label": "Eyebrow",
+      "default": "Proven Ingredients, Transparent Science"
+    },
+    {
+      "type": "text",
+      "id": "card_3_headline",
+      "label": "Headline",
+      "default": "Real Studies. Real Results."
+    },
+    {
+      "type": "textarea",
+      "id": "card_3_subhead",
+      "label": "Subhead",
+      "default": "Every active ingredient in CLIME traces back to published human data. Explore our research library to see the science behind every formula."
+    },
+    {
+      "type": "header",
+      "content": "Card 4"
+    },
+    {
+      "type": "text",
+      "id": "card_4_icon",
+      "label": "Icon",
+      "default": "✨"
+    },
+    {
+      "type": "text",
+      "id": "card_4_eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "card_4_headline",
+      "label": "Headline"
+    },
+    {
+      "type": "textarea",
+      "id": "card_4_subhead",
+      "label": "Subhead"
+    },
+    {
+      "type": "header",
+      "content": "Card 5"
+    },
+    {
+      "type": "text",
+      "id": "card_5_icon",
+      "label": "Icon",
+      "default": "💡"
+    },
+    {
+      "type": "text",
+      "id": "card_5_eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "card_5_headline",
+      "label": "Headline"
+    },
+    {
+      "type": "textarea",
+      "id": "card_5_subhead",
+      "label": "Subhead"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Take the Energy Quiz"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customized energy"
+    }
+  ]
+}
+{% endschema %}

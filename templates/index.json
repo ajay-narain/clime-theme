@@ -1,0 +1,293 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "clime_hero_fYGxhE": {
+      "type": "clime-hero",
+      "custom_css": [],
+      "name": "CLIME Hero",
+      "settings": {
+        "bg_image": "shopify://shop_images/ChatGPT_Image_Nov_5_2025_01_04_05_PM.png",
+        "pouch_image": "shopify://shop_images/Orange_Pouch_Image.png",
+        "lead_text": "START CONTROLLING YOUR ENERGY",
+        "title_text": "CUSTOMIZED GEL POUCHES BUILT BY YOU",
+        "sub_text": "Fast-acting, personalized gel pouches that let you decide on your caffeine, focus, and balance.",
+        "btn_label": "Find Your Energy Profile",
+        "btn_link": "shopify://pages/energy-quiz",
+        "overlay_opacity": 0.1,
+        "height_desktop": 68,
+        "height_mobile": 58
+      }
+    },
+    "custom_liquid_fnR38t": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div id=\"how-it-works-anchor\" style=\"position: relative; top: -90px;\"></div>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "17630821548e7cddc3": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_30d643d_gNMpWR": {
+          "type": "ai_gen_block_30d643d",
+          "settings": {
+            "title": "3 Steps to Better Energy",
+            "title_size": 40,
+            "title_color": "#121212",
+            "title_spacing": 32,
+            "step_1_title": "Take the Quiz",
+            "step_1_text": "Answer a few quick questions so we can diagnose your energy patterns.",
+            "step_2_title": "Build Your Blend",
+            "step_2_text": "Use the quiz recommendations or build your own with custom levels of caffeine, balance or focus boosts.",
+            "step_3_title": "Fine Tune Anytime",
+            "step_3_text": "Need a little more focus or less caffeine tomorrow? Adjust your pouch formula whenever you want.",
+            "number_size": 60,
+            "number_color": "#121212",
+            "number_opacity": 55,
+            "number_spacing": 16,
+            "step_title_size": 18,
+            "step_title_color": "#121212",
+            "step_text_size": 14,
+            "step_text_color": "#666666",
+            "step_text_spacing": 10,
+            "button_text": "Find Your Energy Profile",
+            "button_link": "shopify://pages/energy-quiz",
+            "button_text_size": 14,
+            "button_padding_vertical": 14,
+            "button_padding_horizontal": 32,
+            "button_bg_color": "#121212",
+            "button_text_color": "#ffffff",
+            "button_hover_bg_color": "#334fb4",
+            "button_hover_text_color": "#ffffff",
+            "button_border_width": 0,
+            "button_border_color": "#121212",
+            "button_hover_border_color": "#ffffff",
+            "button_radius": 0,
+            "container_width": 1000,
+            "step_gap": 32,
+            "cta_spacing": 36,
+            "padding_top": 80,
+            "padding_bottom": 80,
+            "background_color": "#efefef"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_a4563a9_DxhXdA": {
+          "type": "ai_gen_block_a4563a9",
+          "settings": {
+            "section_title": "The Science of Customized Energy",
+            "background_color": "#ffffff",
+            "background_image": "shopify://shop_images/Sunrise_Bright_Full.png",
+            "background_image_opacity": 85,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0,
+            "text_color": "#170606",
+            "section_padding_top": 75,
+            "section_padding_bottom": 75,
+            "container_width": 800,
+            "title_size": 42,
+            "title_spacing": 48,
+            "card_background": "#ffffff",
+            "card_padding": 16,
+            "card_gap": 40,
+            "card_border_radius": 16,
+            "card_shadow_horizontal": 9,
+            "card_shadow_vertical": 4,
+            "card_shadow_blur": 12,
+            "card_shadow_opacity": 50,
+            "card_1_icon": "shopify://shop_images/Stomach_and_Stopwatch_Icon_f3b2cfac-3fb9-42c7-bff7-ff4eb088b41f.png",
+            "card_1_eyebrow": "Engineered for Fast Absorption",
+            "card_1_headline": "Feel It in as little as 5 minutes",
+            "card_1_subhead": "CLIME's gel format bypasses the slow digestive process. Active ingredients absorb through the mouth and upper GI for fast, smooth onset without the crash.",
+            "card_2_icon": "shopify://shop_images/DNA_Helix_Icon_37c06f30-b51c-40e3-834a-980a396e55e0.png",
+            "card_2_eyebrow": "Built for you, by you",
+            "card_2_headline": "Personalized Energy",
+            "card_2_subhead": "Whether you need focus for work or workouts, or calm energy throughout the day, you build CLIME for your needs.",
+            "card_3_icon": "shopify://shop_images/Mushrooms_and_Science_Icon_2ee7dd19-f502-4859-baf7-adc3cc5541b8.png",
+            "card_3_eyebrow": "Nature-Derived, Clinically Supported",
+            "card_3_headline": "Mushrooms, Botanicals, and Modern Science",
+            "card_3_subhead": "CLIME combines adaptogens, nootropics, and clean caffeine in ratios that enhance focus and balance. The result: calm energy that lasts.",
+            "card_4_icon": "shopify://shop_images/Published_Studies_Icon_a092e9c8-a669-484e-afe6-2f76c8c867d9.png",
+            "card_4_eyebrow": "Proven Ingredients, Clinically Backed",
+            "card_4_headline": "Real Studies. Real Results.",
+            "card_4_subhead": "Every active ingredient in CLIME comes from published human research showing measurable improvements in focus, balance and energy.",
+            "icon_size": 100,
+            "icon_spacing": 8,
+            "eyebrow_size": 14,
+            "eyebrow_color": "#666666",
+            "eyebrow_spacing": 8,
+            "headline_size": 22,
+            "headline_spacing": 12,
+            "subhead_size": 15,
+            "subhead_color": "#666666",
+            "cta_text": "Find Your Energy Profile",
+            "cta_link": "",
+            "cta_background": "#000000",
+            "cta_text_color": "#ffffff",
+            "cta_font_size": 16,
+            "cta_padding_vertical": 14,
+            "cta_padding_horizontal": 32,
+            "cta_border_radius": 6,
+            "cta_spacing": 48
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_b0d8f4e_AzYjkq": {
+          "type": "ai_gen_block_b0d8f4e",
+          "settings": {
+            "container_width": 1200,
+            "padding_top": 100,
+            "padding_bottom": 100,
+            "padding_horizontal": 68,
+            "stat_gap": 40,
+            "stat_spacing": 12,
+            "background_color": "#000000",
+            "number_color": "#ffffff",
+            "description_color": "#ffffff",
+            "source_color": "#cccccc",
+            "number_size": 70,
+            "number_weight": "700",
+            "description_size": 18,
+            "description_weight": "400",
+            "source_size": 14,
+            "source_weight": "400",
+            "stat_1_enabled": true,
+            "stat_1_number": "100,000+",
+            "stat_1_description": "Preventable crashes caused by fatigue",
+            "stat_1_source": "",
+            "stat_2_enabled": true,
+            "stat_2_number": "107%",
+            "stat_2_description": "Gain in productivity with improved energy",
+            "stat_2_source": "",
+            "stat_3_enabled": true,
+            "stat_3_number": "40%",
+            "stat_3_description": "Percent of workers reporting fatigue at work",
+            "stat_3_source": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_30d643d_gNMpWR",
+        "ai_gen_block_a4563a9_DxhXdA",
+        "ai_gen_block_b0d8f4e_AzYjkq"
+      ],
+      "settings": {}
+    },
+    "1763079036067ada89": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "1762970582c87e64b2": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_4d23c88_VtjyEN": {
+          "type": "ai_gen_block_4d23c88",
+          "settings": {
+            "section_title": "Why People Love CLIME",
+            "background_image": "shopify://shop_images/Starry_Night_Large_b6e64b77-e009-4cd7-8cd4-c5e1380be763.png",
+            "background_image_opacity": 100,
+            "background_color": "#f8f8f8",
+            "title_size": 36,
+            "title_color": "#ffffff",
+            "card_background": "#ffffff",
+            "card_border_radius": 8,
+            "text_color": "#121212",
+            "author_color": "#666666",
+            "headline_size": 20,
+            "body_size": 16,
+            "author_size": 14,
+            "testimonial_1_headline": "Finally, energy that adapts to me.",
+            "testimonial_1_body": "I used to crash hard after energy drinks. With CLIME, I dial in exactly how much caffeine and focus I need. It kicks in fast, feels smooth, and lasts through my entire shift.",
+            "testimonial_1_author": "— Jason M., Commercial Pilot",
+            "testimonial_2_headline": "It's like personalized fuel for my day.",
+            "testimonial_2_body": "I start every morning with a medium-focus pouch before training. I feel alert within 5 minutes — not wired, just steady and clear. It's replaced my pre-workout and coffee.",
+            "testimonial_2_author": "— Lena R., Fitness Coach",
+            "testimonial_3_headline": "Small pouch, huge difference.",
+            "testimonial_3_body": "I was skeptical about the gel, but it's a game changer.  I use low caffeine on rest days and boost balance on long ones. 100% recommend!",
+            "testimonial_3_author": "— Alex P., Adventure Photographer"
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_850258a_9KVfPW": {
+          "type": "ai_gen_block_850258a",
+          "settings": {
+            "section_title": "Frequently Asked Questions",
+            "title_font_size": 32,
+            "question_1": "What is CLIME?",
+            "answer_1": "CLIME is a personalized energy system that lets you customize your caffeine level and functional boosts — like focus and balance — in a fast-absorbing 20 g gel pouch. Each pouch is freshly blended to your specs for energy that fits you.",
+            "question_2": "Tell me about the flavor and calories in a CLIME pouch.",
+            "answer_2": "Each pouch has 50 calories and is a delicious lemon cake flavor. All flavors, sweeteners and active ingredients are nature-derived.",
+            "question_3": "How is CLIME different from an energy drink or shot?",
+            "answer_3": "Energy drinks are one-size-fits-all, loaded with sugar and stimulants that spike and crash. CLIME delivers customized, clean energy through a microgel that absorbs faster and feels smoother.",
+            "question_4": "How long does it take to feel the effects?",
+            "answer_4": "Most people feel CLIME working between 5 and 15 minutes. Because it absorbs through both the mouth and stomach, it kicks in faster than capsules or powders.",
+            "question_5": "What's in the Balance and Focus boosts?",
+            "answer_5": "The Balance boost combines L-theanine, taurine, and Reishi mushroom to smooth out stress, support calm alertness, and keep your energy steady without jitters.\nThe Focus boost uses Zynamite®—a fast-acting mango leaf extract clinically shown to enhance mental clarity, processing speed, and cognitive performance.",
+            "question_6": "Can I customize my pouch even after the quiz recommendations?",
+            "answer_6": "Absolutely. The quiz gives you a personalized starting point, but you can adjust anything — caffeine level, flavor, or boosts — before checkout. Every pouch is made to order, so your final blend always reflects exactly what you want.",
+            "question_7": "Are the ingredients backed by science?",
+            "answer_7": "Yes. Every active ingredient in CLIME is supported by human studies showing measurable effects on focus, balance, and fast energy.",
+            "question_8": "Is it safe to use every day?",
+            "answer_8": "Absolutely. CLIME uses clean, natural actives — no artificial stimulants, no proprietary blends, and nothing you can't pronounce. It's designed for daily use as part of a healthy routine.",
+            "question_font_size": 18,
+            "answer_font_size": 16,
+            "page_background_color": "#efefef",
+            "container_background_color": "#efefef",
+            "title_color": "#121212",
+            "question_color": "#121212",
+            "question_hover_color": "#334fb4",
+            "answer_color": "#121212",
+            "icon_color": "#121212",
+            "divider_color": "#e8e8e8"
+          },
+          "blocks": {}
+        },
+        "shop_shop_login_button_app_block_3xMyCH": {
+          "type": "shopify://apps/shop/blocks/shop-login-button-app-block/7cab7c4a-1dfc-4b7e-8e53-31f104f2fa4e",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_4d23c88_VtjyEN",
+        "ai_gen_block_850258a_9KVfPW",
+        "shop_shop_login_button_app_block_3xMyCH"
+      ],
+      "settings": {}
+    },
+    "custom_liquid_FDReyf": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div id=\"faq-anchor\" style=\"position: relative; top: -90px;\"></div>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "176297152916dc9d1a": {
+      "type": "_blocks",
+      "settings": {}
+    }
+  },
+  "order": [
+    "clime_hero_fYGxhE",
+    "custom_liquid_fnR38t",
+    "17630821548e7cddc3",
+    "1763079036067ada89",
+    "1762970582c87e64b2",
+    "custom_liquid_FDReyf",
+    "176297152916dc9d1a"
+  ]
+}

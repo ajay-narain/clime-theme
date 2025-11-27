@@ -1,0 +1,2759 @@
+{% comment %}
+  CLIME Energy Quiz section – NEW FLOW (no GIFs / no asset_url)
+{% endcomment %}
+
+<style>
+  /* ===== GENERAL LAYOUT ===== */
+
+  .clime-quiz-section {
+    position: relative;
+    padding: 24px 0 32px;
+    /* Make the quiz cover the entire viewport height */
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #202a72 0, #05091f 55%, #020309 100%);
+    color: #ffffff;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+      "Helvetica Neue", Arial, sans-serif;
+  }
+
+/* Generic icon image for problem/help panels */
+.cq-media-img {
+  max-width: 160px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* === Center the quiz slightly ABOVE halfway on the page === */
+.clime-quiz-section {
+  display: flex;
+  align-items: flex-start;   /* push upward */
+  justify-content: center;   /* horizontally centered */
+  min-height: 100vh;
+  padding-top: 8vh !important;   /* adjust this to tune vertical position */
+  padding-bottom: 0 !important;
+}
+
+.clime-quiz-inner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.clime-quiz {
+  width: 100%;
+  max-width: 840px;
+}
+
+
+.clime-quiz-inner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.clime-quiz {
+  width: 100%;
+  max-width: 840px;
+}
+
+  .clime-quiz-inner {
+    padding: 0 16px;
+  }
+
+  .clime-quiz {
+    max-width: 840px;
+    margin: 0 auto;
+  }
+
+  /* ===== Splash screen styling ===== */
+
+  .cq-card--splash {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 96px 24px 120px;
+  }
+
+  /* Hide the vertical progress bar on splash screens */
+  .cq-card--splash .cq-progress-vertical {
+    display: none;
+  }
+
+  .cq-splash {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .cq-splash-logo {
+    margin-bottom: 18px;
+  }
+
+  .cq-splash-logo-img {
+    display: block;
+    margin: 0 auto;
+    max-width: 260px; /* Larger logo */
+    height: auto;
+  }
+
+  .cq-splash-tagline {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .cq-splash-subtitle {
+    font-size: 16px;
+    line-height: 1.55;
+    opacity: 0.9;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* Simple fade-in-up animation for logo + text */
+  @keyframes cqFadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+.cq-splash-logo,
+.cq-splash-tagline,
+.cq-splash-subtitle {
+  opacity: 0;
+  /* shortened for a faster intro (~0.7s each) */
+  animation: cqFadeInUp 711ms ease-out forwards;
+}
+
+.cq-splash-tagline {
+  /* delay scaled down */
+  animation-delay: 0.711s;
+}
+
+.cq-splash-subtitle {
+  /* delay scaled down – last line fully in at ~2.1s */
+  animation-delay: 1.422s;
+}
+
+  .cq-card {
+    background: #ffffff;
+    color: #111827;
+    border-radius: 18px;
+    padding: 28px 24px 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .cq-card {
+      padding: 32px 32px 28px;
+    }
+  }
+
+  /* Dark card variant for splash + quiz screens */
+
+  .cq-card.cq-card--dark {
+    background: transparent;
+    box-shadow: none;
+    color: #f9fafb;
+  }
+
+  .cq-card.cq-card--dark .cq-title,
+  .cq-card.cq-card--dark .cq-subtitle,
+  .cq-card.cq-card--dark .cq-kicker,
+  .cq-card.cq-card--dark .cq-question-text,
+  .cq-card.cq-card--dark .cq-question-label {
+    color: #e5e7eb;
+  }
+
+  .cq-subtitle--analysis {
+  font-size: 13px;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+
+  .cq-card.cq-card--dark .cq-kicker,
+  .cq-card.cq-card--dark .cq-question-label {
+    color: #9ca3af;
+  }
+
+.cq-card.cq-card--dark .cq-problem-stat {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ef4444; /* bright red on dark */
+  margin-bottom: 6px;
+}
+  .cq-card.cq-card--dark .cq-help-body,
+  .cq-card.cq-card--dark .cq-problem-body {
+    color: #e5e7eb;
+  }
+
+  /* Background “modes” */
+
+  .clime-quiz-section.mode-star {
+    background: radial-gradient(circle at top, #243189 0, #05091f 55%, #020309 100%);
+  }
+
+  .clime-quiz-section.mode-star-sunrise {
+    background:
+      radial-gradient(circle at top, #243189 0, #05091f 45%, #0f172a 60%, #1f2937 80%, #0b1120 100%),
+      radial-gradient(circle at bottom, #f97316 0, rgba(249, 115, 22, 0.0) 55%);
+  }
+
+  .clime-quiz-section.mode-problem {
+    background: radial-gradient(circle at top, #7f1d1d 0, #450a0a 45%, #111827 100%);
+  }
+
+  .clime-quiz-section.mode-help {
+    background: radial-gradient(circle at top, #0f172a 0, #020617 60%, #000000 100%);
+  }
+
+  .clime-quiz-section.mode-final {
+    background: radial-gradient(circle at top, #1e293b 0, #020617 60%, #000000 100%);
+  }
+}
+  /* ===== VERTICAL PROGRESS BAR ===== */
+
+  .cq-progress-vertical {
+    position: absolute;
+    left: 18px;
+    top: 20px;
+    bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .cq-progress-track {
+    width: 4px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.35);
+    overflow: hidden;
+    height: 120px;
+  }
+
+  .cq-progress-fill {
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(to top, #22c55e, #22c55e 35%, #4f46e5 100%);
+    transition: height 220ms ease-out;
+  }
+
+  @media (max-width: 639px) {
+    .cq-progress-vertical {
+      left: 10px;
+    }
+
+    .cq-progress-track {
+      height: 100px;
+    }
+  }
+
+  /* === Global page fade-in for all quiz screens === */
+@keyframes cqPageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cq-page-animate {
+  animation: cqPageFadeIn 260ms ease-out;
+}
+
+  /* ===== HEADINGS & TEXT ===== */
+
+  .cq-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #0b1120;
+  }
+
+  .cq-subtitle {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0 0 16px;
+    color: #4b5563;
+  }
+
+  .cq-kicker {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+
+  /* ===== QUESTION LAYOUT ===== */
+
+  .cq-question-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .cq-question-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    background: #e5e7eb;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    flex-shrink: 0;
+  }
+
+  .cq-question-number.cq-question-number--done {
+    background: #22c55e;
+    color: #ffffff;
+  }
+
+  .cq-question-label {
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+  }
+
+  .cq-question-text {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 14px;
+    color: #111827;
+
+  }
+  .cq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+    /* Answer capsules – transparent over the blue background */
+  .cq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cq-option {
+    position: relative;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 10px 14px 10px 40px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #f3f4f6;
+    background: transparent;            /* 🔑 let the page background show through */
+    cursor: pointer;
+    transition: border-color 140ms ease, transform 80ms ease;
+    box-shadow: none;
+  }
+
+  .cq-option:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(0, 0, 0, 0.0);     /* still effectively transparent */
+    box-shadow: none;
+    transform: translateY(-1px);
+  }
+
+  .cq-option-circle {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #ffffff;
+    background: #111827;                /* small contrast puck */
+    box-sizing: border-box;
+  }
+
+  .cq-option-check {
+    display: none;
+  }
+
+  /* Selected – keep capsule transparent, only change border + circle */
+  .cq-option.is-selected {
+    background: transparent;            /* 🔑 NO fill change */
+    border-color: #22c55e;             /* green outline only */
+    box-shadow: none;
+    transform: translateY(-1px);
+  }
+
+  .cq-option.is-selected .cq-option-circle {
+    border-color: #22c55e;
+    background: #22c55e;
+  }
+
+  .cq-option.is-selected .cq-option-check {
+    display: block;
+  }
+
+  .cq-option-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* FORCE ANSWER TEXT LEFT-ALIGNED */
+.cq-option,
+.cq-option-text {
+  text-align: left !important;
+  justify-content: flex-start !important;
+}
+
+/* === REMOVE THE WHITE FLASH WHEN SELECTED === */
+/* Capsule should *NOT* invert to white */
+.cq-option.is-selected {
+  background: #0b1230 !important;      /* stays same color */
+  border-color: #22c55e !important;    /* green border only */
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Only the circle turns green */
+.cq-option.is-selected .cq-option-circle {
+  background: #22c55e !important;
+  border-color: #22c55e !important;
+}
+
+.cq-option.is-selected .cq-option-check {
+  display: block !important;
+}
+
+  /* ===== BUTTONS ===== */
+
+  .cq-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  .cq-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: none;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 80ms ease, box-shadow 120ms ease, background 120ms ease;
+  }
+
+/* NEW CTA BUTTON STYLE */
+.cq-btn-primary {
+  background: rgba(255,255,255,0.04); /* subtle translucent */
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #ffffff;
+  box-shadow: none;
+  transition: transform 80ms ease, border-color 120ms ease;
+}
+
+.cq-btn-primary:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,0.55);
+}
+
+.cq-btn-primary:active {
+  transform: translateY(0);
+}
+
+  .cq-btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+  }
+
+  .cq-btn[disabled] {
+    opacity: 0.55;
+    cursor: default;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .cq-actions.cq-actions--hidden {
+    display: none;
+  }
+
+  /* ===== ANALYSIS SPINNER ===== */
+
+  .cq-analysis-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .cq-analysis-circle {
+    width: 96px;
+    height: 96px;
+    border-radius: 999px;
+    background: conic-gradient(
+      from 0deg,
+      #22c55e 0deg,
+      #22c55e 0deg,
+      #e5e7eb 0deg,
+      #e5e7eb 360deg
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .cq-analysis-circle-inner {
+    width: 70px;
+    height: 70px;
+    border-radius: 999px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 18px;
+    color: #111827;
+  }
+
+  .cq-analysis-status {
+    font-size: 14px;
+    color: #4b5563;
+  }
+
+  /* === Center the entire Analysis page === */
+.cq-analysis-wrapper-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh; /* lowers and centers the block */
+  text-align: center;
+  gap: 24px; /* spacing between title, circle, and status */
+}
+
+/* Increase space between number circle and status */
+.cq-analysis-wrapper {
+  margin-top: 16px !important;
+  gap: 20px !important;
+}
+
+/* Make the headline centered explicitly */
+.cq-title--analysis {
+  text-align: center !important;
+  margin-bottom: 12px !important;
+}
+
+/* ===== FIXED RESULT BAR CHART ===== */
+
+.cq-bar-chart {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px; /* more spacing like reference image */
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+.cq-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Outer bar container */
+.cq-bar {
+  width: 70px;             /* consistent width */
+  height: 180px;           /* TALL bars */
+  background: #0b1120;     /* deep blue/dark unfilled portion */
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Filled portion — height controlled via inline style */
+.cq-bar-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+/* Potential = green */
+.cq-bar-fill--green {
+  background: #22c55e;
+}
+
+/* Your Energy = red */
+.cq-bar-fill--red {
+  background: #ef4444;
+}
+
+.cq-bar-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e5e7eb;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* narrative under result */
+.cq-result-summary {
+  font-size: 15px;
+  color: #e5e7eb;
+  margin-top: 8px;
+}
+
+/* ===== DIAGNOSIS BADGE — HIGH IMPACT ===== */
+.cq-dx-headline {
+  margin: 18px 0 14px;
+  text-align: center;
+}
+
+.cq-dx-label {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fca5a5; /* soft red/orange highlight */
+  margin-bottom: 6px;
+}
+
+.cq-dx-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 26px 12px;
+  border-radius: 999px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+
+  /* Clean, translucent, elegant */
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.6px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+
+  /* Very subtle shadow for lift */
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+  /* ===== DOT PROGRESS ===== */
+
+  .cq-dot-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+  }
+
+  .cq-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.6);
+  }
+
+  .cq-dot.cq-dot--active {
+    width: 18px;
+    background: #f97316;
+  }
+
+/***************
+ CLEAN PROBLEM / HELP MEDIA PANELS
+ - No dark rounded box
+ - Icons show as white line drawings
+ - Everything centered
+***************/
+.cq-problem-media,
+.cq-help-media {
+  margin: 24px auto 16px;
+  max-width: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* kill the box */
+  border-radius: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  min-height: auto !important;
+  border: none !important;
+}
+
+/* All problem/help icons → white monoline on your gradient background */
+.cq-problem-media .cq-media-img,
+.cq-help-media .cq-media-img {
+  max-width: 120px;
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: invert(1) brightness(2) !important; /* force white lines */
+}
+
+/* Center titles, body, and stat on Problem & Help pages */
+.cq-card.cq-card--dark .cq-problem-title,
+.cq-card.cq-card--dark .cq-problem-subtitle,
+.cq-card.cq-card--dark .cq-problem-stat,
+.cq-card.cq-card--dark .cq-help-title,
+.cq-card.cq-card--dark .cq-help-subtitle,
+.cq-card.cq-card--dark .cq-help-body {
+  text-align: center;
+}
+
+/* Keep the existing generic icon size helper (no box) */
+.cq-media-img {
+  max-width: 160px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+  /* ===== HELP TEXT ===== */
+
+  .cq-help-body {
+    font-size: 14px;
+    color: #4b5563;
+  }
+
+  /* ===== FINAL REVEAL / POUCH ===== */
+
+/* ===== FINAL POUCH IMAGE + OVERLAY LABEL ===== */
+
+/* ===== FINAL POUCH IMAGE + OVERLAY LABEL ===== */
+
+/* FINAL POUCH SIZE + LABEL POSITION + STACKED TEXT */
+.clime-pouch-wrapper {
+  position: relative;
+  width: 200px;               /* smaller pouch */
+  margin: 24px auto 18px;
+}
+
+.clime-pouch-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Label overlay – centered inside white panel */
+.clime-pouch-label {
+  position: absolute;
+  left: 50%;
+  top: 48%;                   /* center of the white label */
+  transform: translate(-50%, -50%);
+  width: 70%;                 /* wider because text is stacked */
+  text-align: center;
+  pointer-events: none;
+}
+
+/* “Customized for:” line */
+.clime-pouch-label-customized {
+  display: none;              /* you don’t want this anymore */
+}
+
+/* FIRST NAME’s Energy */
+.clime-pouch-label-name {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+/* Stacked config lines */
+.clime-pouch-label-config {
+  font-size: 9.5px;
+  line-height: 1.35;
+  color: #4b5563;
+  white-space: normal;
+}
+  /* ===== FORM FIELDS ===== */
+
+  .cq-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .cq-field-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #e5e7eb; 
+  }
+
+  .cq-input-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .cq-input {
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    padding: 8px 12px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .cq-input:focus {
+    outline: none;
+    border-color: #a5b4fc;
+    box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.4);
+  }
+
+  .cq-input--age {
+    max-width: 120px;
+  }
+
+  .cq-input--error {
+    border-color: #ef4444;
+  }
+
+/* REMOVE LEFT VERTICAL PROGRESS BAR ON ALL SCREENS */
+.cq-progress-vertical {
+  display: none !important;
+}
+
+/* FORCE QUIZ QUESTION CARD TO BE TRANSPARENT/DARK */
+.cq-card.cq-card--dark {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* ALSO remove the white background behind the card completely */
+.cq-card {
+  background: transparent !important; /* kill white */
+  box-shadow: none !important;       /* matches dark theme */
+}
+
+/* Fade-out animation same speed as fade-in */
+@keyframes cqFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.cq-splash--fade-out {
+  animation: cqFadeOut 1500ms ease-out forwards;
+}
+/* === MAKE ANALYSIS TEXT BRIGHT ON DARK BACKGROUND === */
+.cq-analysis-status,
+.cq-analysis-wrapper,
+.cq-kicker,
+.cq-title,
+.cq-subtitle {
+  color: #f9fafb !important; /* bright white */
+}
+
+.cq-analysis-circle-inner {
+  color: #0b1120 !important; /* keep number dark for contrast */
+}
+
+.cq-analysis-status {
+  font-weight: 500;
+  opacity: 1 !important;
+}
+
+/* Force Problem & Help Titles to be white on all dark pages */
+.cq-card.cq-card--dark .cq-problem-title,
+.cq-card.cq-card--dark .cq-help-title,
+.cq-card.cq-card--dark .cq-final-title {
+  color: #ffffff !important;
+}
+/* === Brighten Problem/Help/Final Headlines on Dark Pages === */
+.cq-card.cq-card--dark .cq-problem-title,
+.cq-card.cq-card--dark .cq-help-title,
+.cq-card.cq-card--dark .cq-final-title {
+  color: #ffffff !important;     /* brightest white */
+  font-weight: 700 !important;
+}
+
+/* Body copy gets slightly dimmer gray so headlines pop */
+.cq-card.cq-card--dark .cq-problem-subtitle,
+.cq-card.cq-card--dark .cq-help-subtitle,
+.cq-card.cq-card--dark .cq-problem-body,
+.cq-card.cq-card--dark .cq-help-body,
+.cq-card.cq-card--dark .cq-result-summary,
+.cq-card.cq-card--dark .cq-final-subtitle {
+  color: #e5e7eb !important;      /* softer gray */
+}
+/* === Fix mobile zoom on name/age inputs (iOS) === */
+@media (max-width: 640px) {
+  .cq-input {
+    font-size: 16px !important; /* prevents Safari auto-zoom */
+  }
+}
+
+.cq-result-summary--centered {
+  text-align: center;
+  margin-top: 12px;
+}
+/* Generic step fade-in (used only on first three screens) */
+@keyframes cqStepFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cq-step-fade {
+  animation: cqStepFadeIn 220ms ease-out;
+}
+
+/* ===== FINAL CUSTOM POUCH LAYOUT ===== */
+
+.cq-final-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+@media (min-width: 900px) {
+  .cq-final-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.cq-final-pouch {
+  display: flex;
+  justify-content: center;
+}
+
+.cq-pouch-frame {
+  position: relative;
+  max-width: 220px;  /* was 320px – smaller pouch */
+  width: 100%;
+}
+
+.cq-pouch-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Label overlay on the pouch */
+.cq-pouch-label {
+  position: absolute;
+  left: 50%;
+  bottom: 21%;
+  transform: translateX(-50%);
+  width: 64%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.cq-pouch-line {
+  color: #111827;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+.cq-pouch-line--name {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.cq-pouch-line--formula {
+  font-size: 11px;
+  line-height: 1.3;
+  word-break: normal;
+}
+
+/* Details below pouch – NOT in a white box */
+.cq-final-attributes {
+  max-width: 820px;
+  width: 100%;
+  color: #e5e7eb;
+}
+
+.cq-final-attributes dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+  column-gap: 40px;
+  row-gap: 16px;
+}
+
+.cq-attr-row {
+  display: contents;
+}
+
+.cq-attr-heading {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.cq-attr-sub {
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.cq-attr-value {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.cq-final-attributes dt,
+.cq-final-attributes dd {
+  margin: 0;
+}
+/* === FINAL PAGE: WHITE BACKGROUND + DARK TEXT === */
+.clime-quiz-section.mode-final-white {
+  background: #ffffff !important;
+  color: #111827 !important;
+}
+
+/* Make all final-copy text dark on the white page */
+.clime-quiz-section.mode-final-white .cq-final-title,
+.clime-quiz-section.mode-final-white .cq-final-subtitle,
+.clime-quiz-section.mode-final-white .cq-final-attributes,
+.clime-quiz-section.mode-final-white .cq-final-attributes *,
+.clime-quiz-section.mode-final-white .cq-pouch-line {
+  color: #111827 !important;
+}
+
+/* Keep the diagnosis / summary text dark too, if it appears */
+.clime-quiz-section.mode-final-white .cq-result-summary,
+.clime-quiz-section.mode-final-white .cq-result-summary--centered {
+  color: #111827 !important;
+}
+
+/* Make the primary CTA button visible on white */
+.clime-quiz-section.mode-final-white .cq-btn-primary {
+  background: #111827 !important;
+  border-color: #111827 !important;
+  color: #ffffff !important;
+}
+</style>
+
+<section class="clime-quiz-section mode-star" id="clime-quiz-section">
+  <div class="clime-quiz-inner">
+    <div class="clime-quiz" id="clime-quiz-root">
+      <div class="cq-card">
+        <div class="cq-progress-vertical">
+          <div class="cq-progress-track">
+            <div class="cq-progress-fill" id="cq-progress-fill"></div>
+          </div>
+        </div>
+
+        <div id="cq-content">
+          <!-- JS renders quiz here -->
+        </div>
+
+        <div class="cq-actions" id="cq-actions">
+          <button type="button" class="cq-btn cq-btn-primary" id="cq-next">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const sectionEl = document.getElementById("clime-quiz-section");
+    const root = document.getElementById("cq-content");
+    const nextBtn = document.getElementById("cq-next");
+    const actionsEl = document.getElementById("cq-actions");
+    const progressFill = document.getElementById("cq-progress-fill");
+    const cardEl = sectionEl ? sectionEl.querySelector(".cq-card") : null;
+
+    if (!sectionEl || !root || !nextBtn || !cardEl) return;
+
+    /* ===== QUESTIONS & FLOW ===== */
+
+    const QUESTIONS = [
+      {
+        id: "q1",
+        text: "How do your energy levels usually feel throughout the day?",
+        options: [
+          { label: "Slow mornings", scoring: {} },
+          { label: "Strong start but I crash midday", scoring: {} },
+          { label: "Mostly steady with unpredictable dips", scoring: {} },
+          { label: "Ok, but I sometimes need a boost", scoring: {} },
+        ],
+      },
+      {
+        id: "q2",
+        text: "When do you usually feel your energy drop?",
+        options: [
+          { label: "First 1–2 hours after waking", scoring: {} },
+          { label: "Early afternoon (1–5 p.m.)", scoring: {} },
+          { label: "Late evenings / long shifts / travel", scoring: {} },
+          { label: "It doesn’t drop — I just want better performance", scoring: {} },
+        ],
+      },
+      {
+        id: "q3",
+        text: "How does caffeine usually make you feel?",
+        options: [
+          {
+            label: "Jittery or anxious, then tired",
+            scoring: { caffeine: -2, balance: 2 },
+          },
+          {
+            label: "Awake but unfocused",
+            scoring: { focus: 2, balance: 1 },
+          },
+          {
+            label: "Alert and steady",
+            scoring: { caffeine: 2, focus: 1 },
+          },
+          {
+            label: "I barely feel it. I think I’m tolerant",
+            scoring: { caffeine: 3 },
+          },
+        ],
+      },
+      {
+        id: "q4",
+        text: "How consistent is your sleep schedule over a typical week?",
+        options: [
+          {
+            label: "All over the place — bedtime and wake time shift a lot",
+            scoring: { balance: 1 },
+          },
+          {
+            label: "Fairly consistent, but I don’t always feel rested",
+            scoring: {},
+          },
+          {
+            label: "Very consistent, but I still feel low on energy",
+            scoring: { focus: 1 },
+          },
+          {
+            label: "I sleep well and usually feel rested",
+            scoring: {},
+          },
+        ],
+      },
+      {
+        id: "q5",
+        text: "On busy days, how many caffeinated drinks do you typically have?",
+        options: [
+          { label: "None or very rarely", scoring: { caffeine: -1 } },
+          { label: "1–2 servings", scoring: {} },
+          { label: "3–4 servings", scoring: { caffeine: 1 } },
+          { label: "5+ or I lose track", scoring: { caffeine: 2, balance: -1 } },
+        ],
+      },
+      {
+        id: "q6",
+        text: "When stress hits, what best describes your state?",
+        options: [
+          {
+            label: "Wired and restless — hard to turn my brain off",
+            scoring: { balance: 2 },
+          },
+          {
+            label: "Foggy — I’m awake but my focus tanks",
+            scoring: { focus: 2 },
+          },
+          {
+            label: "I push through, but feel wiped after",
+            scoring: { caffeine: 1, balance: 1 },
+          },
+          {
+            label: "I handle it pretty smoothly",
+            scoring: {},
+          },
+        ],
+      },
+      {
+        id: "q7",
+        text: "How does your energy tend to feel on an average day?",
+        options: [
+          { label: "It’s fine, then suddenly low", scoring: { balance: 1 } },
+          { label: "It slowly drains as the day goes on", scoring: { caffeine: 1 } },
+          { label: "It’s uneven with peaks and valleys", scoring: { balance: 1 } },
+          {
+            label: "It’s steady, just not strong enough",
+            scoring: { focus: 1 },
+          },
+        ],
+      },
+      {
+        id: "q8",
+        text: "What do you want most from your energy?",
+        options: [
+          {
+            label: "Smooth, steady energy without a crash",
+            scoring: { balance: 1 },
+          },
+          {
+            label: "Clear, focused thinking",
+            scoring: { focus: 1 },
+          },
+          {
+            label: "Stronger physical or mental performance",
+            scoring: { caffeine: 1 },
+          },
+        ],
+      },
+    ];
+
+    const QUESTION_IDS = QUESTIONS.map((q) => q.id);
+
+    const FLOW = [
+      { type: "splash1", id: "splash1" },
+      { type: "splash2", id: "splash2" },
+      { type: "demographics", id: "demographics" },
+      // Questions
+      ...QUESTION_IDS.map((qid) => ({ type: "question", id: qid })),
+      { type: "analysis", id: "analysis" },
+      { type: "summary", id: "summary" },
+      // Problem pages
+      { type: "problem", id: "p1" },
+      { type: "problem", id: "p2" },
+      { type: "problem", id: "p3" },
+      { type: "problem", id: "p4" },
+      { type: "problem", id: "p5" },
+      // How we can help
+      { type: "help", id: "h1" },
+      { type: "help", id: "h2" },
+      { type: "help", id: "h3" },
+      { type: "help", id: "h4" },
+      { type: "help", id: "h5" },
+      // Final reveal
+      { type: "final", id: "final" },
+    ];
+
+    const PROBLEM_PAGES = {
+      p1: {
+        title: "Fatigue quietly destroys productivity",
+        stat: "Up to 38% of workers report fatigue on the job in a typical week.",
+        body:
+          "Fatigue doesn’t just make you feel tired — it quietly erodes focus, decision-making, and reaction time, turning routine days into uphill battles.",
+      },
+      p2: {
+        title: "Energy crashes erase entire afternoons",
+        stat:
+          "Midday energy crashes can cost 1–3 hours of peak focus — every single workday.",
+        body:
+          "By the time your energy dips, your most important tasks are often still unfinished. That drag compounds into missed goals and chronic frustration.",
+      },
+      p3: {
+        title: "Stimulant overuse keeps you stuck",
+        stat:
+          "Relying heavily on caffeine can worsen sleep and drive a cycle of dependence and burnout.",
+        body:
+          "Piling on coffee and energy drinks pushes the gas pedal harder — but never fixes the engine. Over time, your baseline energy gets lower, not higher.",
+      },
+      p4: {
+        title: "Low energy has real long-term costs",
+        stat:
+          "Chronic fatigue is linked to higher stress, more errors, and greater risk of long-term health issues.",
+        body:
+          "When your system runs in survival mode, your brain, hormones, and nervous system pay the price. Fixing energy isn’t a luxury — it’s preventive maintenance.",
+      },
+      p5: {
+        title: "Path to Better Energy",
+        stat: "",
+        body:
+          "Your energy pattern isn’t fixed. Small, targeted adjustments — especially around caffeine, focus support, and crash/jitter control — can dramatically improve your day-to-day energy.",
+      },
+    };
+// Map each diagnosis to a sequence of 5 problem pages
+// (using the shared PROBLEM_PAGES p1–p5)
+const DIAGNOSIS_PROBLEM_FLOW = {
+  // Caffeine overreacts, stimulants are the main villain
+  "Caffeine Sensitivity": ["p3", "p1", "p2", "p4", "p5"],
+
+  // Pushes hard, runs out of gas midday
+  "High-Output Fatigue": ["p2", "p1", "p3", "p4", "p5"],
+
+  // Classic midday fade
+  "Midday Decline Pattern": ["p2", "p1", "p4", "p3", "p5"],
+
+  // Long hard days + stress
+  "Overextension Fatigue": ["p4", "p1", "p2", "p3", "p5"],
+
+  // Slower but steady late-day leak
+  "Late-Day Decline": ["p2", "p4", "p1", "p3", "p5"],
+
+  // Slow mornings, low gear
+  "Delayed Activation": ["p1", "p2", "p4", "p3", "p5"],
+
+  // Needs strong push to wake up
+  "High-Tolerance Activation": ["p1", "p3", "p2", "p4", "p5"],
+
+  // Stress + stimulants = wired but unstable
+  "Stress-Induced Overarousal": ["p3", "p4", "p1", "p2", "p5"],
+
+  // Stress kills clarity more than energy
+  "Cognitive Drift Pattern": ["p1", "p2", "p4", "p3", "p5"],
+
+  // Bouncy / unpredictable energy
+  "Energy Variability Disorder": ["p2", "p1", "p3", "p4", "p5"],
+
+  // Flat, underpowered baseline
+  "Suboptimal Baseline Energy": ["p1", "p4", "p2", "p3", "p5"],
+
+  // Fallback / mixed pattern
+  "Mixed Energy Pattern": ["p1", "p2", "p3", "p4", "p5"],
+
+  // Generic default if anything is off
+  default: ["p1", "p2", "p3", "p4", "p5"],
+};
+// Diagnosis-specific problem copy: 5 slides per diagnosis
+// Each index (0–4) = first through fifth Problem slide.
+const DIAGNOSIS_PROBLEM_CONTENT = {
+  "Caffeine Sensitivity": [
+    {
+      title: "Overreactive to Stimulants",
+      body: "Small caffeine hits feel like too much, too fast."
+    },
+    {
+      title: "Jitters, Not Real Energy",
+      body: "You feel wired and uneasy, but not truly energized."
+    },
+    {
+      title: "Crash After Every Spike",
+      body: "Energy pops briefly, then falls off harder than before."
+    },
+    {
+      title: "Sleep and Recovery Strain",
+      body: "Stimulant stress keeps your system from fully resetting overnight."
+    },
+    {
+      title: "Path Out of Overdrive",
+      body: "Dialed-back caffeine plus balance support stabilizes your day."
+    }
+  ],
+
+  "High-Output Fatigue": [
+    {
+      title: "Running Hot All Morning",
+      body: "You push hard early and burn resources quickly."
+    },
+    {
+      title: "Fatigue Behind Performance",
+      body: "Your output stays high while your reserves quietly drain."
+    },
+    {
+      title: "Afternoons Fall Off Hard",
+      body: "You lose your sharpness right when work still matters."
+    },
+    {
+      title: "Body Stuck in Overdrive",
+      body: "Constant pushing blunts recovery and lowers your baseline over time."
+    },
+    {
+      title: "Structured Refuel Needed",
+      body: "Smarter stimulation and recovery cues can extend your runway."
+    }
+  ],
+
+  "Midday Decline Pattern": [
+    {
+      title: "Strong Start, Weak Middle",
+      body: "Mornings feel fine, but momentum fades too soon."
+    },
+    {
+      title: "Productivity Lost After Lunch",
+      body: "Your best work hours end earlier than they should."
+    },
+    {
+      title: "Unreliable Afternoon Focus",
+      body: "Important tasks compete with a heavy energy dip."
+    },
+    {
+      title: "Compensating With Quick Fixes",
+      body: "Random snacks and caffeine never fully solve the slump."
+    },
+    {
+      title: "Targeted Midday Support",
+      body: "Timed focus and crash control can reclaim your afternoons."
+    }
+  ],
+
+  "Overextension Fatigue": [
+    {
+      title: "Long Days, Little Margin",
+      body: "Your schedule demands more than your energy budget allows."
+    },
+    {
+      title: "Chronic Stress Load",
+      body: "Your nervous system runs hot for too many hours."
+    },
+    {
+      title: "Late-Day Performance Slide",
+      body: "Precision and patience drop off when days run long."
+    },
+    {
+      title: "Recovery Debt Builds Up",
+      body: "Your body never fully catches up between heavy days."
+    },
+    {
+      title: "Protecting Your Reserves",
+      body: "Steadier support helps you last without burning out."
+    }
+  ],
+
+  "Late-Day Decline": [
+    {
+      title: "Slow Leak of Energy",
+      body: "You don’t crash—your energy just steadily drifts downward."
+    },
+    {
+      title: "Evenings Feel Heavier",
+      body: "Work, family, or training feel harder than they should."
+    },
+    {
+      title: "Stimulants Come Too Late",
+      body: "Late caffeine props you up but punishes your sleep."
+    },
+    {
+      title: "Recovery Window Shrinks",
+      body: "Poor timing squeezes the hours when your body can reset."
+    },
+    {
+      title: "Better Timed Support",
+      body: "Earlier, smarter boosts can help evenings feel lighter."
+    }
+  ],
+
+  "Delayed Activation": [
+    {
+      title: "Slow Morning Boot-Up",
+      body: "Your brain and body take too long to come online."
+    },
+    {
+      title: "Lost Early Hours",
+      body: "You waste your quietest, most valuable time feeling half-awake."
+    },
+    {
+      title: "Playing Catch-Up All Day",
+      body: "A sluggish start makes the rest of the day feel rushed."
+    },
+    {
+      title: "Sleep Isn’t Translating",
+      body: "Even decent sleep doesn’t convert into strong morning energy."
+    },
+    {
+      title: "Gentle Morning Activation",
+      body: "Well-timed stimulation and focus support lift your launch."
+    }
+  ],
+
+  "High-Tolerance Activation": [
+    {
+      title: "Blunted Caffeine Response",
+      body: "Normal doses barely move the needle anymore."
+    },
+    {
+      title: "Stacking Cups to Function",
+      body: "You keep increasing intake just to feel baseline awake."
+    },
+    {
+      title: "Hidden Fatigue Under Output",
+      body: "You look productive, but your system is running depleted."
+    },
+    {
+      title: "Escalating Stimulant Cycle",
+      body: "More caffeine today means an even higher bar tomorrow."
+    },
+    {
+      title: "Strategic Stronger Support",
+      body: "Calibrated dosing and focus aids can replace blind overuse."
+    }
+  ],
+
+  "Stress-Induced Overarousal": [
+    {
+      title: "Stress Fuels Overdrive",
+      body: "Pressure plus stimulants push your system past comfortable alertness."
+    },
+    {
+      title: "Wired, Not Productive",
+      body: "You feel amped up, but clarity and control suffer."
+    },
+    {
+      title: "Hard to Power Down",
+      body: "Your brain doesn’t easily switch off after demanding days."
+    },
+    {
+      title: "Recovery Channels Blocked",
+      body: "Nervous system overactivation blunts real rest and reset."
+    },
+    {
+      title: "Calmer, Focused Activation",
+      body: "Balance ingredients smooth the edge while keeping you sharp."
+    }
+  ],
+
+  "Cognitive Drift Pattern": [
+    {
+      title: "Energy Without Precision",
+      body: "You’re technically awake, but mentally off target."
+    },
+    {
+      title: "Focus Slips Under Load",
+      body: "Complex or sustained tasks quickly start to feel blurry."
+    },
+    {
+      title: "Stimulants Don’t Fix Clarity",
+      body: "More caffeine raises arousal, not high-quality thinking."
+    },
+    {
+      title: "Mental Fatigue Builds Quietly",
+      body: "Your brain tires faster than your body signals."
+    },
+    {
+      title: "True Cognitive Support",
+      body: "Nootropic focus aids help stabilize attention and clarity."
+    }
+  ],
+
+  "Energy Variability Disorder": [
+    {
+      title: "Unpredictable Daily Pattern",
+      body: "Some hours feel great, others suddenly fall apart."
+    },
+    {
+      title: "Hard to Plan Output",
+      body: "You can’t reliably match energy to important work."
+    },
+    {
+      title: "Overcorrecting With Stimulants",
+      body: "You chase dips with random boosts that worsen swings."
+    },
+    {
+      title: "System Never Fully Settles",
+      body: "Your nervous system rarely lives in a steady middle gear."
+    },
+    {
+      title: "Smoothing the Curve",
+      body: "Balanced support narrows peaks and valleys into something usable."
+    }
+  ],
+
+  "Suboptimal Baseline Energy": [
+    {
+      title: "Always Slightly Undercharged",
+      body: "You rarely crash, but never feel truly powerful."
+    },
+    {
+      title: "Low Ceiling on Performance",
+      body: "Even good days don’t reach your real potential."
+    },
+    {
+      title: "Underwhelming Response to Effort",
+      body: "More discipline and work don’t translate into higher energy."
+    },
+    {
+      title: "Quiet Long-Term Cost",
+      body: "Living underpowered slowly drags on mood and confidence."
+    },
+    {
+      title: "Raising the Baseline",
+      body: "Targeted stimulation and support can lift your whole curve."
+    }
+  ],
+
+  "Mixed Energy Pattern": [
+    {
+      title: "No Single Clear Pattern",
+      body: "Your answers show overlapping stress, stimulant, and timing issues."
+    },
+    {
+      title: "Different Days, Different Problems",
+      body: "Sometimes you crash, other times you just feel flat."
+    },
+    {
+      title: "Random Fixes, Random Results",
+      body: "You’ve likely tried many things without a consistent plan."
+    },
+    {
+      title: "System Needs Rebalancing",
+      body: "Your energy controls work independently, not as a coordinated whole."
+    },
+    {
+      title: "Unified Support Strategy",
+      body: "A balanced build can gradually stabilize mixed, shifting patterns."
+    }
+  ],
+
+  // Fallback if anything is missing
+  default: [
+    {
+      title: "Energy Working Against You",
+      body: "Your current pattern quietly limits your daily performance."
+    },
+    {
+      title: "Productivity Left on Table",
+      body: "Energy dips and drags pull focus from what matters."
+    },
+    {
+      title: "Quick Fixes, Weak Results",
+      body: "Random caffeine or snacks never address the root pattern."
+    },
+    {
+      title: "Compounded Long-Term Strain",
+      body: "Unmanaged fatigue slowly taxes mood, health, and confidence."
+    },
+    {
+      title: "Path to Better Days",
+      body: "Targeted support can realign your energy with your goals."
+    }
+  ]
+};
+
+    const HELP_PAGES = {
+      h1: {
+        title: "Welcome to CLIME",
+        subtitle:
+          "CLIME builds a personalized gel pouch that’s customized around your pattern and supports smoother, steadier energy.",
+        body:
+          "Instead of guessing with pills, drinks, or random stacks, CLIME uses your responses to tune caffeine, focus support, and crash control — all in a fast-absorbing gel pouch.",
+      },
+      h2: {
+        title: "Caffeine",
+        subtitle: "Precision Caffeine",
+        body:
+          "Choose from 0–300 mg, sourced from organic green coffee beans. Enough to move the needle — never so much that it overwhelms your system.",
+      },
+      h3: {
+        title: "Focus",
+        subtitle: "Mangiferin Extract",
+        body:
+          "Derived from mango leaves and clinically shown to improve focus and processing speed, this nootropic supports clear, sustained mental performance.",
+      },
+      h4: {
+        title: "Balance",
+        subtitle: "L-Theanine & Taurine",
+        body:
+          "These ingredients provide a calm, natural balance that’s been clinically shown to reduce jitters and smooth out stimulant edge.",
+      },
+      h5: {
+        title: "Nootropic Mushrooms",
+        subtitle: "Lion’s Mane & Reishi",
+        body:
+          "These mushrooms, delivered in a flavorless extract, have been shown to support calm clarity, resilience to stress, and long-term brain health.",
+      },
+    };
+    
+    // ===== ICON / IMAGE MAPS =====
+    const PROBLEM_MEDIA = {
+      p1: {
+        // Draining battery icon
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Prob_Page_1_-_Draining_Battery.png?v=1764201089",
+        alt: "Battery icon showing energy draining"
+      },
+      p2: {
+        // Empty fuel gauge icon
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Prob_Page_2_-_Empty_Fuel.png?v=1764201089",
+        alt: "Fuel gauge icon near empty"
+      },
+      p3: {
+        // Trash can with coffee cups / cans
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Prob_Page_3_-_Trash_can.png?v=1764201089",
+        alt: "Trash can with discarded coffee cups"
+      },
+      p4: {
+        // Head on desk icon
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Prob_Page_4_-_Head_on_Desk.png?v=1764201089",
+        alt: "Person resting head on desk"
+      },
+      p5: {
+        // Sunflower / better path icon
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Better_Path_Page_-_Sunflower.png?v=1764201089",
+        alt: "Sunflower icon symbolizing better energy path"
+      }
+    };
+
+    const HELP_MEDIA = {
+      h1: {
+        // CLIME pouch / bottle
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Pouch_Icon_a634d238-2efd-4fd5-ac07-db014e012e83.png?v=1764201089",
+        alt: "CLIME pouch icon"
+      },
+      h2: {
+        // Coffee beans (caffeine)
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Coffee_Bean_Icon_f802977b-50d5-4c9c-b4fc-7fb008bbe4d1.png?v=1764201089",
+        alt: "Coffee bean branch icon"
+      },
+      h3: {
+        // Mango (mangiferin)
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Mangiferin_Icon_4358808d-e9d6-4ba1-9048-afa8d1f1f997.png?v=1764201089",
+        alt: "Mango fruit icon"
+      },
+      h4: {
+        // Balance scale
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Balance_Icon_044c3731-c428-497a-a18e-45bd84d4071f.png?v=1764201089",
+        alt: "Balance scale icon"
+      },
+      h5: {
+        // Mushrooms
+        src: "https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Mushroom_Icon_134caf25-4d4e-47d6-b5ba-c178437baf3c.png?v=1764201089",
+        alt: "Mushroom icon"
+      }
+    };
+
+    /* ===== STATE ===== */
+
+    const state = {
+      stepIndex: 0,
+      answers: {},
+      scores: { caffeine: 0, focus: 0, balance: 0 },
+      firstName: "",
+      age: "",
+      diagnosis: null,
+      build: null,
+      energyBars: null,
+      analysisTimer: null,
+      introTimer: null,
+    };
+
+    function getQuestionById(id) {
+      return QUESTIONS.find((q) => q.id === id);
+    }
+
+    function randomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    /* ===== PROGRESS ===== */
+
+    function countAnsweredQuestions() {
+      let count = 0;
+      QUESTION_IDS.forEach((qid) => {
+        if (state.answers[qid]) count++;
+      });
+      return count;
+    }
+
+    function updateProgressBar() {
+      const total = QUESTION_IDS.length;
+      const answered = countAnsweredQuestions();
+      const pct = total > 0 ? (answered / total) * 100 : 0;
+      if (progressFill) {
+        progressFill.style.height = pct + "%";
+      }
+    }
+
+    /* ===== RENDER HELPERS ===== */
+
+    function setSectionMode(mode) {
+      sectionEl.classList.remove(
+        "mode-star",
+        "mode-star-sunrise",
+        "mode-problem",
+        "mode-help",
+        "mode-final"
+      );
+      sectionEl.classList.add(mode);
+    }
+
+    function setCardFrame(isSplash) {
+      if (!cardEl) return;
+      cardEl.classList.toggle("cq-card--splash", !!isSplash);
+    }
+
+    function setCardDark(isDark) {
+      if (!cardEl) return;
+      cardEl.classList.toggle("cq-card--dark", !!isDark);
+    }
+
+    function setActionsVisibility(show, label) {
+      if (!actionsEl) return;
+      if (show) {
+        actionsEl.classList.remove("cq-actions--hidden");
+        if (label) nextBtn.textContent = label;
+      } else {
+        actionsEl.classList.add("cq-actions--hidden");
+      }
+    }
+
+    function renderSplash1() {
+      setSectionMode("mode-star");
+      setCardFrame(true); // full-bleed splash card
+      setCardDark(true);  // dark background, white text
+      setActionsVisibility(false); // no Next button
+
+      root.innerHTML =
+        '<div class="cq-splash">' +
+          '<div class="cq-splash-logo">' +
+            '<img src="https://cdn.shopify.com/s/files/1/0965/9003/7310/files/CLIME_Logo_White_1.png?v=1762910146" alt="CLIME" class="cq-splash-logo-img" />' +
+          "</div>" +
+          '<p class="cq-splash-tagline">Energy, personalized.</p>' +
+          '<p class="cq-splash-subtitle">' +
+            "Everyone\u2019s energy needs are different." +
+          "</p>" +
+        "</div>";
+
+      // After full fade-in (~5s), fade OUT, then move to next screen
+if (state.introTimer) {
+  clearTimeout(state.introTimer);
+}
+
+// Start fade-out at 5s
+state.introTimer = setTimeout(function () {
+  const splashEl = document.querySelector('.cq-splash');
+  if (splashEl) {
+    splashEl.classList.add('cq-splash--fade-out');
+  }
+
+  // Advance after fade-out completes (1.0s)
+  setTimeout(nextStep, 1000);
+
+}, 3000); // 3s fade-in duration before fade-out begins
+
+    }
+
+    function renderSplash2() {
+  setSectionMode("mode-star-sunrise");
+  setCardFrame(false);
+  setCardDark(true); // still on dark quiz card
+  setActionsVisibility(true, "Begin the Assessment");
+
+  root.innerHTML =
+    '<div style="text-align:center; margin-bottom:36px;">' +
+      '<h2 class="cq-title" style="text-align:center;">Welcome!</h2>' +
+      '<p class="cq-subtitle" style="text-align:center; max-width:480px; margin:12px auto 0;">' +
+        'Let’s start by finding out what your energy patterns are.' +
+      '</p>' +
+    '</div>';
+
+  // 🔥 Center the CTA for this screen
+  if (actionsEl) {
+    actionsEl.style.justifyContent = "center";  // override flex-end
+    actionsEl.style.marginTop = "28px";         // a bit more space under the copy
+  }
+}
+
+        function renderDemographics() {
+      setSectionMode("mode-star-sunrise");
+      setCardFrame(false);
+      setCardDark(true); // quiz screen: dark card
+      setActionsVisibility(true, "Next");
+
+      const nameValue = state.firstName || "";
+
+      root.innerHTML =
+        '<div style="text-align:center; margin-bottom:32px;">' +
+          '<h2 class="cq-title" style="text-align:center;">Start by telling us about you</h2>' +
+          '<p class="cq-subtitle" style="text-align:center; max-width:520px; margin:12px auto 0;">' +
+            'We’ll use this to personalize your CLIME pouch and your results.' +
+          '</p>' +
+        '</div>' +
+        '<div class="cq-field-group" style="text-align:center; margin-top:20px;">' +
+          '<label class="cq-field-label" for="cq-first-name" style="display:block; text-align:center;">Please enter your first name</label>' +
+          '<input id="cq-first-name" class="cq-input" type="text" ' +
+            'style="margin:0 auto;" value="' + escapeHtml(nameValue) + '"/>' +
+        '</div>';
+
+      // Center the CTA on this screen
+      if (actionsEl) {
+        actionsEl.style.justifyContent = "center";
+        actionsEl.style.marginTop = "28px";
+      }
+
+      const nameInput = document.getElementById("cq-first-name");
+
+      if (nameInput) {
+        nameInput.addEventListener("input", function () {
+          state.firstName = this.value.trim();
+          this.classList.remove("cq-input--error");
+        });
+      }
+    }
+
+    function renderQuestion(step) {
+      const q = getQuestionById(step.id);
+      if (!q) return;
+
+      setSectionMode("mode-star");
+      setCardFrame(false);
+      setCardDark(true);      // quiz questions: dark card
+      setActionsVisibility(false); // auto-advance on selection
+
+      const qIndex = QUESTION_IDS.indexOf(q.id);
+      const questionNumber = qIndex + 1;
+      const totalQuestions = QUESTION_IDS.length;
+      const alreadyAnswered = !!state.answers[q.id];
+
+      let html = "";
+
+      html +=
+        '<div class="cq-question-meta">' +
+        '<div class="cq-question-number' +
+        (alreadyAnswered ? " cq-question-number--done" : "") +
+        '">' +
+        questionNumber +
+        "</div>" +
+        '<div class="cq-question-label">Question ' +
+        questionNumber +
+        " of " +
+        totalQuestions +
+        "</div>" +
+        "</div>";
+
+      html += '<h2 class="cq-question-text">' + escapeHtml(q.text) + "</h2>";
+      html += '<div class="cq-options">';
+
+      q.options.forEach(function (opt) {
+        const isSelected = state.answers[q.id] === opt.label;
+        html +=
+          '<button type="button" class="cq-option' +
+          (isSelected ? " is-selected" : "") +
+          '" data-qid="' +
+          q.id +
+          '" data-label="' +
+          escapeHtml(opt.label) +
+          '">' +
+          '<div class="cq-option-circle">' +
+          '<span class="cq-option-check">\u2713</span>' +
+          "</div>" +
+          '<div class="cq-option-text">' +
+          escapeHtml(opt.label) +
+          "</div>" +
+          "</button>";
+      });
+
+      html += "</div>";
+
+      root.innerHTML = html;
+
+      const optionEls = root.querySelectorAll(".cq-option");
+            optionEls.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const qid = this.getAttribute("data-qid");
+          const label = this.getAttribute("data-label");
+          const question = getQuestionById(qid);
+          if (!qid || !label || !question) return;
+
+          // Update selected styling
+          optionEls.forEach((el) => el.classList.remove("is-selected"));
+          this.classList.add("is-selected");
+
+          // Record answer & update scores
+          state.answers[qid] = label;
+          const opt = question.options.find((o) => o.label === label);
+          if (opt && opt.scoring) {
+            Object.keys(opt.scoring).forEach((dim) => {
+              const delta = opt.scoring[dim] || 0;
+              state.scores[dim] = (state.scores[dim] || 0) + delta;
+            });
+          }
+
+          updateProgressBar();
+
+          setTimeout(nextStep, 500);
+        });
+      });
+    }
+
+ function renderAnalysis() {
+  setSectionMode("mode-star-sunrise");
+  setCardFrame(false);
+  setCardDark(true);
+
+  // Hide Next while analysis runs
+  setActionsVisibility(false);
+
+  const durationMs = 4000;
+  const startTime = performance.now();
+
+  root.innerHTML =
+    '<div class="cq-analysis-wrapper-container">' +
+      '<h2 class="cq-title cq-title--analysis">Analyzing your responses...</h2>' +
+      '<div class="cq-analysis-wrapper">' +
+        '<div class="cq-analysis-circle">' +
+          '<div class="cq-analysis-circle-inner" id="cq-analysis-percent">0%</div>' +
+        '</div>' +
+        '<div class="cq-analysis-status" id="cq-analysis-status">Analyzing Responses</div>' +
+      '</div>' +
+    '</div>';
+
+  const percentEl = document.getElementById("cq-analysis-percent");
+  const statusEl = document.getElementById("cq-analysis-status");
+  const circleEl = root.querySelector(".cq-analysis-circle");
+
+  function tick(now) {
+    const elapsed = now - startTime;
+    const t = Math.min(1, elapsed / durationMs);
+    const pct = Math.round(t * 100);
+
+    if (circleEl) {
+      const angle = Math.round(360 * t);
+      circleEl.style.background =
+        "conic-gradient(from 0deg, #22c55e 0deg, #22c55e " +
+        angle +
+        "deg, #e5e7eb " +
+        angle +
+        "deg, #e5e7eb 360deg)";
+    }
+
+    if (percentEl) {
+      percentEl.textContent = pct + "%";
+    }
+
+    if (statusEl) {
+      if (t < 0.34) {
+        statusEl.textContent = "Analyzing Responses";
+      } else if (t < 0.67) {
+        statusEl.textContent = "Analyzing Patterns";
+      } else {
+        statusEl.textContent = "Building custom plan";
+      }
+    }
+
+    if (t < 1) {
+      state.analysisTimer = requestAnimationFrame(tick);
+    } else {
+      // When analysis finishes, compute everything and move on
+      computeDiagnosisAndBuild();
+      state.stepIndex = FLOW.findIndex((step) => step.type === "summary");
+      if (state.stepIndex === -1) state.stepIndex = 0;
+      renderStep();
+    }
+  }
+
+  state.analysisTimer = requestAnimationFrame(tick);
+}
+    function makeEnergyBars(diagnosis) {
+      // Simple default bar values
+      let potential = 90;
+      let current = 45;
+
+      const title = diagnosis && diagnosis.title ? diagnosis.title : "";
+
+      // Optionally tweak current based on diagnosis type
+      if (title === "High-Output Fatigue" || title === "Overextension Fatigue") {
+        current = 35;
+      } else if (title === "Midday Decline Pattern" || title === "Late-Day Decline") {
+        current = 40;
+      } else if (title === "Suboptimal Baseline Energy") {
+        current = 45;
+      } else if (title === "Caffeine Sensitivity" || title === "Stress-Induced Overarousal") {
+        current = 50;
+      } else if (title === "Energy Variability Disorder" || title === "Mixed Energy Pattern") {
+        current = 42;
+      }
+
+      return { potential, current };
+    }
+
+    function computeDiagnosisAndBuild() {
+      const diagnosis = chooseDiagnosis();
+      const build = mapScoresToBuild(state.scores);
+      const bars = makeEnergyBars(diagnosis);
+
+      state.diagnosis = diagnosis;
+      state.build = build;
+      state.energyBars = bars;
+    }
+
+    function chooseDiagnosis() {
+  const a1 = (state.answers["q1"] || "").toLowerCase();
+  const a2 = (state.answers["q2"] || "").toLowerCase();
+  const a3 = (state.answers["q3"] || "").toLowerCase();
+  const a5 = (state.answers["q5"] || "").toLowerCase();
+  const a6 = (state.answers["q6"] || "").toLowerCase();
+  const a7 = (state.answers["q7"] || "").toLowerCase();
+  const a8 = (state.answers["q8"] || "").toLowerCase();
+  const s = state.scores || {};
+
+  const caffeineScore = s.caffeine || 0;
+  const focusScore = s.focus || 0;
+  const balanceScore = s.balance || 0;
+
+  // ---- PATTERN (WHEN + HOW ENERGY DROPS) ----
+  let pattern;
+  if (a2.indexOf("early afternoon") !== -1) {
+    pattern = "midday";
+  } else if (
+    a2.indexOf("late evenings") !== -1 ||
+    a2.indexOf("long shifts") !== -1 ||
+    a2.indexOf("travel") !== -1
+  ) {
+    pattern = "late";
+  } else if (a2.indexOf("first 1–2 hours") !== -1) {
+    pattern = "morning";
+  } else if (
+    a7.indexOf("peaks and valleys") !== -1 ||
+    a7.indexOf("suddenly low") !== -1
+  ) {
+    pattern = "swingy";
+  } else {
+    pattern = "steadyLow";
+  }
+
+  // ---- CAFFEINE / STRESS PROFILE ----
+  const caffeineSensitive =
+    a3.indexOf("jittery or anxious") !== -1 ||
+    caffeineScore < 0 ||
+    (a5.indexOf("none or very rarely") !== -1 && caffeineScore <= 0);
+
+  const highTolerance =
+    a3.indexOf("barely feel it") !== -1 ||
+    caffeineScore >= 3 ||
+    a5.indexOf("5+ or i lose track") !== -1;
+
+  const wiredStressed =
+    a6.indexOf("wired and restless") !== -1 && balanceScore >= 1;
+
+  const foggyStressed =
+    a6.indexOf("foggy") !== -1 && focusScore >= 1;
+
+  // Defaults (fallback)
+  let key = "Mixed Pattern – Needs Calibration";
+  let title = "Mixed Energy Pattern";
+  let fiveWords = "Mixed energy signals; pattern needs better tuning.";
+
+  // ---- DECISION TREE ----
+
+  // 1) Midday crash variants
+  if (pattern === "midday" && caffeineSensitive) {
+    key = "Midday Crash – Caffeine Sensitive";
+    title = "Caffeine Sensitivity";
+    fiveWords = "Afternoon crash; caffeine makes crashes worse.";
+  } else if (pattern === "midday" && highTolerance) {
+    key = "Midday Crash – High Output";
+    title = "High-Output Fatigue";
+    fiveWords = "Pushes hard early, pays with afternoon crash.";
+  } else if (pattern === "midday") {
+    key = "Midday Crash – Underpowered";
+    title = "Midday Decline Pattern";
+    fiveWords = "Decent mornings, afternoons quietly fade out.";
+
+  // 2) Late-day fatigue variants
+  } else if (pattern === "late" && wiredStressed) {
+    key = "Late-Day Fatigue – Overextended";
+    title = "Overextension Fatigue";
+    fiveWords = "Long days plus stress drain energy late.";
+  } else if (pattern === "late") {
+    key = "Late-Day Fatigue – Slow Fade";
+    title = "Late-Day Decline";
+    fiveWords = "Energy slowly leaks away on long days.";
+
+  // 3) Morning slump
+  } else if (pattern === "morning" && !highTolerance) {
+    key = "Morning Slump – Activation Lag";
+    title = "Delayed Activation";
+    fiveWords = "Slow to start; brain boots up late.";
+  } else if (pattern === "morning" && highTolerance) {
+    key = "Morning Slump – High-Tolerance";
+    title = "High-Tolerance Activation";
+    fiveWords = "Needs strong push just to feel awake.";
+
+  // 4) Stress-driven patterns
+  } else if (wiredStressed) {
+    key = "Stressed & Wired – Jitter-Prone";
+    title = "Stress-Induced Overarousal";
+    fiveWords = "Stress plus caffeine creates wired, unstable energy.";
+  } else if (foggyStressed) {
+    key = "Foggy Under Load – Focus Drift";
+    title = "Cognitive Drift Pattern";
+    fiveWords = "Stress keeps energy up, but melts focus.";
+
+  // 5) Swingy / unstable energy
+  } else if (pattern === "swingy") {
+    key = "Unstable Energy – Peaks & Dips";
+    title = "Energy Variability Disorder";
+    fiveWords = "Sharp energy bursts followed by hard crashes.";
+
+  // 6) Steady but too low
+  } else if (pattern === "steadyLow") {
+    key = "Steady But Underpowered – Flat Curve";
+    title = "Suboptimal Baseline Energy";
+    fiveWords = "Stable all day, but never truly sharp.";
+  }
+
+  return {
+    key: key,          // internal pattern label
+    title: title,      // short clinical diagnosis
+    fiveWords: fiveWords, // 6–8 word blurb
+  };
+}
+
+    function mapScoresToBuild(scores) {
+      let c = scores.caffeine || 0;
+      const f = scores.focus || 0;
+      const b = scores.balance || 0;
+
+      // clamp caffeine score
+      c = Math.max(-2, Math.min(8, c));
+
+      // map caffeine score → mg
+      let caffeineMg;
+      if (c <= -1) {
+        caffeineMg = 0;
+      } else if (c <= 1) {
+        caffeineMg = 75;
+      } else if (c <= 3) {
+        caffeineMg = 150;
+      } else if (c <= 5) {
+        caffeineMg = 225;
+      } else {
+        caffeineMg = 300;
+      }
+
+      // map focus score → none / medium / high
+      let focusLevel;
+      if (f <= 0) {
+        focusLevel = "none";
+      } else if (f >= 3) {
+        focusLevel = "high";
+      } else {
+        focusLevel = "medium";
+      }
+
+      // map balance score → none / medium / high
+      let balanceLevel;
+      if (b <= 0) {
+        balanceLevel = "none";
+      } else if (b >= 3) {
+        balanceLevel = "high";
+      } else {
+        balanceLevel = "medium";
+      }
+
+      // simple labels for UI
+      const focusLabelSimple =
+        focusLevel === "none" ? "None" :
+        focusLevel === "high" ? "High" : "Medium";
+
+      const balanceLabelSimple =
+        balanceLevel === "none" ? "None" :
+        balanceLevel === "high" ? "High" : "Medium";
+
+      return {
+        caffeineMg,
+        focusLevel,
+        balanceLevel,
+        focusLabelSimple,
+        balanceLabelSimple,
+      };
+    }
+
+function renderSummary() {
+  // Safety net: if somehow we got here without a diagnosis, compute it now
+  if (!state.diagnosis) {
+    computeDiagnosisAndBuild();
+  }
+
+  const diagnosis = state.diagnosis;
+  const bars = state.energyBars;
+
+  setSectionMode("mode-star");
+  setCardFrame(false);
+  setCardDark(true);
+  setActionsVisibility(true, "Next");
+
+  const dxLabel = diagnosis.title;      // always a real diagnosis
+  const fiveWords = diagnosis.fiveWords;
+
+  const potential = bars ? bars.potential : 90;
+  const current   = bars ? bars.current   : 45;
+
+  root.innerHTML =
+    '<h2 class="cq-title">Analysis Complete</h2>' +
+    // Centered, clear capsule headline
+    '<div class="cq-dx-headline">' +
+      '<div class="cq-dx-pill">' +
+        escapeHtml(dxLabel) +
+      '</div>' +
+    '</div>' +
+    // Centered diagnosis description
+    '<p class="cq-result-summary cq-result-summary--centered">' +
+      escapeHtml(fiveWords) +
+    '</p>' +
+    // Bar chart
+    '<div class="cq-bar-chart">' +
+      '<div class="cq-bar-col">' +
+        '<div class="cq-bar">' +
+          '<div class="cq-bar-fill cq-bar-fill--green" style="height:' + potential + '%;">' +
+            potential + '%</div>' +
+        '</div>' +
+        '<div class="cq-bar-label">POTENTIAL</div>' +
+      '</div>' +
+      '<div class="cq-bar-col">' +
+        '<div class="cq-bar">' +
+          '<div class="cq-bar-fill cq-bar-fill--red" style="height:' + current + '%;">' +
+            current + '%</div>' +
+        '</div>' +
+        '<div class="cq-bar-label">YOUR ENERGY</div>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderProblem(step) {
+  setSectionMode("mode-star-sunrise");
+  setCardFrame(false);
+  setCardDark(true);
+
+  // Figure out which problem "slot" (0–4) we are on
+  let problemIndex = 0;
+  for (let i = 0; i < state.stepIndex; i++) {
+    if (FLOW[i] && FLOW[i].type === "problem") {
+      problemIndex++;
+    }
+  }
+
+  const diagnosis = state.diagnosis;
+  const diagTitle =
+    diagnosis && diagnosis.title ? diagnosis.title : "default";
+
+  const flowForDiag =
+    DIAGNOSIS_PROBLEM_FLOW[diagTitle] ||
+    DIAGNOSIS_PROBLEM_FLOW.default;
+
+  // Which underlying base page (p1–p5) is this slot using?
+  const pageId =
+    flowForDiag[problemIndex] ||
+    flowForDiag[flowForDiag.length - 1]; // safety fallback
+
+  const baseData = PROBLEM_PAGES[pageId];
+  if (!baseData) return;
+
+  // Pull diagnosis-specific copy for this slot, if available
+  const diagList =
+    DIAGNOSIS_PROBLEM_CONTENT[diagTitle] ||
+    DIAGNOSIS_PROBLEM_CONTENT.default;
+
+  let diagContent;
+
+  // 🔑 For the 5th slide (problemIndex === 4),
+  // DO NOT override the base transition copy.
+  if (problemIndex === 4) {
+    // Use only the universal p5 text from PROBLEM_PAGES
+    diagContent = { title: null, body: null };
+  } else {
+    // For slides 1–4, keep using diagnosis-specific overrides
+    diagContent =
+      diagList[problemIndex] ||
+      DIAGNOSIS_PROBLEM_CONTENT.default[problemIndex];
+  }
+
+  const finalTitle = diagContent.title || baseData.title;
+  const finalBody = diagContent.body || baseData.body;
+
+  const total = flowForDiag.length;
+
+  let dots = '<div class="cq-dot-progress">';
+  for (let i = 0; i < total; i++) {
+    dots +=
+      '<div class="cq-dot' +
+      (i === problemIndex ? " cq-dot--active" : "") +
+      '"></div>';
+  }
+  dots += "</div>";
+
+  const statHtml = baseData.stat
+    ? '<div class="cq-problem-stat">' +
+      escapeHtml(baseData.stat) +
+      "</div>"
+    : "";
+
+  const mediaCfg = PROBLEM_MEDIA[pageId];
+  const mediaHtml = mediaCfg
+    ? '<div class="cq-problem-media">' +
+        '<img src="' + mediaCfg.src + '" alt="' + escapeHtml(mediaCfg.alt) + '" class="cq-media-img" />' +
+      '</div>'
+    : '<div class="cq-problem-media"></div>';
+
+  root.innerHTML =
+    '<h2 class="cq-problem-title">' +
+    escapeHtml(finalTitle) +
+    "</h2>" +
+    '<p class="cq-problem-subtitle">' +
+    escapeHtml(finalBody) +
+    "</p>" +
+    mediaHtml +
+    statHtml +
+    dots;
+
+  // Center the Next button on problem pages
+  if (actionsEl) {
+    actionsEl.style.justifyContent = "center";
+    actionsEl.style.marginTop = "24px";
+  }
+}
+
+
+
+function renderHelp(step) {
+  setSectionMode("mode-star-sunrise"); // same palette as earlier screens
+  setCardFrame(false);
+  setCardDark(true);
+
+  const data = HELP_PAGES[step.id];
+  if (!data) return;
+
+  const order = ["h1", "h2", "h3", "h4", "h5"];
+  const idx = order.indexOf(step.id);
+  const total = order.length;
+
+  let dots = '<div class="cq-dot-progress">';
+  for (let i = 0; i < total; i++) {
+    dots +=
+      '<div class="cq-dot' +
+      (i === idx ? " cq-dot--active" : "") +
+      '"></div>';
+  }
+  dots += "</div>";
+
+  const mediaCfg = HELP_MEDIA[step.id];
+  const mediaHtml = mediaCfg
+    ? '<div class="cq-help-media">' +
+        '<img src="' + mediaCfg.src + '" alt="' + escapeHtml(mediaCfg.alt) + '" class="cq-media-img" />' +
+      '</div>'
+    : '<div class="cq-help-media"></div>';
+
+
+  root.innerHTML =
+    '<h2 class="cq-help-title">' +
+    escapeHtml(data.title) +
+    "</h2>" +
+    '<p class="cq-help-subtitle">' +
+    escapeHtml(data.subtitle || "") +
+    "</p>" +
+    mediaHtml +
+    '<p class="cq-help-body">' +
+    escapeHtml(data.body) +
+    "</p>" +
+    dots;
+
+  // Center the Next button on help pages
+  if (actionsEl) {
+    actionsEl.style.justifyContent = "center";
+    actionsEl.style.marginTop = "24px";
+  }
+}
+
+
+function renderFinal() {
+  // Make sure we have a build + diagnosis
+  if (!state.diagnosis || !state.build) {
+    computeDiagnosisAndBuild();
+  }
+
+  const build =
+    state.build ||
+    mapScoresToBuild(state.scores || { caffeine: 0, focus: 0, balance: 0 });
+  const diagnosis = state.diagnosis;
+
+  const firstName = (state.firstName || "Your").trim();
+  const pouchName = firstName + "’s Energy";
+
+        const caffeinePretty = build.caffeineMg + " mg caffeine";
+
+      // Lines for the pouch label
+      const caffeineLine =
+        "Caffeine \u2013 " + build.caffeineMg + " mg";
+      const focusLine =
+        "Focus \u2013 " + (build.focusLabelSimple || "Medium");
+      const balanceLine =
+        "Balance \u2013 " + (build.balanceLabelSimple || "Medium");
+
+  // Long-form descriptions (same logic you already had)
+  const caffeineDesc =
+    build.caffeineMg === 0
+      ? "No added caffeine — ideal if you’re highly sensitive or already have a fixed caffeine routine."
+      : build.caffeineMg <= 100
+      ? "A lighter dose tailored for sensitivity and jitter control, with room to add your own coffee if needed."
+      : build.caffeineMg <= 200
+      ? "A solid daily dose tuned for clear alertness without pushing you into overload."
+      : "A higher-but-controlled dose aimed at high-tolerance days where you need stronger output.";
+
+  const focusDesc =
+    build.focusLevel === "none"
+      ? "Built without extra focus nootropics for people who prefer a simpler, cleaner stimulant profile."
+      : build.focusLevel === "high"
+      ? "Higher focus support for demanding days that require sustained concentration and mental endurance."
+      : "Balanced focus support to keep you locked-in on tasks without feeling amped up.";
+
+  const balanceDesc =
+    build.balanceLevel === "none"
+      ? "Minimal crash/jitter support, best for people who rarely feel wired, edgy, or overamped from stimulants."
+      : build.balanceLevel === "high"
+      ? "Extra support aimed at smoothing jitters, edge, and post-caffeine crashes."
+      : "Balanced crash/jitter control to keep your energy smoother and less crash-prone.";
+
+  // Final screen styling
+  setSectionMode("mode-final-white");    // dedicated white background for final page
+  setCardFrame(false);
+  setCardDark(false);                    // we killed the white card globally
+  setActionsVisibility(true, "Build Your Pouch");
+
+  root.innerHTML =
+    '<h2 class="cq-final-title">Your Customized Energy</h2>' +
+    '<p class="cq-final-subtitle">Based on your responses, this is the optimized energy build that best matches you.</p>' +
+    '<div class="cq-final-layout">' +
+      // Pouch on top (or left on wide screens)
+      '<div class="cq-final-pouch">' +
+        '<div class="cq-pouch-frame">' +
+          '<img class="cq-pouch-img" src="https://cdn.shopify.com/s/files/1/0965/9003/7310/files/Branded_Blank_Label_Pouch.png?v=1763855026" alt="Customized CLIME pouch" />' +
+          '<div class="cq-pouch-label">' +
+            '<div class="cq-pouch-line cq-pouch-line--name">' +
+              escapeHtml(pouchName) +
+            '</div>' +
+            '<div class="cq-pouch-line cq-pouch-line--formula">' +
+              escapeHtml(caffeinePretty + " • " + focusShort + " • " + balanceShort) +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+      // Attributes beneath (or beside) pouch
+      '<div class="cq-final-attributes">' +
+        '<dl>' +
+          '<div class="cq-attr-row">' +
+            '<dt>' +
+              '<div class="cq-attr-heading">Caffeine</div>' +
+              '<div class="cq-attr-sub">' + escapeHtml(caffeineDesc) + '</div>' +
+            '</dt>' +
+            '<dd>' +
+              '<div class="cq-attr-value">' + escapeHtml(caffeinePretty) + '</div>' +
+            '</dd>' +
+          '</div>' +
+
+          '<div class="cq-attr-row">' +
+            '<dt>' +
+              '<div class="cq-attr-heading">Focus support</div>' +
+              '<div class="cq-attr-sub">' + escapeHtml(focusDesc) + '</div>' +
+            '</dt>' +
+            '<dd>' +
+              '<div class="cq-attr-value">' + escapeHtml(build.focusLabelSimple || "Medium") + '</div>' +
+            '</dd>' +
+          '</div>' +
+
+          '<div class="cq-attr-row">' +
+            '<dt>' +
+              '<div class="cq-attr-heading">Crash & jitter control</div>' +
+              '<div class="cq-attr-sub">' + escapeHtml(balanceDesc) + '</div>' +
+            '</dt>' +
+            '<dd>' +
+              '<div class="cq-attr-value">' + escapeHtml(build.balanceLabelSimple || "Medium") + '</div>' +
+            '</dd>' +
+          '</div>' +
+        '</dl>' +
+      '</div>' +
+    '</div>';
+}
+        /* ===== STEP CONTROLLER ===== */
+
+    // Simple helper to fade the page container (used only on first three screens)
+    function triggerPageFade() {
+      if (!root) return;
+      root.classList.remove("cq-page-animate");
+      // Force reflow so animation restarts
+      void root.offsetWidth;
+      root.classList.add("cq-page-animate");
+    }
+
+    function renderStep() {
+      const step = FLOW[state.stepIndex];
+      if (!step) return;
+
+      // Clear any running timers
+      if (state.analysisTimer) {
+        cancelAnimationFrame(state.analysisTimer);
+        state.analysisTimer = null;
+      }
+      if (state.introTimer) {
+        clearTimeout(state.introTimer);
+        state.introTimer = null;
+      }
+
+      // ✅ Only fade the FIRST THREE screens:
+      //    - splash1 (title page)
+      //    - splash2 (Welcome page)
+      //    - demographics (Start by telling us about you)
+      const shouldFade =
+        step.type === "splash1" ||
+        step.type === "splash2" ||
+        step.type === "demographics";
+
+      // Card-level fade (slide feel)
+      if (cardEl) {
+        cardEl.classList.remove("cq-step-fade");
+        if (shouldFade) {
+          void cardEl.offsetWidth; // restart animation
+          cardEl.classList.add("cq-step-fade");
+        }
+      }
+
+      // Render the actual step content
+      switch (step.type) {
+        case "splash1":
+          renderSplash1();
+          break;
+        case "splash2":
+          renderSplash2();
+          break;
+        case "demographics":
+          renderDemographics();
+          break;
+        case "question":
+          renderQuestion(step);
+          break;
+        case "analysis":
+          renderAnalysis();
+          break;
+        case "summary":
+          renderSummary();
+          break;
+        case "problem":
+          renderProblem(step);
+          break;
+        case "help":
+          renderHelp(step);
+          break;
+        case "final":
+          renderFinal();
+          break;
+      }
+
+      // 🔑 Page fade only on the first three screens
+      if (shouldFade) {
+        triggerPageFade();
+      }
+    }
+
+    function nextStep() {
+      const step = FLOW[state.stepIndex];
+      if (!step) return;
+
+      if (step.type === "demographics") {
+        if (!state.firstName) {
+          const nameInput = document.getElementById("cq-first-name");
+          if (nameInput) {
+            nameInput.focus();
+            nameInput.classList.add("cq-input--error");
+          }
+          return;
+        }
+      }
+
+      if (step.type === "final") {
+        handoffToBuilder();
+        return;
+      }
+
+      state.stepIndex = Math.min(FLOW.length - 1, state.stepIndex + 1);
+      renderStep();
+    }
+
+    nextBtn.addEventListener("click", function () {
+      nextStep();
+    });
+
+    function escapeHtml(str) {
+      if (str == null) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function handoffToBuilder() {
+      const build = state.build || mapScoresToBuild(state.scores || {});
+const diagnosis = state.diagnosis;
+
+const payload = {
+  caffeineMg: build.caffeineMg,
+  focusLevel: build.focusLevel,
+  balanceLevel: build.balanceLevel,
+  personaLabel: diagnosis ? diagnosis.title : "Personalized Energy",
+  personaSummary: diagnosis ? diagnosis.fiveWords : "",
+  firstName: state.firstName || "",
+  age: state.age || "",
+};
+
+
+      if (typeof climeSendToPouchBuilder === "function") {
+        climeSendToPouchBuilder(payload);
+      } else {
+        try {
+          localStorage.setItem("climeQuizResult", JSON.stringify(payload));
+          window.location.href = "/products/custom-energy-pouch?from_quiz=1";
+        } catch (e) {
+          console.error("CLIME quiz handoff error:", e);
+        }
+      }
+    }
+
+    updateProgressBar();
+    renderStep();
+  })();
+</script>
+
+<script>
+  // CLIME quiz → pouch builder bridge (kept simple)
+  function climeSendToPouchBuilder(quizResult) {
+    try {
+      var defaults = {
+        caffeineMg: 150,
+        focusLevel: "medium",
+        balanceLevel: "medium",
+        personaLabel: "Balanced Performer",
+        personaSummary:
+          "You do your best with smooth, steady energy that doesn\u2019t spike or crash.",
+      };
+
+      var payload = Object.assign({}, defaults, quizResult || {});
+      localStorage.setItem("climeQuizResult", JSON.stringify(payload));
+      window.location.href = "/products/custom-energy-pouch?from_quiz=1";
+    } catch (e) {
+      console.error("CLIME quiz handoff error:", e);
+    }
+  }
+</script>

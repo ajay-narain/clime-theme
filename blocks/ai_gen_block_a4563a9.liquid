@@ -1,0 +1,761 @@
+{% doc %}
+  @prompt
+    Create a custom section titled “The Science of Customized Energy” with a customizable background. The typography should match the hero section: bold, modern headings, clean body text, and clear spacing.
+    This section has four benefit cards, each with a customizable icon for each, an eyebrow label, a headline, and a subhead. Cards should have a soft white background. Add a subtle shadow and rounded corners. 
+    Spacing should be generous: about 70–80px top/bottom padding for the whole section and 24–32px padding inside each card. Layout should be two columns on desktop, one column on mobile.
+    At the bottom of the entire section, centered, include a CTA button styled exactly like my hero button:
+    * Black background (#000)
+    * White text
+    * Medium weight font
+    * Rounded corners (6px)
+    * Label: “Take the Energy Quiz”
+    * Link to: /pages/energy-quiz
+    Here is the copy for each segment. Please use these headings exactly:
+    
+    Page Title: The Science of Customized Energy
+    
+    Segment 1
+    Segment Headline: Engineered for Fast Absorption Headline: Feel It in as little as 5 minutes Subhead: CLIME’s gel format bypasses the slow digestive process. Active ingredients absorb through the mouth and upper GI for fast, smooth onset without the sugar rush or crash. Icon: Stopwatch showing 5 minutes
+    
+    Segment 2
+    Segment Headline: Built for how you live
+    Headline: Personalized Energy
+    Subhead: Whether you need focus for work, endurance for workout, or calm energy throughout the day, you build CLIME for your needs.
+    
+    Segment 3
+    Segment Headline: Nature-Derived, Clinically Supported Headline: Mushrooms, Botanicals, and Modern Science Subhead: CLIME combines adaptogens, nootropics, and clean caffeine in ratios that enhance focus and endurance — while balancing stress response. The result: calm energy that lasts. Icon: Mushroom
+    
+    Segment 4
+    Segment Headline: Proven Ingredients, Transparent Science Headline: Real Studies. Real Results. Subhead: Every active ingredient in CLIME traces back to published human data., I want the background of this section to be customizable (with an image if I chose)
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-science-section-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-science-background-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: {{ block.settings.background_image_opacity | divided_by: 100.0 }};
+    z-index: 0;
+  }
+
+  .ai-science-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+  }
+
+  .ai-science-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ai-science-title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 700;
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.2;
+  }
+
+  .ai-science-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: {{ block.settings.card_gap }}px;
+    margin-bottom: {{ block.settings.cta_spacing }}px;
+  }
+
+  .ai-science-card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    box-shadow: {{ block.settings.card_shadow_horizontal }}px {{ block.settings.card_shadow_vertical }}px {{ block.settings.card_shadow_blur }}px rgba(0, 0, 0, {{ block.settings.card_shadow_opacity | divided_by: 100.0 }});
+  }
+
+  .ai-science-card-icon-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin-bottom: {{ block.settings.icon_spacing }}px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .ai-science-card-icon-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ai-science-card-icon-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-science-card-icon-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-science-card-eyebrow-{{ ai_gen_id }} {
+    font-size: {{ block.settings.eyebrow_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: {{ block.settings.eyebrow_spacing }}px;
+    color: {{ block.settings.eyebrow_color }};
+  }
+
+  .ai-science-card-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: 700;
+    margin-bottom: {{ block.settings.headline_spacing }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.3;
+  }
+
+  .ai-science-card-subhead-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subhead_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.subhead_color }};
+    margin: 0;
+  }
+
+  .ai-science-cta-wrapper-{{ ai_gen_id }} {
+    text-align: center;
+  }
+
+  .ai-science-cta-{{ ai_gen_id }} {
+    display: inline-block;
+    background-color: {{ block.settings.cta_background }};
+    color: {{ block.settings.cta_text_color }};
+    padding: {{ block.settings.cta_padding_vertical }}px {{ block.settings.cta_padding_horizontal }}px;
+    border-radius: {{ block.settings.cta_border_radius }}px;
+    font-size: {{ block.settings.cta_font_size }}px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-science-cta-{{ ai_gen_id }}:hover {
+    opacity: 0.9;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-science-section-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.6 }}px 0 {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+
+    .ai-science-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.7 }}px;
+      margin-bottom: {{ block.settings.title_spacing | times: 0.7 }}px;
+    }
+
+    .ai-science-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.card_gap | times: 0.75 }}px;
+      margin-bottom: {{ block.settings.cta_spacing | times: 0.75 }}px;
+    }
+
+    .ai-science-card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.75 }}px;
+    }
+
+    .ai-science-card-icon-{{ ai_gen_id }} {
+      width: {{ block.settings.icon_size | times: 0.8 }}px;
+      height: {{ block.settings.icon_size | times: 0.8 }}px;
+    }
+
+    .ai-science-card-eyebrow-{{ ai_gen_id }} {
+      font-size: {{ block.settings.eyebrow_size | times: 0.9 }}px;
+    }
+
+    .ai-science-card-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.85 }}px;
+    }
+
+    .ai-science-card-subhead-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subhead_size | times: 0.9 }}px;
+    }
+
+    .ai-science-cta-{{ ai_gen_id }} {
+      font-size: {{ block.settings.cta_font_size | times: 0.9 }}px;
+      padding: {{ block.settings.cta_padding_vertical | times: 0.85 }}px {{ block.settings.cta_padding_horizontal | times: 0.85 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-science-section-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.background_image != blank %}
+    <img
+      src="{{ block.settings.background_image | image_url: width: 2000 }}"
+      srcset="{{ block.settings.background_image | image_url: width: 600 }} 600w,
+              {{ block.settings.background_image | image_url: width: 1200 }} 1200w,
+              {{ block.settings.background_image | image_url: width: 2000 }} 2000w"
+      sizes="100vw"
+      alt="{{ block.settings.background_image.alt | escape }}"
+      loading="lazy"
+      class="ai-science-background-image-{{ ai_gen_id }}"
+      width="{{ block.settings.background_image.width }}"
+      height="{{ block.settings.background_image.height }}"
+    >
+  {% endif %}
+
+  {% if block.settings.background_image != blank or block.settings.overlay_opacity > 0 %}
+    <div class="ai-science-overlay-{{ ai_gen_id }}"></div>
+  {% endif %}
+
+  <div class="ai-science-container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank %}
+      <h2 class="ai-science-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+    {% endif %}
+
+    <div class="ai-science-grid-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign eyebrow_key = 'card_' | append: i | append: '_eyebrow'
+          assign headline_key = 'card_' | append: i | append: '_headline'
+          assign subhead_key = 'card_' | append: i | append: '_subhead'
+          assign icon_key = 'card_' | append: i | append: '_icon'
+
+          assign eyebrow = block.settings[eyebrow_key]
+          assign headline = block.settings[headline_key]
+          assign subhead = block.settings[subhead_key]
+          assign icon = block.settings[icon_key]
+        %}
+
+        <div class="ai-science-card-{{ ai_gen_id }}">
+          {% if icon != blank %}
+            <div class="ai-science-card-icon-{{ ai_gen_id }}">
+              <img
+                src="{{ icon | image_url: width: 200 }}"
+                alt="{{ headline | escape }}"
+                loading="lazy"
+                width="200"
+                height="200"
+              >
+            </div>
+          {% else %}
+            <div class="ai-science-card-icon-{{ ai_gen_id }}">
+              <div class="ai-science-card-icon-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            </div>
+          {% endif %}
+
+          {% if eyebrow != blank %}
+            <div class="ai-science-card-eyebrow-{{ ai_gen_id }}">{{ eyebrow }}</div>
+          {% endif %}
+
+          {% if headline != blank %}
+            <h3 class="ai-science-card-headline-{{ ai_gen_id }}">{{ headline }}</h3>
+          {% endif %}
+
+          {% if subhead != blank %}
+            <p class="ai-science-card-subhead-{{ ai_gen_id }}">{{ subhead }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if block.settings.cta_text != blank %}
+      <div class="ai-science-cta-wrapper-{{ ai_gen_id }}">
+        <a href="{{ block.settings.cta_link }}" class="ai-science-cta-{{ ai_gen_id }}">
+          {{ block.settings.cta_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Customized energy",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "The Science of Customized Energy"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "background_image_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background image opacity",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 75
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 75
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Title spacing",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_horizontal",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow horizontal",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_vertical",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow vertical",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_blur",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Shadow blur",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Shadow opacity",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_1_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "card_1_eyebrow",
+      "label": "Eyebrow",
+      "default": "Engineered for Fast Absorption"
+    },
+    {
+      "type": "text",
+      "id": "card_1_headline",
+      "label": "Headline",
+      "default": "Feel It in as little as 5 minutes"
+    },
+    {
+      "type": "textarea",
+      "id": "card_1_subhead",
+      "label": "Subhead",
+      "default": "CLIME's gel format bypasses the slow digestive process. Active ingredients absorb through the mouth and upper GI for fast, smooth onset without the sugar rush or crash."
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_2_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "card_2_eyebrow",
+      "label": "Eyebrow",
+      "default": "Built for how you live"
+    },
+    {
+      "type": "text",
+      "id": "card_2_headline",
+      "label": "Headline",
+      "default": "Personalized Energy"
+    },
+    {
+      "type": "textarea",
+      "id": "card_2_subhead",
+      "label": "Subhead",
+      "default": "Whether you need focus for work, endurance for workout, or calm energy throughout the day, you build CLIME for your needs."
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_3_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "card_3_eyebrow",
+      "label": "Eyebrow",
+      "default": "Nature-Derived, Clinically Supported"
+    },
+    {
+      "type": "text",
+      "id": "card_3_headline",
+      "label": "Headline",
+      "default": "Mushrooms, Botanicals, and Modern Science"
+    },
+    {
+      "type": "textarea",
+      "id": "card_3_subhead",
+      "label": "Subhead",
+      "default": "CLIME combines adaptogens, nootropics, and clean caffeine in ratios that enhance focus and endurance — while balancing stress response. The result: calm energy that lasts."
+    },
+    {
+      "type": "header",
+      "content": "Card 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_4_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "card_4_eyebrow",
+      "label": "Eyebrow",
+      "default": "Proven Ingredients, Transparent Science"
+    },
+    {
+      "type": "text",
+      "id": "card_4_headline",
+      "label": "Headline",
+      "default": "Real Studies. Real Results."
+    },
+    {
+      "type": "textarea",
+      "id": "card_4_subhead",
+      "label": "Subhead",
+      "default": "Every active ingredient in CLIME traces back to published human data."
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon spacing",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Eyebrow size",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_spacing",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Eyebrow spacing",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 16,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline size",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "headline_spacing",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Headline spacing",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "subhead_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subhead size",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "subhead_color",
+      "label": "Subhead color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Take the Energy Quiz"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "cta_background",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "cta_font_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_vertical",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Button vertical padding",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_horizontal",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Button horizontal padding",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "cta_spacing",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Spacing above button",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customized energy"
+    }
+  ]
+}
+{% endschema %}

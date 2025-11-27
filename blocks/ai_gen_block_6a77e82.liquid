@@ -1,0 +1,358 @@
+{% doc %}
+  @prompt
+    Social Proof Page. Content as follow:
+    
+    100,000+ 
+    Preventable crashes caused by fatigue 
+    *NHTSA 2017
+    
+    107%
+    Gain in productivity with improved energy
+    
+    40%
+    Percent of worker reporting fatigue at work
+    
+    The numbers should very large to grab attention. This should be on a black background with white font, Make the numbers smaller so that they all fit on the same line. Right now, the 100,000 and + are on separate lines
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-social-proof-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+  }
+
+  .ai-social-proof-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-social-proof-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: {{ block.settings.gap }}px;
+    text-align: center;
+  }
+
+  .ai-social-proof-item-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: {{ block.settings.item_gap }}px;
+  }
+
+  .ai-social-proof-number-{{ ai_gen_id }} {
+    font-size: {{ block.settings.number_size }}px;
+    font-weight: {{ block.settings.number_weight }};
+    color: {{ block.settings.text_color }};
+    line-height: 1;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .ai-social-proof-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.4;
+    margin: 0;
+    max-width: 300px;
+  }
+
+  .ai-social-proof-source-{{ ai_gen_id }} {
+    font-size: {{ block.settings.source_size }}px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+    font-style: italic;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-social-proof-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top | times: 0.7 }}px {{ block.settings.padding_horizontal | times: 0.7 }}px {{ block.settings.padding_bottom | times: 0.7 }}px;
+    }
+
+    .ai-social-proof-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.gap | times: 1.5 }}px;
+    }
+
+    .ai-social-proof-number-{{ ai_gen_id }} {
+      font-size: {{ block.settings.number_size | times: 0.6 }}px;
+    }
+
+    .ai-social-proof-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+
+    .ai-social-proof-source-{{ ai_gen_id }} {
+      font-size: {{ block.settings.source_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-social-proof-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-social-proof-container-{{ ai_gen_id }}">
+    <div class="ai-social-proof-grid-{{ ai_gen_id }}">
+      {% if block.settings.stat_1_enabled %}
+        <div class="ai-social-proof-item-{{ ai_gen_id }}">
+          <h2 class="ai-social-proof-number-{{ ai_gen_id }}">{{ block.settings.stat_1_number }}</h2>
+          <p class="ai-social-proof-description-{{ ai_gen_id }}">{{ block.settings.stat_1_description }}</p>
+          {% if block.settings.stat_1_source != blank %}
+            <p class="ai-social-proof-source-{{ ai_gen_id }}">{{ block.settings.stat_1_source }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.stat_2_enabled %}
+        <div class="ai-social-proof-item-{{ ai_gen_id }}">
+          <h2 class="ai-social-proof-number-{{ ai_gen_id }}">{{ block.settings.stat_2_number }}</h2>
+          <p class="ai-social-proof-description-{{ ai_gen_id }}">{{ block.settings.stat_2_description }}</p>
+          {% if block.settings.stat_2_source != blank %}
+            <p class="ai-social-proof-source-{{ ai_gen_id }}">{{ block.settings.stat_2_source }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.stat_3_enabled %}
+        <div class="ai-social-proof-item-{{ ai_gen_id }}">
+          <h2 class="ai-social-proof-number-{{ ai_gen_id }}">{{ block.settings.stat_3_number }}</h2>
+          <p class="ai-social-proof-description-{{ ai_gen_id }}">{{ block.settings.stat_3_description }}</p>
+          {% if block.settings.stat_3_source != blank %}
+            <p class="ai-social-proof-source-{{ ai_gen_id }}">{{ block.settings.stat_3_source }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Social proof stats",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Statistic 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "stat_1_enabled",
+      "label": "Enable statistic 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_1_number",
+      "label": "Number",
+      "default": "100,000+"
+    },
+    {
+      "type": "textarea",
+      "id": "stat_1_description",
+      "label": "Description",
+      "default": "Preventable crashes caused by fatigue"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_source",
+      "label": "Source",
+      "default": "*NHTSA 2017"
+    },
+    {
+      "type": "header",
+      "content": "Statistic 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "stat_2_enabled",
+      "label": "Enable statistic 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_2_number",
+      "label": "Number",
+      "default": "107%"
+    },
+    {
+      "type": "textarea",
+      "id": "stat_2_description",
+      "label": "Description",
+      "default": "Gain in productivity with improved energy"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_source",
+      "label": "Source"
+    },
+    {
+      "type": "header",
+      "content": "Statistic 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "stat_3_enabled",
+      "label": "Enable statistic 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_3_number",
+      "label": "Number",
+      "default": "40%"
+    },
+    {
+      "type": "textarea",
+      "id": "stat_3_description",
+      "label": "Description",
+      "default": "Percent of workers reporting fatigue at work"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_source",
+      "label": "Source"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "number_size",
+      "min": 30,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Number size",
+      "default": 60
+    },
+    {
+      "type": "select",
+      "id": "number_weight",
+      "label": "Number weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "source_size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Source size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 800,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between items",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap within items",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding horizontal",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social proof stats"
+    }
+  ]
+}
+{% endschema %}

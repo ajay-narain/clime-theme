@@ -1,0 +1,564 @@
+{% comment %}
+  CLIME Pouch Builder – reads quiz result only from URL query params:
+  - caff (number, mg caffeine)
+  - focus (none|medium|high)
+  - balance (none|medium|high)
+  - personaLabel (string, e.g. "Afternoon Crash Sprinter")
+  - personaSummary (optional, not required for heading)
+
+  If no params are present, we fall back to the default build.
+{% endcomment %}
+
+<div id="clime-pouch-builder" class="clime-pouch-builder" data-product-id="{{ product.id }}">
+  <div class="cpb-card">
+    <div class="cpb-header">
+      <h2 class="cpb-title">Build Your Pouch</h2>
+      <p class="cpb-subtitle">
+        Select your preferred level of caffeine, focus and balance.
+      </p>
+    </div>
+
+    <div class="cpb-body">
+      <!-- CONFIG ROWS -->
+      <div class="cpb-row">
+        <div class="cpb-row-label">
+          <span>Caffeine</span>
+          <span id="cpb-caffeine-value" class="cpb-row-value"></span>
+        </div>
+        <input
+          id="cpb-caffeine-slider"
+          type="range"
+          min="0"
+          max="300"
+          step="50"
+        />
+        <div class="cpb-row-helper">0–300 mg in 50 mg steps.</div>
+      </div>
+
+      <div class="cpb-row">
+        <div class="cpb-row-label">
+          <div>
+            <div>Focus Boost</div>
+            <div class="cpb-ingredient-note">Zynamite&reg;</div>
+          </div>
+          <span id="cpb-focus-value" class="cpb-row-value"></span>
+        </div>
+        <div class="cpb-toggle-group" id="cpb-focus-group">
+          <button type="button" class="cpb-toggle" data-value="none">None</button>
+          <button type="button" class="cpb-toggle" data-value="medium">Medium</button>
+          <button type="button" class="cpb-toggle" data-value="high">High</button>
+        </div>
+      </div>
+
+      <div class="cpb-row">
+        <div class="cpb-row-label">
+          <div>
+            <div>Balance Boost</div>
+            <div class="cpb-ingredient-note">L-Theanine, Taurine, Reishi</div>
+          </div>
+          <span id="cpb-balance-value" class="cpb-row-value"></span>
+        </div>
+        <div class="cpb-toggle-group" id="cpb-balance-group">
+          <button type="button" class="cpb-toggle" data-value="none">None</button>
+          <button type="button" class="cpb-toggle" data-value="medium">Medium</button>
+          <button type="button" class="cpb-toggle" data-value="high">High</button>
+        </div>
+      </div>
+
+      <div class="cpb-row cpb-row--price">
+        <div>Your pouch:</div>
+        <div id="cpb-price" class="cpb-price"></div>
+      </div>
+
+      <div class="cpb-row cpb-row--total">
+        <div>Total:</div>
+        <div id="cpb-total" class="cpb-total"></div>
+      </div>
+
+      <div class="cpb-row cpb-row--qty">
+        <label for="cpb-quantity">Quantity (pouches)</label>
+        <select id="cpb-quantity" class="cpb-select">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+        </select>
+      </div>
+
+      {% if product and product.selected_or_first_available_variant %}
+        {% assign base_variant = product.selected_or_first_available_variant %}
+
+        <!-- Form kept for future cart integration, but Next Step is JS-driven -->
+        <form id="cpb-cart-form" class="cpb-cart-form">
+          <input type="hidden" name="properties[Caffeine (mg)]" id="cpb-prop-caffeine">
+          <input type="hidden" name="properties[Focus]" id="cpb-prop-focus">
+          <input type="hidden" name="properties[Balance]" id="cpb-prop-balance">
+          <input type="hidden" name="properties[Persona Label]" id="cpb-prop-persona-label">
+          <input type="hidden" name="properties[Persona Summary]" id="cpb-prop-persona-summary">
+          <input type="hidden" name="properties[Displayed Price]" id="cpb-prop-price">
+
+          <button
+            type="button"
+            id="cpb-next-step"
+            class="cpb-buy-button"
+            {% unless base_variant.available %}disabled{% endunless %}
+          >
+            {% if base_variant.available %}
+              Next Step
+            {% else %}
+              Sold out
+            {% endif %}
+          </button>
+        </form>
+      {% else %}
+        <p>Product not available.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .clime-pouch-builder {
+    max-width: 720px;
+    margin: 40px auto 80px;
+    padding: 0 16px;
+    font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+
+  .cpb-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #eeeeee;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    padding: 24px 24px 28px;
+  }
+
+  .cpb-header {
+    margin-bottom: 18px;
+  }
+
+  .cpb-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 4px;
+  }
+
+  .cpb-subtitle {
+    margin: 0 0 4px;
+    font-size: 14px;
+    color: #666666;
+  }
+
+  .cpb-row {
+    margin-top: 18px;
+  }
+
+  .cpb-row-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .cpb-row-label > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cpb-ingredient-note {
+    font-weight: 500;
+    font-size: 11px;
+    color: #777777;
+    margin-top: 2px;
+  }
+
+  .cpb-row-value {
+    font-weight: 500;
+    color: #444444;
+    font-size: 13px;
+    text-align: right;
+    margin-left: 12px;
+  }
+
+  .cpb-row-helper {
+    font-size: 12px;
+    color: #777777;
+    margin-top: 4px;
+  }
+
+  .cpb-toggle-group {
+    display: inline-flex;
+    gap: 6px;
+    background: #f5f5f5;
+    border-radius: 999px;
+    padding: 3px;
+  }
+
+  .cpb-toggle {
+    border: none;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    background: transparent;
+    color: #555555;
+  }
+
+  .cpb-toggle.is-active {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  #cpb-caffeine-slider {
+    width: 100%;
+  }
+
+  .cpb-row--price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 24px;
+    padding-top: 12px;
+    border-top: 1px solid #eeeeee;
+  }
+
+  .cpb-price {
+    font-size: 18px;
+  }
+
+  .cpb-row--total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 6px;
+  }
+
+  .cpb-total {
+    font-size: 16px;
+  }
+
+  .cpb-row--qty {
+    margin-top: 18px;
+  }
+
+  .cpb-select {
+    margin-top: 4px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #dddddd;
+    font-size: 14px;
+  }
+
+  .cpb-cart-form {
+    margin-top: 22px;
+  }
+
+  .cpb-buy-button {
+    width: 100%;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 18px;
+    background: #000000;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .cpb-buy-button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 600px) {
+    .cpb-card {
+      padding: 20px 16px 22px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var builder = document.getElementById('clime-pouch-builder');
+    if (!builder) return;
+
+    // ----- Defaults -----
+    var defaultState = {
+      caffeineMg: 150,
+      focusLevel: 'medium',
+      balanceLevel: 'medium',
+      personaLabel: '',
+      personaSummary: ''
+    };
+
+    var params = new URLSearchParams(window.location.search);
+    var state = Object.assign({}, defaultState);
+
+    // Try to pull quiz result from localStorage (quiz sets "climeQuizResult")
+    var storedQuizResult = null;
+    try {
+      var raw = localStorage.getItem('climeQuizResult');
+      if (raw) {
+        storedQuizResult = JSON.parse(raw);
+      }
+    } catch (e) {
+      console.warn('Unable to read climeQuizResult from localStorage:', e);
+    }
+
+    // Helper to safely pull a field from storedQuizResult
+    function fromStored(key, fallback) {
+      if (!storedQuizResult || typeof storedQuizResult !== 'object') return fallback;
+      if (storedQuizResult[key] === undefined || storedQuizResult[key] === null) return fallback;
+      return storedQuizResult[key];
+    }
+
+    // ----- URL + localStorage → state (quiz handoff) -----
+
+    // Caffeine
+    var caffParam = params.get('caff');
+    if (caffParam !== null && caffParam !== '') {
+      state.caffeineMg = parseInt(caffParam, 10) || defaultState.caffeineMg;
+    } else {
+      var storedCaff = parseInt(fromStored('caffeineMg', defaultState.caffeineMg), 10);
+      if (!isNaN(storedCaff)) state.caffeineMg = storedCaff;
+    }
+
+    // Focus
+    var focusParam = params.get('focus');
+    if (focusParam) {
+      state.focusLevel = focusParam;
+    } else {
+      state.focusLevel = (fromStored('focusLevel', defaultState.focusLevel) || defaultState.focusLevel);
+    }
+
+    // Balance
+    var balanceParam = params.get('balance');
+    if (balanceParam) {
+      state.balanceLevel = balanceParam;
+    } else {
+      state.balanceLevel = (fromStored('balanceLevel', defaultState.balanceLevel) || defaultState.balanceLevel);
+    }
+
+    // Persona label/summary (only via quiz/localStorage unless explicitly in URL)
+    var personaLabelParam = params.get('personaLabel');
+    if (personaLabelParam) {
+      state.personaLabel = personaLabelParam;
+    } else {
+      state.personaLabel = fromStored('personaLabel', '');
+    }
+
+    var personaSummaryParam = params.get('personaSummary');
+    if (personaSummaryParam) {
+      state.personaSummary = personaSummaryParam;
+    } else {
+      state.personaSummary = fromStored('personaSummary', '');
+    }
+
+    // ----- Elements -----
+    var elTitle = document.querySelector('.cpb-title');
+    var elSubtitle = document.querySelector('.cpb-subtitle');
+
+    var elCaffeineSlider = document.getElementById('cpb-caffeine-slider');
+    var elCaffeineValue = document.getElementById('cpb-caffeine-value');
+    var elFocusValue = document.getElementById('cpb-focus-value');
+    var elBalanceValue = document.getElementById('cpb-balance-value');
+    var elPrice = document.getElementById('cpb-price');
+    var elTotal = document.getElementById('cpb-total');
+    var elQtySelect = document.getElementById('cpb-quantity');
+
+    var focusGroup = document.getElementById('cpb-focus-group');
+    var balanceGroup = document.getElementById('cpb-balance-group');
+    var nextStepBtn = document.getElementById('cpb-next-step');
+
+    // Hidden property inputs
+    var propCaffeine = document.getElementById('cpb-prop-caffeine');
+    var propFocus = document.getElementById('cpb-prop-focus');
+    var propBalance = document.getElementById('cpb-prop-balance');
+    var propPersonaLabel = document.getElementById('cpb-prop-persona-label');
+    var propPersonaSummary = document.getElementById('cpb-prop-persona-summary');
+    var propPrice = document.getElementById('cpb-prop-price');
+
+    // ----- Pricing Logic -----
+    var basePrice = 3.00; // base price for ≤150 mg + no boosts
+
+    function getCaffeineUpcharge(caffeineMg) {
+      var extraMg = Math.max(0, caffeineMg - 150);
+      var increments = extraMg / 50;
+      return increments * 0.25;
+    }
+
+    function getLevelUpcharge(level) {
+      if (level === 'medium') return 0.25;
+      if (level === 'high') return 0.50;
+      return 0.00;
+    }
+
+    function getPouchPrice(config) {
+      var caffeineExtra = getCaffeineUpcharge(config.caffeineMg);
+      var focusExtra = getLevelUpcharge(config.focusLevel);
+      var balanceExtra = getLevelUpcharge(config.balanceLevel);
+      return basePrice + caffeineExtra + focusExtra + balanceExtra;
+    }
+
+    function formatPrice(num) {
+      return '$' + num.toFixed(2);
+    }
+
+    // ----- Dose display helpers -----
+    function getFocusDisplay(level) {
+      if (level === 'none') return 'None';
+      if (level === 'medium') return 'Medium \u2022 75 mg Zynamite\u00AE';
+      if (level === 'high') return 'High \u2022 150 mg Zynamite\u00AE';
+      return '';
+    }
+
+    function getBalanceDisplay(level) {
+      if (level === 'none') return 'None';
+      if (level === 'medium') return 'Medium \u2022 25 mg L-Theanine, 250 mg Taurine, 50 mg Reishi';
+      if (level === 'high') return 'High \u2022 50 mg L-Theanine, 500 mg Taurine, 100 mg Reishi';
+      return '';
+    }
+
+    // NEW: Caffeine display with cups of coffee
+    function getCaffeineDisplay(mg) {
+      if (!mg || mg === 0) {
+        return '0 mg (caffeine-free)';
+      }
+      var cups = mg / 95; // ~95 mg per 8 oz coffee
+      return mg + ' mg (~' + cups.toFixed(1) + ' cups of coffee)';
+    }
+
+    // ----- Helpers -----
+    function setToggleGroup(groupEl, value) {
+      var buttons = groupEl.querySelectorAll('.cpb-toggle');
+      buttons.forEach(function (btn) {
+        if (btn.dataset.value === value) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+    }
+
+    function syncHeader() {
+      if (!elTitle || !elSubtitle) return;
+
+      if (state.personaLabel && state.personaLabel.trim() !== '') {
+        // Quiz path
+        elTitle.textContent = state.personaLabel;
+        elSubtitle.textContent = 'Your recommended formulation. Adjust your pouch if you like.';
+      } else {
+        // Default path
+        elTitle.textContent = 'Build Your Pouch';
+        elSubtitle.textContent = 'Select your preferred level of caffeine, focus and balance.';
+      }
+    }
+
+    function syncUI() {
+      syncHeader();
+
+      if (elCaffeineSlider) elCaffeineSlider.value = state.caffeineMg;
+      if (elCaffeineValue) elCaffeineValue.textContent = getCaffeineDisplay(state.caffeineMg);
+
+      if (elFocusValue) elFocusValue.textContent = getFocusDisplay(state.focusLevel);
+      if (elBalanceValue) elBalanceValue.textContent = getBalanceDisplay(state.balanceLevel);
+
+      if (focusGroup) setToggleGroup(focusGroup, state.focusLevel);
+      if (balanceGroup) setToggleGroup(balanceGroup, state.balanceLevel);
+
+      var price = getPouchPrice(state);
+      if (elPrice) elPrice.textContent = formatPrice(price);
+
+      var qty = elQtySelect ? (parseInt(elQtySelect.value, 10) || 10) : 10;
+      if (elTotal) elTotal.textContent = formatPrice(price * qty);
+
+      if (propCaffeine) propCaffeine.value = state.caffeineMg + ' mg';
+      if (propFocus) propFocus.value = elFocusValue ? elFocusValue.textContent : '';
+      if (propBalance) propBalance.value = elBalanceValue ? elBalanceValue.textContent : '';
+      if (propPersonaLabel) propPersonaLabel.value = state.personaLabel || '';
+      if (propPersonaSummary) propPersonaSummary.value = state.personaSummary || '';
+      if (propPrice) propPrice.value = formatPrice(price);
+    }
+
+    // ----- Event wiring -----
+    if (elCaffeineSlider) {
+      elCaffeineSlider.addEventListener('input', function (e) {
+        state.caffeineMg = parseInt(e.target.value, 10) || 0;
+        syncUI();
+      });
+    }
+
+    if (focusGroup) {
+      focusGroup.addEventListener('click', function (e) {
+        if (e.target && e.target.matches('button.cpb-toggle')) {
+          state.focusLevel = e.target.dataset.value;
+          syncUI();
+        }
+      });
+    }
+
+    if (balanceGroup) {
+      balanceGroup.addEventListener('click', function (e) {
+        if (e.target && e.target.matches('button.cpb-toggle')) {
+          state.balanceLevel = e.target.dataset.value;
+          syncUI();
+        }
+      });
+    }
+
+    if (elQtySelect) {
+      elQtySelect.addEventListener('change', function () {
+        syncUI();
+      });
+    }
+
+    // ----- NEXT STEP → Early Access page -----
+    if (nextStepBtn) {
+      nextStepBtn.addEventListener('click', function () {
+        var price = getPouchPrice(state);
+        var qty = elQtySelect ? (parseInt(elQtySelect.value, 10) || 10) : 10;
+        var total = price * qty;
+
+        var baseUrl = '/pages/early-access';
+
+        var url = baseUrl
+          + '?caff=' + encodeURIComponent(state.caffeineMg)
+          + '&focus=' + encodeURIComponent(state.focusLevel)
+          + '&balance=' + encodeURIComponent(state.balanceLevel)
+          + '&price=' + encodeURIComponent(price.toFixed(2))
+          + '&qty=' + encodeURIComponent(qty)
+          + '&total=' + encodeURIComponent(total.toFixed(2));
+
+        if (state.personaLabel) {
+          url += '&personaLabel=' + encodeURIComponent(state.personaLabel);
+        }
+        if (state.personaSummary) {
+          url += '&personaSummary=' + encodeURIComponent(state.personaSummary);
+        }
+
+        window.location.href = url;
+      });
+    }
+
+    // Initial render
+    syncUI();
+  });
+</script>
+
+
+{% schema %}
+{
+  "name": "Pouch Builder",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Pouch Builder"
+    }
+  ]
+}
+{% endschema %}
