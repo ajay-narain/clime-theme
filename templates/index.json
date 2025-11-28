@@ -185,6 +185,32 @@
       ],
       "settings": {}
     },
+    "active_ingredients_section": {
+      "type": "active-ingredients",
+      "settings": {
+        "title": "Active Ingredients",
+        "title_size": 40,
+        "title_color": "#121212",
+        "subtitle": "Every ingredient is carefully selected and backed by science for optimal performance.",
+        "subtitle_size": 16,
+        "subtitle_color": "#666666",
+        "subtitle_spacing": 40,
+        "card_background": "#ffffff",
+        "card_border_radius": 12,
+        "card_padding": 32,
+        "ingredient_title_size": 22,
+        "ingredient_title_color": "#121212",
+        "source_color": "#666666",
+        "ingredient_title_spacing": 12,
+        "description_size": 15,
+        "description_color": "#666666",
+        "container_width": 1200,
+        "ingredient_gap": 28,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "background_color": "#ffffff"
+      }
+    },
     "1763079036067ada89": {
       "type": "_blocks",
       "settings": {}
@@ -285,6 +311,7 @@
     "clime_hero_fYGxhE",
     "custom_liquid_fnR38t",
     "17630821548e7cddc3",
+    "active_ingredients_section",
     "1763079036067ada89",
     "1762970582c87e64b2",
     "custom_liquid_FDReyf",

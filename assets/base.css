@@ -3595,22 +3595,6 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
-/* ===== Strong CTA Button for "Take the Quiz" in Header ===== */
-
-/* Desktop */
-.header__inline-menu a[href*="/pages/energy-quiz"] {
-  display: inline-block;
-  padding: 6px 16px;
-  background-color: #000;
-  color: #fff !important;
-  border-radius: 28px;
-  border: 1.5px solid #000;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.1px;
-  line-height: 1;
-  transition: all 0.18s ease-in-out;
-}
 /* === HEADER "TAKE THE QUIZ" LINK – DESKTOP & MOBILE === */
 
 /* Base pill style (desktop header + mobile menu) */
@@ -3621,18 +3605,23 @@ header .header__inline-menu a[href^="/pages/energy-quiz"],
   justify-content: center;
   box-sizing: border-box;
 
-  padding: 4px 14px !important;          /* thinner pill */
+  padding: 6px 16px !important;
   border-radius: 999px !important;
 
   font-size: 13px !important;
   line-height: 1 !important;
   font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
 
-  background: transparent !important;    /* outline by default */
-  color: #000 !important;
-  border: 1.5px solid #000 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  color: #ffffff !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
 
   text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 /* Desktop-only tweaks (spacing + alignment) */
@@ -3642,20 +3631,23 @@ header .header__inline-menu a[href^="/pages/energy-quiz"] {
   top: 7px;     /* Nudge button downward */
 }
 
-/* Hover – invert colors on both desktop and mobile */
+/* Hover – enhance visibility */
 header .header__inline-menu a[href^="/pages/energy-quiz"]:hover,
 .menu-drawer__navigation a[href^="/pages/energy-quiz"]:hover {
-  background: #000 !important;
-  color: #fff !important;
+  transform: translateY(-2px) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  color: #ffffff !important;
 }
 
-/* Active/current page – KEEP outline, don't fill black */
+/* Active/current page – keep visible */
 header .header__inline-menu .header__active-item[href^="/pages/energy-quiz"],
 header .header__inline-menu a[href^="/pages/energy-quiz"][aria-current="page"],
 .menu-drawer__navigation a[href^="/pages/energy-quiz"][aria-current="page"] {
-  background: transparent !important;
-  color: #000 !important;
-  border-color: #000 !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
 }
 /* Fix hero text being hidden under the header on mobile */
 @media screen and (max-width: 749px) {

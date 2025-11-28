@@ -1189,15 +1189,15 @@ function renderSummary() {
   const current   = bars ? bars.current   : 45;
 
   root.innerHTML =
-    '<h2 class="cq-title">Analysis Complete</h2>' +
+    '<h2 class="cq-title cq-title--clinical">Analysis Complete</h2>' +
     // Centered, clear capsule headline
     '<div class="cq-dx-headline">' +
-      '<div class="cq-dx-pill">' +
+      '<div class="cq-dx-pill cq-dx-pill--clinical">' +
         escapeHtml(dxLabel) +
       '</div>' +
     '</div>' +
     // Centered diagnosis description
-    '<p class="cq-result-summary cq-result-summary--centered">' +
+    '<p class="cq-result-summary cq-result-summary--centered cq-result-summary--clinical">' +
       escapeHtml(fiveWords) +
     '</p>' +
     // Bar chart
@@ -1268,7 +1268,7 @@ function renderProblem(step) {
 
     root.innerHTML =
       '<div class="cq-symptoms-header">' +
-        '<h2 class="cq-symptoms-title">Understanding Your Energy Challenges</h2>' +
+        '<h2 class="cq-symptoms-title">Understanding ' + escapeHtml(diagTitle) + '</h2>' +
         '<p class="cq-symptoms-intro">Here\'s what your energy pattern reveals:</p>' +
       '</div>' +
       '<div class="cq-symptoms-container">' +

@@ -1,0 +1,609 @@
+{% comment %}
+  Active Ingredients & Efficacy Section
+  Discusses each active ingredient and their scientifically-backed benefits
+{% endcomment %}
+
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ingredients-efficacy-{{ ai_gen_id }} {
+    padding: {{ block.settings.padding_top }}px 20px {{ block.settings.padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ingredients-efficacy-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+  }
+
+  .ingredients-efficacy-title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 800;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_spacing }}px;
+    letter-spacing: -0.5px;
+  }
+
+  .ingredients-efficacy-subtitle-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0 auto {{ block.settings.subtitle_spacing }}px;
+    max-width: 700px;
+    line-height: 1.6;
+  }
+
+  .ingredients-efficacy-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: {{ block.settings.ingredient_gap }}px;
+  }
+
+  .ingredient-efficacy-card-{{ ai_gen_id }} {
+    background: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    box-shadow: {{ block.settings.card_shadow_horizontal }}px {{ block.settings.card_shadow_vertical }}px {{ block.settings.card_shadow_blur }}px rgba(0, 0, 0, {{ block.settings.card_shadow_opacity | divided_by: 100.0 }});
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ingredient-efficacy-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: {{ block.settings.card_shadow_horizontal }}px {{ block.settings.card_shadow_vertical | plus: 4 }}px {{ block.settings.card_shadow_blur | plus: 4 }}px rgba(0, 0, 0, {{ block.settings.card_shadow_opacity | plus: 5 | divided_by: 100.0 }});
+  }
+
+  .ingredient-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.ingredient_name_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.ingredient_name_color }};
+    margin: 0 0 {{ block.settings.ingredient_name_spacing }}px;
+  }
+
+  .ingredient-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.description_color }};
+    margin: 0 0 {{ block.settings.description_spacing }}px;
+  }
+
+  .ingredient-efficacy-{{ ai_gen_id }} {
+    font-size: {{ block.settings.efficacy_size }}px;
+    line-height: 1.5;
+    color: {{ block.settings.efficacy_color }};
+    margin: 0;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ingredients-efficacy-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.ingredient_gap | times: 0.75 }}px;
+    }
+
+    .ingredients-efficacy-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ingredients-efficacy-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ingredients-efficacy-container-{{ ai_gen_id }}">
+    {% if block.settings.title != blank %}
+      <h2 class="ingredients-efficacy-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+    {% endif %}
+
+    {% if block.settings.subtitle != blank %}
+      <p class="ingredients-efficacy-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+    {% endif %}
+
+    <div class="ingredients-efficacy-grid-{{ ai_gen_id }}">
+      <!-- Caffeine -->
+      <div class="ingredient-efficacy-card-{{ ai_gen_id }}">
+        <h3 class="ingredient-name-{{ ai_gen_id }}">{{ block.settings.ingredient_1_name }}</h3>
+        <p class="ingredient-description-{{ ai_gen_id }}">{{ block.settings.ingredient_1_description }}</p>
+        <p class="ingredient-efficacy-{{ ai_gen_id }}">{{ block.settings.ingredient_1_efficacy }}</p>
+      </div>
+
+      <!-- L-Theanine -->
+      <div class="ingredient-efficacy-card-{{ ai_gen_id }}">
+        <h3 class="ingredient-name-{{ ai_gen_id }}">{{ block.settings.ingredient_2_name }}</h3>
+        <p class="ingredient-description-{{ ai_gen_id }}">{{ block.settings.ingredient_2_description }}</p>
+        <p class="ingredient-efficacy-{{ ai_gen_id }}">{{ block.settings.ingredient_2_efficacy }}</p>
+      </div>
+
+      <!-- Taurine -->
+      <div class="ingredient-efficacy-card-{{ ai_gen_id }}">
+        <h3 class="ingredient-name-{{ ai_gen_id }}">{{ block.settings.ingredient_3_name }}</h3>
+        <p class="ingredient-description-{{ ai_gen_id }}">{{ block.settings.ingredient_3_description }}</p>
+        <p class="ingredient-efficacy-{{ ai_gen_id }}">{{ block.settings.ingredient_3_efficacy }}</p>
+      </div>
+
+      <!-- Reishi Mushroom -->
+      <div class="ingredient-efficacy-card-{{ ai_gen_id }}">
+        <h3 class="ingredient-name-{{ ai_gen_id }}">{{ block.settings.ingredient_4_name }}</h3>
+        <p class="ingredient-description-{{ ai_gen_id }}">{{ block.settings.ingredient_4_description }}</p>
+        <p class="ingredient-efficacy-{{ ai_gen_id }}">{{ block.settings.ingredient_4_efficacy }}</p>
+      </div>
+
+      <!-- Zynamite -->
+      <div class="ingredient-efficacy-card-{{ ai_gen_id }}">
+        <h3 class="ingredient-name-{{ ai_gen_id }}">{{ block.settings.ingredient_5_name }}</h3>
+        <p class="ingredient-description-{{ ai_gen_id }}">{{ block.settings.ingredient_5_description }}</p>
+        <p class="ingredient-efficacy-{{ ai_gen_id }}">{{ block.settings.ingredient_5_efficacy }}</p>
+      </div>
+
+      <!-- Lion's Mane -->
+      <div class="ingredient-efficacy-card-{{ ai_gen_id }}">
+        <h3 class="ingredient-name-{{ ai_gen_id }}">{{ block.settings.ingredient_6_name }}</h3>
+        <p class="ingredient-description-{{ ai_gen_id }}">{{ block.settings.ingredient_6_description }}</p>
+        <p class="ingredient-efficacy-{{ ai_gen_id }}">{{ block.settings.ingredient_6_efficacy }}</p>
+      </div>
+
+      <!-- CellFlo6 -->
+      <div class="ingredient-efficacy-card-{{ ai_gen_id }}">
+        <h3 class="ingredient-name-{{ ai_gen_id }}">{{ block.settings.ingredient_7_name }}</h3>
+        <p class="ingredient-description-{{ ai_gen_id }}">{{ block.settings.ingredient_7_description }}</p>
+        <p class="ingredient-efficacy-{{ ai_gen_id }}">{{ block.settings.ingredient_7_efficacy }}</p>
+      </div>
+
+      <!-- EnXtra -->
+      <div class="ingredient-efficacy-card-{{ ai_gen_id }}">
+        <h3 class="ingredient-name-{{ ai_gen_id }}">{{ block.settings.ingredient_8_name }}</h3>
+        <p class="ingredient-description-{{ ai_gen_id }}">{{ block.settings.ingredient_8_description }}</p>
+        <p class="ingredient-efficacy-{{ ai_gen_id }}">{{ block.settings.ingredient_8_efficacy }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Ingredients & Efficacy",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Active Ingredients & Efficacy"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 28,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "min": 16,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Title spacing",
+      "default": 24
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Every ingredient in CLIME is backed by published human research. Here's what the science says about each active ingredient."
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_spacing",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Subtitle spacing",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 1 - Caffeine"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_1_name",
+      "label": "Name",
+      "default": "Caffeine"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_1_description",
+      "label": "Description",
+      "default": "Natural stimulant that enhances alertness and cognitive performance."
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_1_efficacy",
+      "label": "Efficacy/Research",
+      "default": "Studies show caffeine improves reaction time, attention, and mental performance within 15-30 minutes. Effective doses: 50-200mg."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 2 - L-Theanine"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_2_name",
+      "label": "Name",
+      "default": "L-Theanine"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_2_description",
+      "label": "Description",
+      "default": "Amino acid from green tea that promotes calm alertness."
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_2_efficacy",
+      "label": "Efficacy/Research",
+      "default": "Research demonstrates L-theanine reduces caffeine-induced jitters and improves focus. When combined with caffeine, enhances cognitive performance more than caffeine alone."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 3 - Taurine"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_3_name",
+      "label": "Name",
+      "default": "Taurine"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_3_description",
+      "label": "Description",
+      "default": "Amino acid that supports energy metabolism and cellular function."
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_3_efficacy",
+      "label": "Efficacy/Research",
+      "default": "Clinical studies show taurine helps maintain steady energy levels and supports cardiovascular function. May reduce fatigue and improve exercise performance."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 4 - Reishi Mushroom"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_4_name",
+      "label": "Name",
+      "default": "Reishi Mushroom"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_4_description",
+      "label": "Description",
+      "default": "Adaptogenic mushroom known for stress-balancing properties."
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_4_efficacy",
+      "label": "Efficacy/Research",
+      "default": "Human trials show Reishi helps modulate stress response and supports calm energy. May improve sleep quality and reduce fatigue."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 5 - Zynamite®"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_5_name",
+      "label": "Name",
+      "default": "Zynamite®"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_5_description",
+      "label": "Description",
+      "default": "Mango leaf extract clinically shown to enhance cognitive performance."
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_5_efficacy",
+      "label": "Efficacy/Research",
+      "default": "Published studies demonstrate Zynamite® improves mental clarity, processing speed, and attention within 30 minutes. Shown to enhance cognitive performance in healthy adults."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 6 - Lion's Mane"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_6_name",
+      "label": "Name",
+      "default": "Lion's Mane"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_6_description",
+      "label": "Description",
+      "default": "Nootropic mushroom that supports cognitive function and memory."
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_6_efficacy",
+      "label": "Efficacy/Research",
+      "default": "Research indicates Lion's Mane may improve focus, memory, and cognitive function. Studies show benefits for mental clarity and processing speed."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 7 - CellFlo6®"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_7_name",
+      "label": "Name",
+      "default": "CellFlo6®"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_7_description",
+      "label": "Description",
+      "default": "Clinically studied ingredient that supports cellular energy production."
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_7_efficacy",
+      "label": "Efficacy/Research",
+      "default": "Clinical research demonstrates CellFlo6® supports mitochondrial function and cellular energy production, leading to improved endurance and reduced fatigue."
+    },
+    {
+      "type": "header",
+      "content": "Ingredient 8 - EnXtra®"
+    },
+    {
+      "type": "text",
+      "id": "ingredient_8_name",
+      "label": "Name",
+      "default": "EnXtra®"
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_8_description",
+      "label": "Description",
+      "default": "Alpinia galanga extract that provides sustained energy without stimulants."
+    },
+    {
+      "type": "textarea",
+      "id": "ingredient_8_efficacy",
+      "label": "Efficacy/Research",
+      "default": "Published studies show EnXtra® enhances mental alertness and sustained energy for up to 5 hours. Non-stimulant alternative that supports cognitive performance."
+    },
+    {
+      "type": "header",
+      "content": "Card styling"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 20,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_horizontal",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow horizontal",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_vertical",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow vertical",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_blur",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Shadow blur",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "%",
+      "label": "Shadow opacity",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Text styling"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_name_size",
+      "min": 18,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient name size",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "ingredient_name_color",
+      "label": "Ingredient name color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_name_spacing",
+      "min": 8,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Name spacing",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "description_spacing",
+      "min": 8,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Description spacing",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "efficacy_size",
+      "min": 13,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "label": "Efficacy text size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "efficacy_color",
+      "label": "Efficacy text color",
+      "default": "#334fb4"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 1000,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "ingredient_gap",
+      "min": 20,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between ingredients",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients & Efficacy"
+    }
+  ]
+}
+{% endschema %}
+

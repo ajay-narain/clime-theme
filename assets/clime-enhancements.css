@@ -1,0 +1,224 @@
+/* CLIME Theme Enhancements - Modern Design Improvements */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ============================================
+   HEADER BACKGROUND - MATCH QUIZ PAGE
+   ============================================ */
+
+.header-wrapper {
+  background: radial-gradient(circle at top, #202a72 0, #05091f 55%, #020309 100%) !important;
+  background-color: transparent !important;
+}
+
+/* Ensure header text is visible on dark background */
+.header-wrapper .header__menu-item,
+.header-wrapper .header__heading-link,
+.header-wrapper .header__icon {
+  color: #ffffff !important;
+}
+
+.header-wrapper .header__menu-item:hover {
+  color: #e5e7eb !important;
+}
+
+/* Make sure icons are visible */
+.header-wrapper svg {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Make header logo white */
+.header-wrapper .header__heading-logo,
+.header-wrapper .header__heading-logo img {
+  filter: brightness(0) invert(1) !important;
+  -webkit-filter: brightness(0) invert(1) !important;
+}
+
+/* Ensure "Take the Quiz" button is white on quiz pages */
+.clime-quiz-section ~ .header-wrapper .header__inline-menu a[href^="/pages/energy-quiz"],
+body:has(.clime-quiz-section) .header-wrapper .header__inline-menu a[href^="/pages/energy-quiz"],
+.header-wrapper .header__inline-menu a[href^="/pages/energy-quiz"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  color: #ffffff !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.header-wrapper .header__inline-menu .header__active-item[href^="/pages/energy-quiz"],
+.header-wrapper .header__inline-menu a[href^="/pages/energy-quiz"][aria-current="page"] {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* ============================================
+   MODERN TRANSPARENT BUTTON STYLES
+   ============================================ */
+
+/* Base button enhancements - Clean & Modern */
+button:not([disabled]),
+.button:not([disabled]),
+a.button:not([disabled]),
+.button--primary:not([disabled]),
+.button--secondary:not([disabled]),
+.button--tertiary:not([disabled]),
+.shopify-challenge__button:not([disabled]),
+.customer button:not([disabled]),
+button.shopify-payment-button__button--unbranded:not([disabled]) {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+/* Primary buttons - TRANSPARENT MODERN STYLE */
+.button--primary:not([disabled]),
+button.button--primary:not([disabled]),
+a.button.button--primary:not([disabled]),
+.clime-hero-btn:not([disabled]),
+.ai-energy-steps-button:not([disabled]),
+.ai-science-cta:not([disabled]) {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effects - Clean & Subtle */
+.button--primary:not([disabled]):hover,
+button.button--primary:not([disabled]):hover,
+a.button.button--primary:not([disabled]):hover,
+.clime-hero-btn:not([disabled]):hover,
+.ai-energy-steps-button:not([disabled]):hover,
+.ai-science-cta:not([disabled]):hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Active state */
+.button--primary:not([disabled]):active,
+button.button--primary:not([disabled]):active,
+a.button.button--primary:not([disabled]):active,
+.clime-hero-btn:not([disabled]):active,
+.ai-energy-steps-button:not([disabled]):active,
+.ai-science-cta:not([disabled]):active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Secondary buttons - Also transparent */
+.button--secondary:not([disabled]) {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(var(--color-secondary-button-text), 0.2);
+}
+
+.button--secondary:not([disabled]):hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(var(--color-secondary-button-text), 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* General button hover */
+button:not([disabled]):hover,
+.button:not([disabled]):hover,
+a.button:not([disabled]):hover {
+  transform: translateY(-2px);
+}
+
+button:not([disabled]):active,
+.button:not([disabled]):active,
+a.button:not([disabled]):active {
+  transform: translateY(0);
+}
+
+/* Disabled button styles */
+button[disabled],
+.button[disabled],
+a.button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+/* Enhanced card shadows */
+.card, .product-card, .collection-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover, .product-card:hover, .collection-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Fade-in animations for sections */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Enhanced focus states */
+*:focus-visible {
+  outline: 2px solid #334fb4;
+  outline-offset: 2px;
+}
+
+/* Better text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Enhanced section spacing */
+section {
+  position: relative;
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

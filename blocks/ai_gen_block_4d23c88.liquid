@@ -73,6 +73,15 @@
     gap: 16px;
   }
 
+  .ai-testimonial-profile-{{ ai_gen_id }} {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+  }
+
   .ai-testimonial-headline-{{ ai_gen_id }} {
     font-size: {{ block.settings.headline_size }}px;
     font-weight: 600;
@@ -137,18 +146,75 @@
     
     <div class="ai-testimonials-grid-{{ ai_gen_id }}">
       <div class="ai-testimonial-card-{{ ai_gen_id }}">
+        {% if block.settings.testimonial_1_image %}
+          <img 
+            src="{{ block.settings.testimonial_1_image | image_url: width: 120 }}"
+            alt="Profile"
+            class="ai-testimonial-profile-{{ ai_gen_id }}"
+            loading="lazy"
+            width="60"
+            height="60"
+          >
+        {% else %}
+          <img 
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=faces"
+            alt="Profile"
+            class="ai-testimonial-profile-{{ ai_gen_id }}"
+            loading="lazy"
+            width="60"
+            height="60"
+          >
+        {% endif %}
         <h3 class="ai-testimonial-headline-{{ ai_gen_id }}">{{ block.settings.testimonial_1_headline }}</h3>
         <p class="ai-testimonial-body-{{ ai_gen_id }}">{{ block.settings.testimonial_1_body }}</p>
         <p class="ai-testimonial-author-{{ ai_gen_id }}">{{ block.settings.testimonial_1_author }}</p>
       </div>
 
       <div class="ai-testimonial-card-{{ ai_gen_id }}">
+        {% if block.settings.testimonial_2_image %}
+          <img 
+            src="{{ block.settings.testimonial_2_image | image_url: width: 120 }}"
+            alt="Profile"
+            class="ai-testimonial-profile-{{ ai_gen_id }}"
+            loading="lazy"
+            width="60"
+            height="60"
+          >
+        {% else %}
+          <img 
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop&crop=faces"
+            alt="Profile"
+            class="ai-testimonial-profile-{{ ai_gen_id }}"
+            loading="lazy"
+            width="60"
+            height="60"
+          >
+        {% endif %}
         <h3 class="ai-testimonial-headline-{{ ai_gen_id }}">{{ block.settings.testimonial_2_headline }}</h3>
         <p class="ai-testimonial-body-{{ ai_gen_id }}">{{ block.settings.testimonial_2_body }}</p>
         <p class="ai-testimonial-author-{{ ai_gen_id }}">{{ block.settings.testimonial_2_author }}</p>
       </div>
 
       <div class="ai-testimonial-card-{{ ai_gen_id }}">
+        {% if block.settings.testimonial_3_image %}
+          <img 
+            src="{{ block.settings.testimonial_3_image | image_url: width: 120 }}"
+            alt="Profile"
+            class="ai-testimonial-profile-{{ ai_gen_id }}"
+            loading="lazy"
+            width="60"
+            height="60"
+          >
+        {% else %}
+          <img 
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&h=120&fit=crop&crop=faces"
+            alt="Profile"
+            class="ai-testimonial-profile-{{ ai_gen_id }}"
+            loading="lazy"
+            width="60"
+            height="60"
+          >
+        {% endif %}
         <h3 class="ai-testimonial-headline-{{ ai_gen_id }}">{{ block.settings.testimonial_3_headline }}</h3>
         <p class="ai-testimonial-body-{{ ai_gen_id }}">{{ block.settings.testimonial_3_body }}</p>
         <p class="ai-testimonial-author-{{ ai_gen_id }}">{{ block.settings.testimonial_3_author }}</p>
@@ -301,6 +367,11 @@
       "default": "— Jason M., Commercial Pilot"
     },
     {
+      "type": "image_picker",
+      "id": "testimonial_1_image",
+      "label": "Profile image"
+    },
+    {
       "type": "header",
       "content": "Testimonial 2"
     },
@@ -323,6 +394,11 @@
       "default": "— Lena R., Fitness Coach"
     },
     {
+      "type": "image_picker",
+      "id": "testimonial_2_image",
+      "label": "Profile image"
+    },
+    {
       "type": "header",
       "content": "Testimonial 3"
     },
@@ -343,6 +419,11 @@
       "id": "testimonial_3_author",
       "label": "Author",
       "default": "— Alex P., Adventure Photographer"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_3_image",
+      "label": "Profile image"
     }
   ],
   "presets": [

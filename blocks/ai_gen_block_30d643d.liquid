@@ -82,16 +82,27 @@
     text-decoration: none;
     border-radius: {{ block.settings.button_radius }}px;
     border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    z-index: 1;
   }
 
   .ai-energy-steps-button-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
     background-color: {{ block.settings.button_hover_bg_color }};
-    color: {{ block.settings.button_hover_text_color }};
     border-color: {{ block.settings.button_hover_border_color }};
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    color: {{ block.settings.button_hover_text_color }};
+  }
+
+  .ai-energy-steps-button-{{ ai_gen_id }}:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   @media screen and (max-width: 749px) {

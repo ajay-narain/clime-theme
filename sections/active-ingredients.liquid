@@ -1,0 +1,356 @@
+{% comment %}
+  Active Ingredients Section
+  Displays the key active ingredients with their descriptions
+{% endcomment %}
+
+<section class="active-ingredients-section page-width section-{{ section.id }}-padding">
+  <div class="active-ingredients-container">
+    {% if section.settings.title != blank %}
+      <h2 class="active-ingredients-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {% if section.settings.subtitle != blank %}
+      <p class="active-ingredients-subtitle">{{ section.settings.subtitle }}</p>
+    {% endif %}
+
+    <div class="active-ingredients-grid">
+      <!-- Caffeine -->
+      <div class="ingredient-item">
+        <h3 class="ingredient-title">Caffeine <span class="ingredient-source">(Green Coffee Bean)</span></h3>
+        <p class="ingredient-description">Clean, fast-acting energy that boosts alertness and reaction time without the heavy crash.</p>
+      </div>
+
+      <!-- Zynamite -->
+      <div class="ingredient-item">
+        <h3 class="ingredient-title">Zynamite® <span class="ingredient-source">(Mangiferin Extract)</span></h3>
+        <p class="ingredient-description">Clinically shown to improve focus, mental speed, and cognitive performance under fatigue.</p>
+      </div>
+
+      <!-- Lion's Mane -->
+      <div class="ingredient-item">
+        <h3 class="ingredient-title">Lion's Mane Mushroom</h3>
+        <p class="ingredient-description">Supports clarity, memory, and overall brain function — tasteless, clean, and adaptogenic.</p>
+      </div>
+
+      <!-- Reishi -->
+      <div class="ingredient-item">
+        <h3 class="ingredient-title">Reishi Mushroom</h3>
+        <p class="ingredient-description">Promotes calm, resilience, and smoother energy by modulating stress response.</p>
+      </div>
+
+      <!-- L-Theanine -->
+      <div class="ingredient-item">
+        <h3 class="ingredient-title">L-Theanine</h3>
+        <p class="ingredient-description">Balances caffeine for steady, focused energy without jitters.</p>
+      </div>
+
+      <!-- Taurine -->
+      <div class="ingredient-item">
+        <h3 class="ingredient-title">Taurine</h3>
+        <p class="ingredient-description">Enhances mental performance and helps stabilize mood and energy levels.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.active-ingredients-section {
+  padding: 80px 20px;
+  background: {{ section.settings.background_color }};
+}
+
+.active-ingredients-container {
+  max-width: {{ section.settings.container_width }}px;
+  margin: 0 auto;
+}
+
+.active-ingredients-title {
+  font-size: {{ section.settings.title_size }}px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 16px;
+  color: {{ section.settings.title_color }};
+  letter-spacing: -0.5px;
+}
+
+.active-ingredients-subtitle {
+  font-size: {{ section.settings.subtitle_size }}px;
+  text-align: center;
+  color: {{ section.settings.subtitle_color }};
+  margin: 0 auto {{ section.settings.subtitle_spacing }}px;
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+.active-ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: {{ section.settings.ingredient_gap }}px;
+}
+
+.ingredient-item {
+  background: {{ section.settings.card_background }};
+  border-radius: {{ section.settings.card_border_radius }}px;
+  padding: {{ section.settings.card_padding }}px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.ingredient-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: rgba(51, 79, 180, 0.2);
+}
+
+.ingredient-title {
+  font-size: {{ section.settings.ingredient_title_size }}px;
+  font-weight: 700;
+  margin: 0 0 {{ section.settings.ingredient_title_spacing }}px;
+  color: {{ section.settings.ingredient_title_color }};
+  line-height: 1.3;
+}
+
+.ingredient-source {
+  font-weight: 400;
+  color: {{ section.settings.source_color }};
+  font-size: 0.85em;
+}
+
+.ingredient-description {
+  font-size: {{ section.settings.description_size }}px;
+  line-height: 1.6;
+  color: {{ section.settings.description_color }};
+  margin: 0;
+}
+
+@media screen and (max-width: 990px) {
+  .active-ingredients-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .active-ingredients-section {
+    padding: 60px 16px;
+  }
+
+  .active-ingredients-title {
+    font-size: {{ section.settings.title_size | times: 0.8 }}px;
+  }
+
+  .active-ingredients-subtitle {
+    font-size: {{ section.settings.subtitle_size | times: 0.9 }}px;
+    margin-bottom: {{ section.settings.subtitle_spacing | times: 0.75 }}px;
+  }
+
+  .active-ingredients-grid {
+    grid-template-columns: 1fr;
+    gap: {{ section.settings.ingredient_gap | times: 0.75 }}px;
+  }
+
+  .ingredient-item {
+    padding: {{ section.settings.card_padding | times: 0.85 }}px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Active Ingredients",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Active Ingredients"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 32,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#121212"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Every ingredient is carefully selected and backed by science for optimal performance."
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_spacing",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Subtitle spacing",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Card styling"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 24,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Text styling"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_title_size",
+      "min": 18,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "label": "Ingredient title size",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "ingredient_title_color",
+      "label": "Ingredient title color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "source_color",
+      "label": "Source text color",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "ingredient_title_spacing",
+      "min": 8,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Title spacing",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 14,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 1000,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Container width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "ingredient_gap",
+      "min": 20,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between ingredients",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Active Ingredients"
+    }
+  ]
+}
+{% endschema %}
+

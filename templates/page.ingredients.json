@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "ingredients",
+      "settings": {
+        "title": "Our Ingredients",
+        "subtitle": "Every ingredient in CLIME is backed by science and chosen for its proven benefits. Nature-derived, clinically supported, and transparent.",
+        "footer_text": "All ingredients are GRAS (Generally Recognized as Safe) and used at clinically studied doses.",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+

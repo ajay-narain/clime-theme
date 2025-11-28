@@ -283,6 +283,18 @@
     color: #0b1120;
   }
 
+  /* Clinical diagnosis styling */
+  .cq-title--clinical {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #e5e7eb;
+    opacity: 0.9;
+    margin-bottom: 24px;
+  }
+
   .cq-subtitle {
     font-size: 15px;
     line-height: 1.5;
@@ -640,6 +652,18 @@
   margin-top: 8px;
 }
 
+.cq-result-summary--clinical {
+  font-size: 14px;
+  font-weight: 400;
+  color: #d1d5db;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  margin-top: 12px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ===== DIAGNOSIS BADGE — HIGH IMPACT ===== */
 .cq-dx-headline {
   margin: 18px 0 14px;
@@ -671,6 +695,16 @@
 
   /* Very subtle shadow for lift */
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.cq-dx-pill--clinical {
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 14px 32px 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
   /* ===== DOT PROGRESS ===== */
