@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": {
-      "type": "ingredients",
+      "type": "active-ingredients",
       "settings": {
         "title": "Our Ingredients",
         "subtitle": "Every ingredient in CLIME is backed by science and chosen for its proven benefits. Nature-derived, clinically supported, and transparent.",

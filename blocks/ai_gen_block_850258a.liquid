@@ -26,31 +26,50 @@
 {% style %}
   .ai-faq-section-{{ ai_gen_id }} {
     background-color: {{ block.settings.page_background_color }};
-    padding: 60px 20px;
+    padding: 80px 20px;
   }
 
   .ai-faq-container-{{ ai_gen_id }} {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    background-color: {{ block.settings.container_background_color }};
-    padding: 40px;
-    border-radius: 8px;
+    padding: 0;
   }
 
   .ai-faq-title-{{ ai_gen_id }} {
     text-align: center;
-    margin: 0 0 40px;
+    margin: 0 0 60px;
     font-size: {{ block.settings.title_font_size }}px;
-    font-weight: 600;
+    font-weight: 800;
     color: {{ block.settings.title_color }};
+    letter-spacing: -0.02em;
   }
 
   .ai-faq-item-{{ ai_gen_id }} {
-    border-bottom: 1px solid {{ block.settings.divider_color }};
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    margin-bottom: 16px;
+    padding: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: rgba(51, 79, 180, 0.2);
+  }
+
+  .ai-faq-item-{{ ai_gen_id }}.active {
+    border-color: rgba(51, 79, 180, 0.3);
+    box-shadow: 0 8px 32px rgba(51, 79, 180, 0.12);
   }
 
   .ai-faq-item-{{ ai_gen_id }}:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
   }
 
   .ai-faq-question-{{ ai_gen_id }} {
@@ -58,15 +77,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 24px 28px;
     background: none;
     border: none;
     text-align: left;
     cursor: pointer;
     font-size: {{ block.settings.question_font_size }}px;
-    font-weight: 600;
+    font-weight: 700;
     color: {{ block.settings.question_color }};
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
   }
 
   .ai-faq-question-{{ ai_gen_id }}:hover {
@@ -80,22 +99,26 @@
 
   .ai-faq-icon-{{ ai_gen_id }} {
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     color: {{ block.settings.icon_color }};
+    background: rgba(51, 79, 180, 0.1);
+    border-radius: 50%;
   }
 
   .ai-faq-icon-{{ ai_gen_id }} svg {
-    width: 100%;
-    height: 100%;
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.5;
   }
 
   .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-icon-{{ ai_gen_id }} {
     transform: rotate(45deg);
+    background: rgba(51, 79, 180, 0.15);
   }
 
   .ai-faq-answer-{{ ai_gen_id }} {
@@ -107,32 +130,47 @@
 
   .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-answer-{{ ai_gen_id }} {
     max-height: 500px;
-    padding-bottom: 20px;
+    padding: 0 28px 28px 28px;
   }
 
   .ai-faq-answer-content-{{ ai_gen_id }} {
     font-size: {{ block.settings.answer_font_size }}px;
-    line-height: 1.6;
+    line-height: 1.7;
     color: {{ block.settings.answer_color }};
+    opacity: 0.85;
   }
 
   @media screen and (max-width: 749px) {
-    .ai-faq-container-{{ ai_gen_id }} {
-      padding: 30px 20px;
+    .ai-faq-section-{{ ai_gen_id }} {
+      padding: 60px 16px;
     }
 
     .ai-faq-title-{{ ai_gen_id }} {
       font-size: calc({{ block.settings.title_font_size }}px * 0.8);
-      margin-bottom: 30px;
+      margin-bottom: 40px;
+    }
+
+    .ai-faq-item-{{ ai_gen_id }} {
+      border-radius: 12px;
+      margin-bottom: 12px;
     }
 
     .ai-faq-question-{{ ai_gen_id }} {
       font-size: calc({{ block.settings.question_font_size }}px * 0.9);
-      padding: 16px 0;
+      padding: 20px 20px;
+    }
+
+    .ai-faq-item-{{ ai_gen_id }}.active .ai-faq-answer-{{ ai_gen_id }} {
+      padding: 0 20px 20px 20px;
     }
 
     .ai-faq-answer-content-{{ ai_gen_id }} {
       font-size: calc({{ block.settings.answer_font_size }}px * 0.95);
+    }
+
+    .ai-faq-icon-{{ ai_gen_id }} {
+      width: 24px;
+      height: 24px;
     }
   }
 {% endstyle %}

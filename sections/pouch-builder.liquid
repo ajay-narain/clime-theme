@@ -12,9 +12,9 @@
 <div id="clime-pouch-builder" class="clime-pouch-builder" data-product-id="{{ product.id }}">
   <div class="cpb-card">
     <div class="cpb-header">
-      <h2 class="cpb-title">Build Your Pouch</h2>
+      <h2 class="cpb-title">Build Your Energy Pouch</h2>
       <p class="cpb-subtitle">
-        Select your preferred level of caffeine, focus and balance.
+        Adjust your desired Caffeine, Focus and Balance levels below
       </p>
     </div>
 
@@ -23,15 +23,17 @@
       <div class="cpb-row">
         <div class="cpb-row-label">
           <span>Caffeine</span>
-          <span id="cpb-caffeine-value" class="cpb-row-value"></span>
         </div>
-        <input
-          id="cpb-caffeine-slider"
-          type="range"
-          min="0"
-          max="300"
-          step="50"
-        />
+        <div class="cpb-slider-wrapper">
+          <input
+            id="cpb-caffeine-slider"
+            type="range"
+            min="0"
+            max="300"
+            step="50"
+          />
+          <span id="cpb-caffeine-value" class="cpb-slider-value"></span>
+        </div>
         <div class="cpb-row-helper">0–300 mg in 50 mg steps.</div>
         <div class="cpb-ingredient-description">Provides energy and alertness to help you power through your day.</div>
       </div>
@@ -251,14 +253,31 @@
     font-weight: 600;
   }
 
-  #cpb-caffeine-slider {
+  .cpb-slider-wrapper {
+    position: relative;
     width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  #cpb-caffeine-slider {
+    flex: 1;
     -webkit-appearance: none;
     appearance: none;
     height: 6px;
     border-radius: 3px;
     background: rgba(255, 255, 255, 0.2);
     outline: none;
+    margin-right: 12px;
+  }
+
+  .cpb-slider-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    min-width: 80px;
+    text-align: right;
   }
 
   #cpb-caffeine-slider::-webkit-slider-thumb {
@@ -270,6 +289,8 @@
     background: #ffffff;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    margin-top: -7px;
+    position: relative;
   }
 
   #cpb-caffeine-slider::-moz-range-thumb {
@@ -280,6 +301,8 @@
     cursor: pointer;
     border: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: -7px;
   }
 
   #cpb-caffeine-slider::-webkit-slider-runnable-track {
@@ -469,6 +492,14 @@
       state.personaSummary = fromStored('personaSummary', '');
     }
 
+    // First name (from quiz)
+    var firstNameParam = params.get('firstName') || params.get('firstname') || params.get('name');
+    if (firstNameParam) {
+      state.firstName = firstNameParam;
+    } else {
+      state.firstName = fromStored('firstName', '');
+    }
+
     // ----- Elements -----
     var elTitle = document.querySelector('.cpb-title');
     var elSubtitle = document.querySelector('.cpb-subtitle');
@@ -494,7 +525,7 @@
     var propPrice = document.getElementById('cpb-prop-price');
 
     // ----- Pricing Logic -----
-    var basePrice = 3.00; // base price for ≤150 mg + no boosts
+    var basePrice = 3.25; // base price
 
     function getCaffeineUpcharge(caffeineMg) {
       var extraMg = Math.max(0, caffeineMg - 150);
@@ -504,7 +535,7 @@
 
     function getLevelUpcharge(level) {
       if (level === 'medium') return 0.25;
-      if (level === 'high') return 0.50;
+      if (level === 'high') return 0.25;
       return 0.00;
     }
 
@@ -561,11 +592,16 @@
       if (state.personaLabel && state.personaLabel.trim() !== '') {
         // Quiz path
         elTitle.textContent = state.personaLabel;
-        elSubtitle.textContent = 'Your recommended formulation. Adjust your pouch if you like.';
+        var firstName = (state.firstName || '').trim();
+        if (firstName) {
+          elSubtitle.textContent = firstName + '\'s recommended formulation. You can adjust your pouch if you like.';
+        } else {
+          elSubtitle.textContent = 'Your recommended formulation. Adjust your pouch if you like.';
+        }
       } else {
         // Default path
-        elTitle.textContent = 'Build Your Pouch';
-        elSubtitle.textContent = 'Select your preferred level of caffeine, focus and balance.';
+        elTitle.textContent = 'Build Your Energy Pouch';
+        elSubtitle.textContent = 'Adjust your desired Caffeine, Focus and Balance levels below';
       }
     }
 
@@ -573,7 +609,10 @@
       syncHeader();
 
       if (elCaffeineSlider) elCaffeineSlider.value = state.caffeineMg;
-      if (elCaffeineValue) elCaffeineValue.textContent = getCaffeineDisplay(state.caffeineMg);
+      if (elCaffeineValue) {
+        // Show simple format on slider: just "150 mg"
+        elCaffeineValue.textContent = state.caffeineMg + ' mg';
+      }
 
       if (elFocusValue) elFocusValue.textContent = getFocusDisplay(state.focusLevel);
       if (elBalanceValue) elBalanceValue.textContent = getBalanceDisplay(state.balanceLevel);
@@ -649,6 +688,9 @@
         }
         if (state.personaSummary) {
           url += '&personaSummary=' + encodeURIComponent(state.personaSummary);
+        }
+        if (state.firstName) {
+          url += '&firstName=' + encodeURIComponent(state.firstName);
         }
 
         window.location.href = url;

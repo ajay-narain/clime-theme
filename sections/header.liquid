@@ -74,6 +74,138 @@
       padding-top: 0.5rem;
     }
   }
+
+  /* Fix menu drawer colors - ensure dark text on light background */
+  .menu-drawer {
+    background-color: #ffffff !important;
+  }
+
+  .menu-drawer__submenu {
+    background-color: #ffffff !important;
+  }
+
+  /* Improve hamburger menu link readability - ensure all items are visible and consistent */
+  .menu-drawer__menu-item,
+  .menu-drawer__menu-item.link,
+  .menu-drawer__close-button,
+  .menu-drawer__menu .menu-drawer__menu-item,
+  .menu-drawer summary.menu-drawer__menu-item {
+    color: #121212 !important;
+    font-weight: 600 !important;
+    font-size: 1.6rem !important;
+    letter-spacing: -0.01em;
+    transition: all 0.2s ease;
+    opacity: 1 !important;
+    display: block !important;
+    visibility: visible !important;
+    padding: 1.1rem 3rem !important;
+    text-decoration: none !important;
+  }
+
+  .menu-drawer__menu-item:hover,
+  .menu-drawer__menu-item:focus,
+  .menu-drawer__close-button:hover,
+  .menu-drawer__close-button:focus {
+    color: #121212 !important;
+    background-color: rgba(18, 18, 18, 0.08) !important;
+    opacity: 1 !important;
+  }
+
+  .menu-drawer__menu-item--active {
+    color: #121212 !important;
+    font-weight: 700 !important;
+    background-color: rgba(18, 18, 18, 0.06) !important;
+    opacity: 1 !important;
+  }
+
+  .menu-drawer__menu-item--active:hover {
+    background-color: rgba(18, 18, 18, 0.12) !important;
+  }
+
+  /* Ensure all menu list items are visible */
+  .menu-drawer__menu li {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-bottom: 0.2rem;
+  }
+
+  /* Ensure menu container shows all items */
+  .menu-drawer__menu {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Improve submenu items */
+  .menu-drawer__submenu .menu-drawer__menu-item {
+    font-size: 1.5rem !important;
+    padding-left: 4rem !important;
+    color: #121212 !important;
+  }
+
+  /* Ensure close button is readable */
+  .menu-drawer__close-button {
+    color: #121212 !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+  }
+
+  /* Ensure navigation container displays properly */
+  .menu-drawer__navigation {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Fix utility links section */
+  .menu-drawer__utility-links {
+    background-color: rgba(18, 18, 18, 0.03) !important;
+  }
+
+  .menu-drawer__account {
+    color: #121212 !important;
+  }
+
+  /* Fix SVG icons in menu */
+  .menu-drawer__menu-item .svg-wrapper svg,
+  .menu-drawer__close-button .svg-wrapper svg {
+    fill: #121212 !important;
+    stroke: #121212 !important;
+  }
+
+  /* Override special styling for energy quiz link in menu drawer - make it match other items */
+  .menu-drawer__navigation a[href^="/pages/energy-quiz"],
+  .menu-drawer__navigation a[href*="energy-quiz"],
+  .menu-drawer a[href*="energy-quiz"],
+  .menu-drawer a[href*="quiz"] {
+    display: block !important;
+    color: #121212 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 1.1rem 3rem !important;
+    font-size: 1.6rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    margin: 0 !important;
+    width: auto !important;
+    text-align: left !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .menu-drawer__navigation a[href^="/pages/energy-quiz"]:hover,
+  .menu-drawer__navigation a[href*="energy-quiz"]:hover,
+  .menu-drawer a[href*="energy-quiz"]:hover,
+  .menu-drawer a[href*="quiz"]:hover {
+    color: #121212 !important;
+    background-color: rgba(18, 18, 18, 0.08) !important;
+    transform: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 </style>
 
 {%- style -%}

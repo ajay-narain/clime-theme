@@ -544,7 +544,7 @@ const DIAGNOSIS_PROBLEM_CONTENT = {
       h1: {
         title: "Welcome to CLIME",
         subtitle:
-          "CLIME builds a personalized gel pouch that's customized around your pattern and supports smoother, steadier energy.",
+          "CLIME builds personalized gel pouches customized around your energy pattern.",
         body: "",
       },
       h2: {
@@ -1189,7 +1189,7 @@ function renderSummary() {
   const current   = bars ? bars.current   : 45;
 
   root.innerHTML =
-    '<h2 class="cq-title cq-title--clinical">Analysis Complete</h2>' +
+    '<h2 class="cq-title cq-title--clinical">ANALYSIS COMPLETE. YOUR DIAGNOSIS:</h2>' +
     // Centered, clear capsule headline
     '<div class="cq-dx-headline">' +
       '<div class="cq-dx-pill cq-dx-pill--clinical">' +
@@ -1266,10 +1266,15 @@ function renderProblem(step) {
         '</div>';
     }
 
+    const firstName = (state.firstName || "").trim();
+    const introText = firstName 
+      ? escapeHtml(firstName) + ', here\'s what your energy pattern reveals'
+      : 'Here\'s what your energy pattern reveals:';
+
     root.innerHTML =
       '<div class="cq-symptoms-header">' +
         '<h2 class="cq-symptoms-title">Understanding ' + escapeHtml(diagTitle) + '</h2>' +
-        '<p class="cq-symptoms-intro">Here\'s what your energy pattern reveals:</p>' +
+        '<p class="cq-symptoms-intro">' + introText + '</p>' +
       '</div>' +
       '<div class="cq-symptoms-container">' +
         symptomsHtml +
@@ -1455,7 +1460,7 @@ function renderFinal() {
 
   root.innerHTML =
     '<h2 class="cq-final-title">' + escapeHtml(firstName) + '\'s Customized Energy</h2>' +
-    '<p class="cq-final-subtitle">Based on your responses, this is the optimized energy build that best matches you.</p>' +
+    '<p class="cq-final-subtitle">Based on your responses, this is the optimized energy build that best matches your energy pattern.</p>' +
     '<div class="cq-final-attributes">' +
       '<dl>' +
         '<div class="cq-attr-row">' +
