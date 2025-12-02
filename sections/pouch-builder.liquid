@@ -534,8 +534,10 @@
     }
 
     function getLevelUpcharge(level) {
-      if (level === 'medium') return 0.25;
-      if (level === 'high') return 0.25;
+      if (!level) return 0.00;
+      var normalizedLevel = String(level).toLowerCase().trim();
+      if (normalizedLevel === 'medium') return 0.25;
+      if (normalizedLevel === 'high') return 0.25;
       return 0.00;
     }
 
@@ -644,18 +646,26 @@
 
     if (focusGroup) {
       focusGroup.addEventListener('click', function (e) {
-        if (e.target && e.target.matches('button.cpb-toggle')) {
-          state.focusLevel = e.target.dataset.value;
-          syncUI();
+        var button = e.target.closest('button.cpb-toggle');
+        if (button) {
+          var value = button.dataset.value || button.getAttribute('data-value');
+          if (value) {
+            state.focusLevel = value;
+            syncUI();
+          }
         }
       });
     }
 
     if (balanceGroup) {
       balanceGroup.addEventListener('click', function (e) {
-        if (e.target && e.target.matches('button.cpb-toggle')) {
-          state.balanceLevel = e.target.dataset.value;
-          syncUI();
+        var button = e.target.closest('button.cpb-toggle');
+        if (button) {
+          var value = button.dataset.value || button.getAttribute('data-value');
+          if (value) {
+            state.balanceLevel = value;
+            syncUI();
+          }
         }
       });
     }
